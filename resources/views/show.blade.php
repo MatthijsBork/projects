@@ -5,7 +5,12 @@
                 <h1 class="text-4xl font-bold text-gray-800 truncate whitespace-normal">{{ $article->title }}</h1>
                 <p class="text-gray-600">{{ $article->date }}</p>
                 <div class="mt-4">
-                    <p class="text-gray-800">
+                    <p class="text-xl font-medium text-gray-900">
+                        {{ $article->intro }}
+                    </p>
+                </div>
+                <div class="mt-4">
+                    <p class="text-gray-900">
                         {{ $article->content }}
                     </p>
                 </div>
