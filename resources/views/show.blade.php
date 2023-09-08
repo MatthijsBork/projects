@@ -10,7 +10,7 @@
                     </p>
                 </div>
                 <div class="mt-4">
-                    <p class="text-gray-900">
+                    <p class="text-gray-900 whitespace-pre-line">
                         {{ $article->content }}
                     </p>
                 </div>

@@ -25,7 +25,7 @@
                             <div class="mb-4">
                                 <label for="title" class="block text-sm font-semibold text-gray-600"
                                     required>Titel</label>
-                                <input type="text" id="title" name="title"
+                                <input type="text" id="title" name="title" value="{{ old('title') }}"
                                     class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
                                 @error('title')
                                     <div class="text-red-500">{{ $message }}</div>
