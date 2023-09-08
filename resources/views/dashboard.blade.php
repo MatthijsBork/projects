@@ -2,7 +2,7 @@
     <div class="container py-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="flex justify-between items-center min-h-[10vh]">
             <h1 class="text-2xl font-semibold">Artikelen Dashboard</h1>
-            <a href="/articles/create" class="p-4 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
+            <a href="/articles/create" class="p-4 font-bold text-white transition bg-blue-500 rounded hover:bg-blue-700">
                 Nieuw artikel
             </a>
         </div>
@@ -26,17 +26,17 @@
                 <div class="w-full text-right">
                     <div class="p-6 overflow-x-auto bg-white shadow-sm sm:rounded-lg">
                         <table class="w-full text-left bg-white table-auto sm:rounded-lg">
-                            <thead>
+                            <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="">Datum</th>
-                                    <th class="">Titel</th>
-                                    <th class=""></th>
-                                    <th class=""></th>
+                                    <th class="px-4 py-2">Datum</th>
+                                    <th class="px-4 py-2">Titel</th>
+                                    <th class="px-4 py-2"></th>
+                                    <th class="px-4 py-2"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($articles as $article)
-                                    <tr>
+                                    <tr class="border-b even:bg-gray-50">
                                         <td class="px-4 py-2">{{ date('j F Y', strtotime($article->publication_date)) }}
                                         </td>
                                         <td class="max-w-[22vw] px-4 py-2 overflow-hidden">{{ $article->title }}</td>

@@ -3,17 +3,17 @@
     <ul>
         <li class="mb-2">
             <a href="{{ route('articles.dashboard') }}"
-                class="block px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300 hover:text-blue-600">Artikelen
+                class="block px-4 py-2 transition rounded-md bg-gray-50 hover:bg-gray-300 hover:text-blue-600">Artikelen
                 Dashboard</a>
         </li>
         <li class="mb-2">
             <a href="{{ route('articles.create') }}"
-                class="block px-4 py-2 bg-white rounded-md hover:bg-gray-300 hover:text-blue-600">Nieuw
+                class="block px-4 py-2 transition bg-white rounded-md hover:bg-gray-300 hover:text-blue-600">Nieuw
                 artikel</a>
         </li>
         <li class="mb-2">
             <a href=""
-                class="block px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300 hover:text-blue-600">Knop</a>
+                class="block px-4 py-2 transition rounded-md bg-gray-50 hover:bg-gray-300 hover:text-blue-600">Knop</a>
         </li>
     </ul>
 </div>
