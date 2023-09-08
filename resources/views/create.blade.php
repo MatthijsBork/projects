@@ -1,22 +1,16 @@
 <x-app-layout>
-    {{-- <div class="py-12">
-        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-
-            </div>
-        </div>
-    </div> --}}
     <div class="container py-8 mx-auto">
-
+        <h1 class="mb-5 text-2xl font-bold">Nieuw artikel</h1>
         <div class="justify-between mt-3 md:flex">
-            <x-dashboard-menu></x-dashboard-menu>
+            <div class="w-full md:w-1/6 lg:w-1/5">
+                <x-dashboard-menu></x-dashboard-menu>
+            </div>
             <div class="w-full md:w-3/4">
                 <div class="overflow-x-auto bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
                         <form method="POST" action="{{ route('articles.post') }}">
                             @csrf
                             <div class="flex-row">
-                                <h1 class="mb-5 text-2xl font-bold">Nieuw artikel</h1>
                                 <div class="mb-4">
                                     <label for="publication_date"
                                         class="block text-sm font-semibold text-gray-600">Publiceerdatum</label>

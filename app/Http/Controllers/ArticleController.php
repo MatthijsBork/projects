@@ -10,7 +10,7 @@ class ArticleController extends Controller
 {
     public function create()
     {
-        return view('create-article');
+        return view('create');
     }
 
     public function post(Request $request)

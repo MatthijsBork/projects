@@ -2,7 +2,7 @@
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="container py-8 mx-auto">
-                <h1 class="text-4xl font-bold text-gray-800">{{ $article->title }}</h1>
+                <h1 class="text-4xl font-bold text-gray-800 truncate whitespace-normal">{{ $article->title }}</h1>
                 <p class="text-gray-600">{{ $article->date }}</p>
                 <div class="mt-4">
                     <p class="text-gray-800">
