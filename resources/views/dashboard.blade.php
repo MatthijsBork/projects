@@ -1,7 +1,7 @@
 <x-app-layout>
-    <div class="container py-8 mx-auto">
-        <div class="flex flex-row justify-between">
-            <h1 class="mb-4 text-2xl font-semibold">Artikelen Dashboard</h1>
+    <div class="container py-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center min-h-[10vh]">
+            <h1 class="text-2xl font-semibold">Artikelen Dashboard</h1>
             <a href="/articles/create" class="p-4 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
                 Nieuw artikel
             </a>
@@ -18,20 +18,20 @@
                 {{ session('error') }}
             </div>
         @endif
-        <div class="justify-between mt-3 md:flex">
+        <div class="justify-between md:flex">
             <div class="w-full md:w-1/6 lg:w-1/5">
                 <x-dashboard-menu></x-dashboard-menu>
             </div>
             <div class="w-full md:w-3/4">
                 <div class="w-full text-right">
-                    <div class="overflow-x-auto bg-white shadow-sm sm:rounded-lg">
-                        <table class="w-full text-left bg-white shadow-sm table-auto sm:rounded-lg">
+                    <div class="p-6 overflow-x-auto bg-white shadow-sm sm:rounded-lg">
+                        <table class="w-full text-left bg-white table-auto sm:rounded-lg">
                             <thead>
                                 <tr>
-                                    <th class="px-4 py-2">Datum</th>
-                                    <th class="px-4 py-2">Titel</th>
-                                    <th class="px-4 py-2"></th>
-                                    <th class="px-4 py-2"></th>
+                                    <th class="">Datum</th>
+                                    <th class="">Titel</th>
+                                    <th class=""></th>
+                                    <th class=""></th>
                                 </tr>
                             </thead>
                             <tbody>

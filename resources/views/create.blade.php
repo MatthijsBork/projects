@@ -1,7 +1,9 @@
 <x-app-layout>
-    <div class="container py-8 mx-auto">
-        <h1 class="mb-5 text-2xl font-bold">Nieuw artikel</h1>
-        <div class="justify-between mt-3 md:flex">
+    <div class="container py-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center min-h-[10vh]">
+            <h1 class="text-2xl font-bold">Nieuw artikel</h1>
+        </div>
+        <div class="justify-between md:flex">
             <div class="w-full md:w-1/6 lg:w-1/5">
                 <x-dashboard-menu></x-dashboard-menu>
             </div>
