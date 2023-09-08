@@ -11,7 +11,7 @@
             <div class="w-full md:w-3/4">
                 <div class="overflow-x-auto bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
-                        <x-article-form></x-article-form>
+                        <x-article-form :article="$article = NULL"></x-article-form>
                     </div>
                 </div>
 

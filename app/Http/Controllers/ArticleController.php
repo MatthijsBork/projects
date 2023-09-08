@@ -31,7 +31,7 @@ class ArticleController extends Controller
             ]);
             return redirect()->route('articles.dashboard')->with('success', 'Nieuw artikel toegevoegd');
         } catch (\Exception $e) {
-            return redirect()->route('articles.create')->withInput()->with('error', 'Er is iets misgegaan bij het maken van een nieuw artikel');
+            return redirect()->route('articles.create', ['article' => new Article()])->withInput()->with('error', 'Er is iets misgegaan bij het maken van een nieuw artikel');
         }
     }
 
