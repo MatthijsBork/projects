@@ -29,9 +29,27 @@
     <div class="mb-4">
         <label for="publication_date" class="block text-sm font-semibold text-gray-600">Publiceerdatum</label>
         <input type="date" id="publication_date" name="publication_date"
-            value="{{ isset($article) ? date('Y-m-d', strtotime($article->publication_date)) : old('published_date') }}"
+            value="{{ isset($article) ? date('Y-m-d', strtotime($article->publication_date)) : old('publication_date') }}"
             class="px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-400 focus:border-blue-400">
         @error('publication_date')
+            {{ isset($article) ? date('Y-m-d', strtotime($article->publication_date)) : old('publication_date') }}
+            <div class="text-red-500">{{ $message }}</div>
+        @enderror
+    </div>
+    <div class="mb-4">
+        <label for="category" class="block text-sm font-semibold text-gray-600">Categorie</label>
+        <select name="category_id" id="category_id"
+            class="py-2 leading-tight text-gray-700 border rounded appearance-none pr-7 focus:outline-none focus:shadow-outline">
+            <option disabled selected>Kies een categorie</option>
+            @foreach ($categories as $category)
+                @if (($article->category_id ?? null) == $category->id || old('category_id') == $category->id)
+                    <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+                @else
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endif
+            @endforeach
+        </select>
+        @error('category_id')
             <div class="text-red-500">{{ $message }}</div>
         @enderror
     </div>

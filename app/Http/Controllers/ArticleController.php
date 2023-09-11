@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -10,7 +11,9 @@ class ArticleController extends Controller
 {
     public function create()
     {
-        return view('create');
+        $categories = Category::all();
+
+        return view('create', ['categories' => $categories]);
     }
 
     public function post(Request $request)
@@ -20,6 +23,7 @@ class ArticleController extends Controller
             'intro' => 'required|string',
             'content' => 'required|string',
             'publication_date' => 'required|date',
+            'category_id' => 'required|integer|exists:categories,id',
         ]);
 
         try {
@@ -31,7 +35,7 @@ class ArticleController extends Controller
             ]);
             return redirect()->route('articles.dashboard')->with('success', 'Nieuw artikel toegevoegd');
         } catch (\Exception $e) {
-            return redirect()->route('articles.create', ['article' => new Article()])->withInput()->with('error', 'Er is iets misgegaan bij het maken van een nieuw artikel');
+            return redirect()->route('articles.create', ['article' => new Article()])->withInput()->with('error', 'Er is iets mis gegaan bij het maken van een nieuw artikel');
         }
     }
 
@@ -46,14 +50,17 @@ class ArticleController extends Controller
 
     public function edit(Request $request, $id)
     {
+        $categories = Category::all();
+
         if ($request->isMethod('get') && ($article = Article::find($id))) {
-            return view('edit', ['article' => $article]);;
+            return view('edit', ['article' => $article, 'categories' => $categories]);;
         } elseif ($request->isMethod('post') && ($article = Article::find($id))) {
             $request->validate([
                 'title' => 'required|string|max:255',
                 'intro' => 'required|string',
                 'content' => 'required|string',
                 'publication_date' => 'required|date',
+                'category_id' => 'required|integer|exists:categories,id',
             ]);
 
             $article->update([
@@ -61,6 +68,7 @@ class ArticleController extends Controller
                 'intro' => $request->input('intro'),
                 'content' => $request->input('content'),
                 'publication_date' => Carbon::parse($request->input('publication_date')),
+                'category_id' => $request->input('category_id'),
             ]);
             return redirect()->route('articles.dashboard')->with('success', 'Artikel bijgewerkt');
         } else {

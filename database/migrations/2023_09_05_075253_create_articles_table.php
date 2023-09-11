@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('intro');
             $table->text('content');
             $table->date('publication_date');
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('category_id')->default(1);
             $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });

@@ -3,6 +3,11 @@
         <div class="flex justify-between items-center min-h-[10vh]">
             <h1 class="text-2xl font-bold">Nieuw artikel</h1>
         </div>
+        @if (session('error'))
+            <div class="relative px-4 py-3 my-3 text-red-700 bg-red-100 border border-red-400 rounded" role="alert">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="justify-between md:flex">
             <div class="w-full md:w-1/6 lg:w-1/5">
                 <x-dashboard-menu></x-dashboard-menu>
@@ -10,10 +15,9 @@
             <div class="w-full md:w-3/4">
                 <div class="overflow-x-auto bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
-                        <x-article-form :article="$article = NULL"></x-article-form>
+                        <x-article-form :article="$article = null" :categories="$categories"></x-article-form>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
