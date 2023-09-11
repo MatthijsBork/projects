@@ -7,7 +7,6 @@
             <div class="w-full md:w-1/6 lg:w-1/5">
                 <x-dashboard-menu></x-dashboard-menu>
             </div>
-            {{-- textarea langer, datum onderaan --}}
             <div class="w-full md:w-3/4">
                 <div class="overflow-x-auto bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
