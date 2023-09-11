@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('articles.post') }}">
+<form method="POST" action="{{ $route }}">
     @csrf
     <div class="flex-row">
     </div>

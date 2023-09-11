@@ -13,7 +13,7 @@ class ArticleController extends Controller
     {
         $categories = Category::all();
 
-        return view('create', ['categories' => $categories]);
+        return view('articles.create', ['categories' => $categories]);
     }
 
     public function post(Request $request)
@@ -44,7 +44,7 @@ class ArticleController extends Controller
         if (!($article = Article::find($id))) {
             abort(404);
         } else {
-            return view('show', ['article' => $article]);
+            return view('articles.show', ['article' => $article]);
         }
     }
 
@@ -53,7 +53,7 @@ class ArticleController extends Controller
         $categories = Category::all();
 
         if ($request->isMethod('get') && ($article = Article::find($id))) {
-            return view('edit', ['article' => $article, 'categories' => $categories]);;
+            return view('articles.edit', ['article' => $article, 'categories' => $categories]);;
         } elseif ($request->isMethod('post') && ($article = Article::find($id))) {
             $request->validate([
                 'title' => 'required|string|max:255',
@@ -90,7 +90,7 @@ class ArticleController extends Controller
     {
         $articles = Article::whereDate('publication_date', '<=', now())->get();
 
-        return view('index', ['articles' => $articles]);
+        return view('articles.index', ['articles' => $articles]);
     }
 
 
@@ -98,6 +98,6 @@ class ArticleController extends Controller
     {
         $articles = Article::all();
 
-        return view('dashboard', ['articles' => $articles]);
+        return view('articles.dashboard', ['articles' => $articles]);
     }
 }
