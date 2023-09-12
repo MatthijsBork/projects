@@ -39,7 +39,7 @@
     <div class="mb-4">
         <label for="category" class="block text-sm font-semibold text-gray-600">Categorie</label>
         <select name="category_id" id="category_id"
-            class="py-2 leading-tight text-gray-700 border rounded appearance-none pr-7 focus:outline-none focus:shadow-outline">
+            class="px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-400 focus:border-blue-400">
             <option disabled selected>Kies een categorie</option>
             @foreach ($categories as $category)
                 @if (($article->category_id ?? null) == $category->id || old('category_id') == $category->id)

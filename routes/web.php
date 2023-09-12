@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ArticleController;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +37,14 @@ Route::middleware('auth')->group(function () {
         Route::post('/edit/{id}', [ArticleController::class, 'edit'])->name('articles.update');
         Route::get('/delete/{id}', [ArticleController::class, 'delete'])->name('articles.delete');
         Route::get('/dashboard', [ArticleController::class, 'dashboard'])->name('articles.dashboard');
+    });
+    Route::prefix('/categories')->group(function () {
+        Route::get('/create', [CategoryController::class, 'create'])->name('categories.create');
+        Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('categories.edit');
+        Route::post('/edit{id}', [CategoryController::class, 'edit'])->name('categories.update');
+        Route::post('/create', [CategoryController::class, 'post'])->name('categories.post');
+        Route::get('/delete/{id}', [CategoryController::class, 'delete'])->name('categories.delete');
+        Route::get('/dashboard', [CategoryController::class, 'dashboard'])->name('categories.dashboard');
     });
 });
 
