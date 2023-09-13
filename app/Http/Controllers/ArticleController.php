@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Http\Requests\ArticleStoreRequest;
 
 class ArticleController extends Controller
 {
@@ -16,16 +17,8 @@ class ArticleController extends Controller
         return view('articles.create', ['categories' => $categories]);
     }
 
-    public function post(Request $request)
+    public function post(ArticleStoreRequest $request)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'intro' => 'required|string',
-            'content' => 'required|string',
-            'publication_date' => 'required|date',
-            'category_id' => 'required|integer|exists:categories,id',
-        ]);
-
         try {
             Article::create([
                 'title' => $request->input('title'),
@@ -54,15 +47,14 @@ class ArticleController extends Controller
 
         if ($request->isMethod('get') && ($article = Article::find($id))) {
             return view('articles.edit', ['article' => $article, 'categories' => $categories]);;
-        } elseif ($request->isMethod('post') && ($article = Article::find($id))) {
-            $request->validate([
-                'title' => 'required|string|max:255',
-                'intro' => 'required|string',
-                'content' => 'required|string',
-                'publication_date' => 'required|date',
-                'category_id' => 'required|integer|exists:categories,id',
-            ]);
+        } else {
+            return redirect()->route('articles.dashboard')->with('error', 'Artikel kon niet worden bewerkt (niet gevonden)');
+        }
+    }
 
+    public function update(ArticleStoreRequest $request, $id)
+    {
+        if ($article = Article::find($id)) {
             $article->update([
                 'title' => $request->input('title'),
                 'intro' => $request->input('intro'),

@@ -30,21 +30,21 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::prefix('/articles')->group(function () {
-        Route::get('/create', [ArticleController::class, 'create'])->name('articles.create');
-        Route::post('/create', [ArticleController::class, 'post'])->name('articles.post');
-        Route::get('/edit/{id}', [ArticleController::class, 'edit'])->name('articles.edit');
-        Route::post('/edit/{id}', [ArticleController::class, 'edit'])->name('articles.update');
-        Route::get('/delete/{id}', [ArticleController::class, 'delete'])->name('articles.delete');
-        Route::get('/dashboard', [ArticleController::class, 'dashboard'])->name('articles.dashboard');
+    Route::prefix('articles')->name('articles.')->group(function () {
+        Route::get('create', [ArticleController::class, 'create'])->name('create');
+        Route::post('create', [ArticleController::class, 'post'])->name('post');
+        Route::get('edit/{id}', [ArticleController::class, 'edit'])->name('edit');
+        Route::post('edit/{id}', [ArticleController::class, 'update'])->name('update');
+        Route::get('delete/{id}', [ArticleController::class, 'delete'])->name('delete');
+        Route::get('dashboard', [ArticleController::class, 'dashboard'])->name('dashboard');
     });
-    Route::prefix('/categories')->group(function () {
-        Route::get('/create', [CategoryController::class, 'create'])->name('categories.create');
-        Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('categories.edit');
-        Route::post('/edit{id}', [CategoryController::class, 'edit'])->name('categories.update');
-        Route::post('/create', [CategoryController::class, 'post'])->name('categories.post');
-        Route::get('/delete/{id}', [CategoryController::class, 'delete'])->name('categories.delete');
-        Route::get('/dashboard', [CategoryController::class, 'dashboard'])->name('categories.dashboard');
+    Route::prefix('categories')->name('categories.')->group(function () {
+        Route::get('create', [CategoryController::class, 'create'])->name('create');
+        Route::get('edit/{id}', [CategoryController::class, 'edit'])->name('edit');
+        Route::post('edit/{id}', [CategoryController::class, 'update'])->name('update');
+        Route::post('create', [CategoryController::class, 'post'])->name('post');
+        Route::get('delete/{id}', [CategoryController::class, 'delete'])->name('delete');
+        Route::get('dashboard', [CategoryController::class, 'dashboard'])->name('dashboard');
     });
 });
 

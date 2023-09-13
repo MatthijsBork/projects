@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryStoreRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -14,12 +15,8 @@ class CategoryController extends Controller
         return view('categories.create', ['categories' => $categories]);
     }
 
-    public function post(Request $request)
+    public function post(CategoryStoreRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:32',
-        ]);
-
         try {
             Category::create([
                 'name' => $request->input('name')
@@ -37,15 +34,16 @@ class CategoryController extends Controller
         return view('categories.dashboard', ['categories' => $categories]);
     }
 
-    public function edit(Request $request, $id)
+    public function edit($id)
     {
-        if ($request->isMethod('get') && ($category = Category::find($id))) {
-            return view('categories.edit', ['category' => $category]);;
-        } elseif ($request->isMethod('post') && ($category = Category::find($id))) {
-            $request->validate([
-                'name' => 'required|string|max:32',
-            ]);
+        $category = Category::find($id);
 
+        return view('categories.edit', ['category' => $category]);;
+    }
+
+    public function update(CategoryStoreRequest $request, $id)
+    {
+        if ($category = Category::find($id)) {
             $category->update([
                 'name' => $request->input('name'),
             ]);

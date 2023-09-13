@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="container py-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
+    <div class="container py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="flex justify-between items-center min-h-[10vh]">
             <h1 class="text-2xl font-bold">Nieuwe categorie</h1>
         </div>
@@ -15,13 +15,13 @@
             <div class="w-full md:w-3/4">
                 <div class="overflow-x-auto bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
-                        <form action="/categories/create" method="POST">
+                        <form action="/categories/edit/{{ $category->id }}" method="POST">
                             @csrf
                             <div class="mb-4">
                                 <label for="name" class="block text-sm font-semibold text-gray-600">Naam</label>
                                 <input type="text"
                                     class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
-                                    value="{{ $category->name }}">
+                                    value="{{ $category->name }}" name="name">
                             </div>
                             @error('name')
                                 <div class="text-red-500">{{ $message }}</div>

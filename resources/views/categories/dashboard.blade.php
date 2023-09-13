@@ -1,7 +1,7 @@
 <x-app-layout>
-    <div class="container py-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
+    <div class="container py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="flex justify-between items-center min-h-[10vh]">
-            <h1 class="text-2xl font-semibold">Artikelen Dashboard</h1>
+            <h1 class="text-2xl font-semibold">Categorieën Dashboard</h1>
             <a href="/categories/create" class="p-4 font-bold text-white transition bg-blue-500 rounded hover:bg-blue-700">
                 Nieuwe categorie
             </a>

@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="py-12">
+    <div class="py-8">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="min-h-[10vh] items-center">
                 <h1 class="mb-5 text-2xl font-bold">Het laatste nieuws</h1>
