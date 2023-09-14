@@ -96,6 +96,7 @@ class ArticleController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('query');
+
         $articles = Article::where('title', 'LIKE', "%$query%")
             ->orWhere('content', 'LIKE', "%$query%")
             ->get();
