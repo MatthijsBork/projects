@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('content');
             $table->date('publication_date');
             $table->unsignedBigInteger('category_id')->default(1);
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }
