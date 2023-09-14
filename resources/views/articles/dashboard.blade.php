@@ -56,6 +56,9 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="my-4">
+                            {{ $articles->links() }}
+                        </div>
                     </div>
                 </div>
             </div>

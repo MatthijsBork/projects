@@ -88,7 +88,7 @@ class ArticleController extends Controller
 
     public function dashboard()
     {
-        $articles = Article::all();
+        $articles = Article::paginate(10);
 
         return view('articles.dashboard', compact('articles'));
     }
@@ -99,7 +99,7 @@ class ArticleController extends Controller
 
         $articles = Article::where('title', 'LIKE', "%$query%")
             ->orWhere('content', 'LIKE', "%$query%")
-            ->get();
+            ->paginate(10)->appends(['query' => $query]);
 
         return view('articles.dashboard', compact('articles'));
     }

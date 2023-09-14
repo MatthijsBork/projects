@@ -29,7 +29,7 @@ class CategoryController extends Controller
 
     public function dashboard()
     {
-        $categories = Category::all();
+        $categories = Category::paginate(1);
 
         return view('categories.dashboard', compact('categories'));
     }
@@ -66,7 +66,7 @@ class CategoryController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('query');
-        $categories = Category::where('name', 'LIKE', "%$query%")->get();
+        $categories = Category::where('name', 'LIKE', "%$query%")->paginate(10)->appends(['query' => $query]);
 
         return view('categories.dashboard', compact('categories'));
     }
