@@ -12,7 +12,7 @@ class CategoryController extends Controller
     {
         $categories = Category::all();
 
-        return view('categories.create', ['categories' => $categories]);
+        return view('categories.create', compact('categories'));
     }
 
     public function post(CategoryStoreRequest $request)
@@ -31,14 +31,14 @@ class CategoryController extends Controller
     {
         $categories = Category::all();
 
-        return view('categories.dashboard', ['categories' => $categories]);
+        return view('categories.dashboard', compact('categories'));
     }
 
     public function edit($id)
     {
         $category = Category::find($id);
 
-        return view('categories.edit', ['category' => $category]);;
+        return view('categories.edit', compact('categories'));;
     }
 
     public function update(CategoryStoreRequest $request, $id)
@@ -61,5 +61,13 @@ class CategoryController extends Controller
         } else {
             return redirect()->route('categories.dashboard')->with('error', 'Categorie kon niet worden verwijderd (niet gevonden)');
         }
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $categories = Category::where('name', 'LIKE', "%$query%")->get();
+
+        return view('categories.dashboard', compact('categories'));
     }
 }

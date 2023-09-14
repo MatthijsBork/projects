@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
         Route::post('edit/{id}', [ArticleController::class, 'update'])->name('update');
         Route::get('delete/{id}', [ArticleController::class, 'delete'])->name('delete');
         Route::get('dashboard', [ArticleController::class, 'dashboard'])->name('dashboard');
+        Route::get('dashboard/search', [ArticleController::class, 'search'])->name('dashboard.search');
     });
     Route::prefix('categories')->name('categories.')->group(function () {
         Route::get('create', [CategoryController::class, 'create'])->name('create');
@@ -45,6 +46,7 @@ Route::middleware('auth')->group(function () {
         Route::post('create', [CategoryController::class, 'post'])->name('post');
         Route::get('delete/{id}', [CategoryController::class, 'delete'])->name('delete');
         Route::get('dashboard', [CategoryController::class, 'dashboard'])->name('dashboard');
+        Route::get('dashboard/search', [CategoryController::class, 'search'])->name('dashboard.search');
     });
 });
 

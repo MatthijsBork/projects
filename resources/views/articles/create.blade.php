@@ -21,4 +21,14 @@
             </div>
         </div>
     </div>
+    <script defer>
+        window.addEventListener('load', () => {
+            for (const name of ['content', 'intro']) {
+                ClassicEditor.create(document.getElementById(name))
+                    .catch(error => {
+                        console.error(error);
+                    });
+            }
+        });
+    </script>
 </x-app-layout>

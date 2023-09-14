@@ -82,7 +82,7 @@ class ArticleController extends Controller
     {
         $articles = Article::whereDate('publication_date', '<=', now())->get();
 
-        return view('articles.index', ['articles' => $articles]);
+        return view('articles.index', compact('articles'));
     }
 
 
@@ -90,6 +90,16 @@ class ArticleController extends Controller
     {
         $articles = Article::all();
 
-        return view('articles.dashboard', ['articles' => $articles]);
+        return view('articles.dashboard', compact('articles'));
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $articles = Article::where('title', 'LIKE', "%$query%")
+            ->orWhere('content', 'LIKE', "%$query%")
+            ->get();
+
+        return view('articles.dashboard', compact('articles'));
     }
 }

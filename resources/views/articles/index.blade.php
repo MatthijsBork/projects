@@ -9,8 +9,8 @@
                     <div class="w-full px-4 mb-4 md:w-1/2">
                         <div class="p-4 bg-white rounded-lg shadow-md">
                             <h2 class="mb-2 text-2xl font-semibold text-gray-800 truncate whitespace-normal">
-                                {{ $article->title }}</h2>
-                            <p class="mb-2 text-gray-600">{{ $article->intro }}</p>
+                                {!! $article->title !!}</h2>
+                            <p class="mb-2 text-gray-600">{!! $article->intro !!}</p>
                             <p class="text-gray-400">
                                 {{ \Carbon\Carbon::parse($article->publication_date)->format('j F Y') }}</p>
                             <a href="/articles/show/{{ $article->id }}"
