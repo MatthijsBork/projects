@@ -29,7 +29,7 @@ class CategoryController extends Controller
 
     public function dashboard()
     {
-        $categories = Category::paginate(1);
+        $categories = Category::paginate(10);
 
         return view('categories.dashboard', compact('categories'));
     }
