@@ -21,9 +21,9 @@ class CategoryController extends Controller
             Category::create([
                 'name' => $request->input('name')
             ]);
-            return redirect()->route('categories.dashboard')->with('success', 'Nieuwe categorie toegevoegd');
+            return redirect()->route('dashboard.categories')->with('success', 'Nieuwe categorie toegevoegd');
         } catch (\Exception $e) {
-            return redirect()->route('categories.create', ['category' => new Category()])->withInput()->with('error', 'Er is iets mis gegaan bij het maken van een nieuw artikel');
+            return redirect()->route('dashboard.categories.create', ['category' => new Category()])->withInput()->with('error', 'Er is iets mis gegaan bij het maken van een nieuw artikel');
         }
     }
 
@@ -38,7 +38,7 @@ class CategoryController extends Controller
     {
         $category = Category::find($id);
 
-        return view('categories.edit', compact('categories'));;
+        return view('categories.edit', compact('category'));;
     }
 
     public function update(CategoryStoreRequest $request, $id)
@@ -47,9 +47,9 @@ class CategoryController extends Controller
             $category->update([
                 'name' => $request->input('name'),
             ]);
-            return redirect()->route('categories.dashboard')->with('success', 'Categorie bijgewerkt');
+            return redirect()->route('dashboard.categories')->with('success', 'Categorie bijgewerkt');
         } else {
-            return redirect()->route('categories.dashboard')->with('error', 'Categorie kon niet worden bewerkt (niet gevonden)');
+            return redirect()->route('dashboard.categories')->with('error', 'Categorie kon niet worden bewerkt (niet gevonden)');
         }
     }
 
@@ -57,9 +57,9 @@ class CategoryController extends Controller
     {
         if ($category = Category::find($id)) {
             $category->delete();
-            return redirect()->route('categories.dashboard')->with('success', 'Categorie verwijderd');
+            return redirect()->route('dashboard.categories')->with('success', 'Categorie verwijderd');
         } else {
-            return redirect()->route('categories.dashboard')->with('error', 'Categorie kon niet worden verwijderd (niet gevonden)');
+            return redirect()->route('dashboard.categories')->with('error', 'Categorie kon niet worden verwijderd (niet gevonden)');
         }
     }
 

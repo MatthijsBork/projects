@@ -14,7 +14,7 @@ class ArticleController extends Controller
     {
         $categories = Category::all();
 
-        return view('articles.create', ['categories' => $categories]);
+        return view('articles.create', compact('categories'));
     }
 
     public function post(ArticleStoreRequest $request)
@@ -25,10 +25,13 @@ class ArticleController extends Controller
                 'intro' => $request->input('intro'),
                 'content' => $request->input('content'),
                 'publication_date' => Carbon::parse($request->input('publication_date')),
+                'category_id' => $request->input('category_id'),
             ]);
-            return redirect()->route('articles.dashboard')->with('success', 'Nieuw artikel toegevoegd');
+            return redirect()->route('dashboard.articles')->with('success', 'Nieuw artikel toegevoegd');
         } catch (\Exception $e) {
-            return redirect()->route('articles.create', ['article' => new Article()])->withInput()->with('error', 'Er is iets mis gegaan bij het maken van een nieuw artikel');
+            var_dump($e);
+            die();
+            return redirect()->route('dashboard.articles.create', ['article' => new Article()])->withInput()->with('error', 'Er is iets mis gegaan bij het maken van een nieuw artikel');
         }
     }
 
@@ -37,7 +40,7 @@ class ArticleController extends Controller
         if (!($article = Article::find($id))) {
             abort(404);
         } else {
-            return view('articles.show', ['article' => $article]);
+            return view('articles.show', compact('article'));
         }
     }
 
@@ -46,9 +49,9 @@ class ArticleController extends Controller
         $categories = Category::all();
 
         if ($request->isMethod('get') && ($article = Article::find($id))) {
-            return view('articles.edit', ['article' => $article, 'categories' => $categories]);;
+            return view('articles.edit', compact('article', 'categories'));;
         } else {
-            return redirect()->route('articles.dashboard')->with('error', 'Artikel kon niet worden bewerkt (niet gevonden)');
+            return redirect()->route('dashboard.articles')->with('error', 'Artikel kon niet worden bewerkt (niet gevonden)');
         }
     }
 
@@ -62,9 +65,9 @@ class ArticleController extends Controller
                 'publication_date' => Carbon::parse($request->input('publication_date')),
                 'category_id' => $request->input('category_id'),
             ]);
-            return redirect()->route('articles.dashboard')->with('success', 'Artikel bijgewerkt');
+            return redirect()->route('dashboard.articles')->with('success', 'Artikel bijgewerkt');
         } else {
-            return redirect()->route('articles.dashboard')->with('error', 'Artikel kon niet worden bewerkt (niet gevonden)');
+            return redirect()->route('dashboard.articles')->with('error', 'Artikel kon niet worden bewerkt (niet gevonden)');
         }
     }
 
@@ -72,9 +75,9 @@ class ArticleController extends Controller
     {
         if ($article = Article::find($id)) {
             $article->delete();
-            return redirect()->route('articles.dashboard')->with('success', 'Artikel verwijderd');
+            return redirect()->route('dashboard.articles')->with('success', 'Artikel verwijderd');
         } else {
-            return redirect()->route('articles.dashboard')->with('error', 'Artikel kon niet worden verwijderd (niet gevonden)');
+            return redirect()->route('dashboard.articles')->with('error', 'Artikel kon niet worden verwijderd (niet gevonden)');
         }
     }
 

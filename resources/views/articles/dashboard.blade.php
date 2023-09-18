@@ -2,7 +2,8 @@
     <div class="container py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="flex justify-between items-center min-h-[10vh]">
             <h1 class="text-2xl font-semibold">Artikelen Dashboard</h1>
-            <a href="/articles/create" class="p-4 font-bold text-white transition bg-blue-500 rounded hover:bg-blue-700">
+            <a href="{{ route('dashboard.articles.create') }}"
+                class="p-4 font-bold text-white transition bg-blue-500 rounded hover:bg-blue-700">
                 Nieuw artikel
             </a>
         </div>
@@ -45,11 +46,11 @@
                                         </td>
                                         <td class="max-w-[22vw] px-4 py-2 overflow-hidden">{{ $article->title }}</td>
                                         <td class="px-4 py-2">
-                                            <a href="/articles/edit/{{ $article->id }}"
+                                            <a href="articles/{{ $article->id }}/edit"
                                                 class="text-blue-500 hover:underline">Bewerken</a>
                                         </td>
                                         <td class="px-4 py-2">
-                                            <a href="/articles/delete/{{ $article->id }}"
+                                            <a href="articles/{{ $article->id }}/delete"
                                                 class="text-red-500 hover:underline">Verwijder</a>
                                         </td>
                                     </tr>

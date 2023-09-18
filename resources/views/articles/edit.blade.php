@@ -10,7 +10,7 @@
             <div class="w-full md:w-3/4">
                 <div class="overflow-x-auto bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
-                        <x-article-form :article="$article" :categories="$categories" :route="$article->id"></x-article-form>
+                        <x-article-form :article="$article" :categories="$categories" route="{{ route('dashboard.articles.update', [$article->id]) }}"></x-article-form>
                     </div>
                 </div>
             </div>
@@ -18,7 +18,7 @@
     </div>
     <script defer>
         window.addEventListener('load', () => {
-            for (const name of ['content', 'intro']) {
+            for (const name of ['content']) {
                 ClassicEditor.create(document.getElementById(name))
                     .catch(error => {
                         console.error(error);

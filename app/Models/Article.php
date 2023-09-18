@@ -9,9 +9,7 @@ class Article extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'intro', 'content', 'publication_date', 'category'];
-
-    public $timestamps = true;
+    protected $fillable = ['title', 'intro', 'content', 'publication_date', 'category_id'];
 
     public function category()
     {
