@@ -21,23 +21,6 @@ class ArticleController extends Controller
     public function post(ArticleStoreRequest $request)
     {
         try {
-            // if ($request->hasFile('image')) {
-            //     $p = 'public';
-            //     $path = $request->file('image')->storeAs('articles/' . 'test', '1234.gif');
-            //     $imagePath = substr($path, strlen($p));
-            // } else {
-            //     $imagePath = null;
-            // }
-
-            // Article::create([
-            //     'title' => $request->input('title'),
-            //     'intro' => $request->input('intro'),
-            //     'content' => $request->input('content'),
-            //     'publication_date' => Carbon::parse($request->input('publication_date')),
-            //     'category_id' => $request->input('category_id'),
-            //     'image_name' => $imagePath,
-            // ]);
-
             $article = new Article();
             $article->title = $request->input('title');
             $article->intro = $request->input('intro');
