@@ -16,7 +16,7 @@
                         Artikelen
                     </x-nav-link>
                     @auth
-                        <x-nav-link :href="route('dashboard.articles')" :active="request()->routeIs('*.dashboard')">
+                        <x-nav-link :href="route('dashboard.articles')" :active="request()->routeIs('dashboard.*')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
                     @endauth

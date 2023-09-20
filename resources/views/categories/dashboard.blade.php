@@ -41,11 +41,11 @@
                                         </td>
                                         </td>
                                         <td class="px-4 py-2">
-                                            <a href="/categories/edit/{{ $category->id }}"
+                                            <a href="{{ route('dashboard.categories.edit', [$category->id])}}"
                                                 class="text-blue-500 hover:underline">Bewerken</a>
                                         </td>
                                         <td class="px-4 py-2">
-                                            <a href="/categories/delete/{{ $category->id }}"
+                                            <a href="{{ route('dashboard.categories.delete', [$category->id])}}"
                                                 class="text-red-500 hover:underline">Verwijder</a>
                                         </td>
                                     </tr>

@@ -5,6 +5,7 @@
                 <h1 class="text-4xl font-bold text-gray-800 truncate whitespace-normal">{{ $article->title }}</h1>
                 <p class="text-gray-600">{!! $article->date !!}</p>
                 <div class="mt-4">
+                    <img src="{{ asset('images/articles/' . $article->id . '/' . $article->image_name) }}" alt="">
                     <p class="text-xl font-medium text-gray-900">
                         {!! $article->intro !!}
                     </p>

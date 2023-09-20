@@ -1,4 +1,4 @@
-<form method="POST" action="{{ $route }}">
+<form method="POST" action="{{ $route }}" enctype="multipart/form-data">
     @csrf
     <div class="mb-4">
         <label for="title" class="block text-sm font-semibold text-gray-600" required>Titel</label>
@@ -53,7 +53,30 @@
             <div class="text-red-500">{{ $message }}</div>
         @enderror
     </div>
+    @if (isset($article->image_name))
+        <div class="mb-4">
+            <label class="block text-sm font-semibold text-gray-600">Huidige Afbeelding</label>
+            <img src="{{ asset('images/articles/' . $article->id . '/' . $article->image_name) }}"
+                alt="Huidige Afbeelding" class="max-w-md p-1 border-gray-400 rounded-lg">
+        </div>
+        <div class="mb-4">
+            <label for="delete_image" class="block text-sm font-semibold text-gray-600">Verwijder Afbeelding</label>
+            <input type="checkbox" id="delete_image" name="delete_image" value="1">
+        </div>
+    @endif
+    <div class="mb-4">
+        <label for="image" class="block text-sm font-semibold text-gray-600">Foto</label>
+        <input type="file" id="image" name="image" value="1"
+            class="px-1 py-1 rounded-lg focus:outline-none focus:ring focus:ring-blue-400 focus:border-blue-400">
+        @error('image')
+            <div class="text-red-500">{{ $message }}</div>
+        @enderror
+    </div>
     <div class="text-right">
+        <button
+            class="px-4 py-2 text-red-700 bg-transparent border border-red-500 rounded-lg hover:bg-red-500 hover:text-white hover:border-transparent">
+            Annuleren
+        </button>
         <button type="submit" class="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">Opslaan</button>
     </div>
 </form>

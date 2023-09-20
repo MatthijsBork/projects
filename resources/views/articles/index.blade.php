@@ -13,7 +13,7 @@
                             <p class="mb-2 text-gray-600">{!! $article->intro !!}</p>
                             <p class="text-gray-400">
                                 {{ \Carbon\Carbon::parse($article->publication_date)->format('j F Y') }}</p>
-                            <a href="/articles/show/{{ $article->id }}"
+                            <a href="{{ route('articles.show', [$article->id]) }}"
                                 class="block mt-2 text-blue-500 hover:underline">View Details</a>
                         </div>
                     </div>
