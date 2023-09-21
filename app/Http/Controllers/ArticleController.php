@@ -18,7 +18,7 @@ class ArticleController extends Controller
         return view('articles.create', compact('categories'));
     }
 
-    public function post(ArticleStoreRequest $request)
+    public function store(ArticleStoreRequest $request)
     {
         try {
             $article = new Article();
@@ -73,11 +73,12 @@ class ArticleController extends Controller
     {
         if ($article = Article::find($id)) {
             if ($request->input('delete_image') == 1) {
-                // dd('public/storage/public' . $article->image_name);
-                Storage::delete('articles/' . '1234.gif');
+                Storage::delete('articles/' . $article->id . '/' . $article->image_name);
+                Storage::deleteDirectory('articles/' . $article->id);
                 $imagePath = '';
             } elseif ($request->hasFile('image')) {
-                Storage::delete($article->image_name);
+                Storage::delete('articles/' . $article->id . '/' . $article->image_name);
+                Storage::deleteDirectory('articles/' . $article->id);
                 $p = 'public';
                 $path = $request->file('image')->store($p, 'public');
                 $imagePath = substr($path, strlen($p));

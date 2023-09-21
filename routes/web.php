@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
             Route::get('create', [CategoryController::class, 'create'])->name('.create');
             Route::get('{id}/edit', [CategoryController::class, 'edit'])->name('.edit');
             Route::post('{id}/edit', [CategoryController::class, 'update'])->name('.update');
-            Route::post('create', [CategoryController::class, 'post'])->name('.post');
+            Route::post('create', [CategoryController::class, 'store'])->name('.store');
             Route::get('{id}/delete', [CategoryController::class, 'delete'])->name('.delete');
             Route::get('', [CategoryController::class, 'dashboard'])->name('');
             Route::get('search', [CategoryController::class, 'search'])->name('.search');
@@ -45,7 +45,7 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('articles')->name('articles')->group(function () {
             Route::get('create', [ArticleController::class, 'create'])->name('.create');
-            Route::post('create', [ArticleController::class, 'post'])->name('.post');
+            Route::post('create', [ArticleController::class, 'store'])->name('.store');
             Route::get('{id}/edit', [ArticleController::class, 'edit'])->name('.edit');
             Route::post('{id}/delete', [ArticleController::class, 'update'])->name('.update');
             Route::get('{id}/delete', [ArticleController::class, 'delete'])->name('.delete');
@@ -55,7 +55,7 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('projects')->name('projects')->group(function () {
             Route::get('create', [ProjectController::class, 'create'])->name('.create');
-            Route::post('create', [ProjectController::class, 'post'])->name('.post');
+            Route::post('create', [ProjectController::class, 'store'])->name('.store');
             Route::get('{id}/edit', [ProjectController::class, 'edit'])->name('.edit');
             Route::post('{id}/delete', [ProjectController::class, 'update'])->name('.update');
             Route::get('{id}/delete', [ProjectController::class, 'delete'])->name('.delete');

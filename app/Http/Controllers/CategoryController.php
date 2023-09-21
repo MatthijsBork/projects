@@ -15,7 +15,7 @@ class CategoryController extends Controller
         return view('categories.create', compact('categories'));
     }
 
-    public function post(CategoryStoreRequest $request)
+    public function store(CategoryStoreRequest $request)
     {
         try {
             Category::create([

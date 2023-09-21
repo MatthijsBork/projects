@@ -9,8 +9,6 @@
         @enderror
     </div>
     <div class="mb-4">
-        <div id="intro-toolbar"></div>
-
         <label for="intro" class="block text-sm font-semibold text-gray-600">Introductie</label>
         <textarea id="intro" name="intro"
             class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300 min-h-[20vh]">{{ $article->intro ?? old('intro') }}</textarea>

@@ -18,7 +18,7 @@
                 <div class="overflow-x-auto bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
                         <x-article-form :article="$article = null" :categories="$categories"
-                            route="{{ route('dashboard.articles.post') }}"></x-article-form>
+                            route="{{ route('dashboard.articles.store') }}"></x-article-form>
                     </div>
                 </div>
             </div>

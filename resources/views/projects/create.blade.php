@@ -17,22 +17,10 @@
             <div class="w-full md:w-3/4">
                 <div class="overflow-x-auto bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
-                        <form action="">
-
-                        </form>
+                        <x-project-form action="{{ route('dashboard.projects.store') }}"></x-project-form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script defer>
-        // window.addEventListener('load', () => {
-        //     for (const name of ['content']) {
-        //         ClassicEditor.create(document.getElementById(name), {})
-        //             .catch(error => {
-        //                 console.error(error);
-        //             });
-        //     }
-        // });
-    </script>
 </x-app-layout>

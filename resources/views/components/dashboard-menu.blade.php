@@ -3,7 +3,7 @@
     <ul>
         <li class="mb-2">
             <a href="{{ route('dashboard.articles') }}"
-                class="block px-4 py-2 transition rounded-md bg-gray-50 hover:bg-gray-300 hover:text-blue-600">Artikelen</a>
+                class="block px-4 py-2 transition rounded-md hover:bg-gray-300 hover:text-blue-600">Artikelen</a>
         </li>
         <li class="mb-2">
             <a href="{{ route('dashboard.categories') }}"
@@ -20,7 +20,7 @@
             </form>
             <a href="{{ route('logout') }}"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                class="block px-4 py-2 transition bg-white rounded-md hover:bg-gray-300 hover:text-blue-600" >Utloggen</a>
+                class="block px-4 py-2 transition bg-white rounded-md hover:bg-gray-300 hover:text-blue-600">Utloggen</a>
         </li>
     </ul>
 </div>
