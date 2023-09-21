@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class Dashboard extends Component
+class ProjectForm extends Component
 {
     /**
      * Create a new component instance.
@@ -12,8 +12,8 @@ class Dashboard extends Component
      * @return void
      */
     public function __construct(
-        public string $title,
-        public string $route,
+
+        public string $action,
     ) {
     }
 
@@ -24,6 +24,6 @@ class Dashboard extends Component
      */
     public function render()
     {
-        return view('components.dashboard');
+        return view('components.project-form');
     }
 }

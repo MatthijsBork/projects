@@ -99,9 +99,7 @@ class ProjectController extends Controller
             $project->update([
                 'title' => $request->input('title'),
                 'intro' => $request->input('intro'),
-                'content' => $request->input('content'),
-                'publication_date' => Carbon::parse($request->input('publication_date')),
-                'category_id' => $request->input('category_id'),
+                'start_date' => Carbon::parse($request->input('start_date')),
                 'image_name' => $imagePath,
             ]);
             return redirect()->route('dashboard.projects')->with('success', 'Project bijgewerkt');

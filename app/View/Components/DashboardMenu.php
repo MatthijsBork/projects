@@ -4,17 +4,16 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class Dashboard extends Component
+class DashboardMenu extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(
-        public string $title,
-        public string $route,
-    ) {
+    public function __construct()
+    {
+        //
     }
 
     /**
@@ -24,6 +23,6 @@ class Dashboard extends Component
      */
     public function render()
     {
-        return view('components.dashboard');
+        return view('components.dashboard-menu');
     }
 }
