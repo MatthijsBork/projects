@@ -4,8 +4,9 @@ use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProjectUserRoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,10 +58,13 @@ Route::middleware('auth')->group(function () {
             Route::get('create', [ProjectController::class, 'create'])->name('.create');
             Route::post('create', [ProjectController::class, 'store'])->name('.store');
             Route::get('{id}/edit', [ProjectController::class, 'edit'])->name('.edit');
-            Route::post('{id}/delete', [ProjectController::class, 'update'])->name('.update');
+            Route::post('{id}/edit', [ProjectController::class, 'update'])->name('.update');
             Route::get('{id}/delete', [ProjectController::class, 'delete'])->name('.delete');
             Route::get('', [ProjectController::class, 'dashboard'])->name('');
             Route::get('search', [ProjectController::class, 'search'])->name('.search');
+            Route::get('{id}/edit/roles/{userrole_id}/delete', [ProjectUserRoleController::class, 'delete'])->name('.roles.delete');
+            Route::get('{id}/edit/roles', [ProjectUserRoleController::class, 'edit'])->name('.roles');
+            Route::post('{id}/edit/roles', [ProjectUserRoleController::class, 'store'])->name('.roles.store');
         });
     });
 });

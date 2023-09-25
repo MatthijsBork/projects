@@ -2,17 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
+use App\Models\User;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ProjectStoreRequest;
+use App\Models\ProjectUserRole;
 
 class ProjectController extends Controller
 {
     public function create()
     {
-        return view('projects.create');
+        $roles = Role::all();
+        $users = User::all();
+
+        return view('projects.create', compact('roles', 'users'));
     }
 
     public function dashboard()
@@ -24,8 +30,12 @@ class ProjectController extends Controller
 
     public function edit(Request $request, $id)
     {
-        if ($request->isMethod('get') && ($project = Project::find($id))) {
-            return view('projects.edit', compact('project'));
+        if ($project = Project::find($id)) {
+            $roles = Role::all();
+            $users = User::all();
+            $userroles = ProjectUserRole::where('project_id', '=', $project->id)->get();
+
+            return view('projects.edit', compact('project', 'users', 'userroles', 'roles'));
         } else {
             return redirect()->route('dashboard.projects')->with('error', 'Project kon niet worden bewerkt (niet gevonden)');
         }
@@ -59,6 +69,7 @@ class ProjectController extends Controller
                 $project->save();
             }
 
+            ProjectUserRoleController::store($project->id, $request->input('user'), $request->input('user'));
 
             return redirect()->route('dashboard.projects')->with('success', 'Nieuw project toegevoegd');
         } catch (\Exception $e) {

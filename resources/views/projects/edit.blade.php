@@ -11,9 +11,23 @@
             <div class="w-full md:w-3/4">
                 <div class="overflow-x-auto bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
-
-                        <x-project-form action="{{ route('dashboard.projects.update', [$project->id]) }}"
-                            :project="$project"></x-project-form>
+                        <div class="mb-4">
+                            <ul
+                                class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200">
+                                <li class="mr-2">
+                                    <a href="{{ route('dashboard.projects.edit', [$project->id]) }}"
+                                        class="inline-block p-4 text-blue-500 rounded-t-lg bg-gray-50 hover:bg-gray-100">
+                                        Project</a>
+                                </li>
+                                <li class="mr-2">
+                                    <a href="{{ route('dashboard.projects.roles', [$project->id]) }}"
+                                        class="inline-block p-4 rounded-t-lg bg-gray-50 hover:bg-gray-100">
+                                        Gebruikers</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <x-project-form :users="$users" :roles="$roles" :userroles="$userroles" :project="$project"
+                            action="{{ route('dashboard.projects.update', [$project->id]) }}"></x-project-form>
                     </div>
                 </div>
             </div>

@@ -1,19 +1,7 @@
-<div class="mb-4">
-    <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200">
-        <li class="mr-2">
-            <a href="#tab1" class="inline-block p-4 rounded-t-lg bg-gray-50 hover:bg-gray-100">
-                Project</a>
-        </li>
-        <li class="mr-2">
-            <a href="#tab2" class="inline-block p-4 rounded-t-lg bg-gray-50 hover:bg-gray-100">
-                Users</a>
-        </li>
-    </ul>
-</div>
 <form method="POST" action="{{ $action }}" enctype="multipart/form-data">
     @csrf
 
-    <div id="tab1" class="tab-content">
+    <div class="tab-content">
         <div class="mb-4">
             <label for="title" class="block text-sm font-semibold text-gray-600" required>Titel</label>
             <input type="text" id="title" name="title" value="{{ $project->title ?? old('title') }}"
@@ -60,39 +48,12 @@
             @enderror
         </div>
     </div>
-    <div id="tab2" class="hidden tab-content">
-        asdasdoasdosfgndf
-        <div>asd</div>
-    </div>
+
     <div class="text-right">
         <button
-            class="px-4 py-2 text-red-700 bg-transparent border-red-500 rounded-lg hover:bg-red-500 hover:text-white hover:border-transparent">
+            class="px-4 py-2 mt-3 text-red-700 bg-transparent border-red-500 rounded-lg hover:bg-red-500 hover:text-white hover:border-transparent">
             Annuleren
         </button>
         <button type="submit" class="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">Opslaan</button>
     </div>
 </form>
-
-<script>
-    const tabLinks = document.querySelectorAll('ul.flex a');
-    const tabContents = document.querySelectorAll('.tab-content');
-
-    tabLinks.forEach((link) => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-
-            tabContents.forEach((content) => {
-                content.classList.add('hidden');
-            });
-
-            const targetId = link.getAttribute('href').substring(1);
-            document.getElementById(targetId).classList.remove('hidden');
-
-            tabLinks.forEach((tabLink) => {
-                tabLink.classList.remove('active');
-            });
-
-            link.classList.add('active');
-        });
-    });
-</script>
