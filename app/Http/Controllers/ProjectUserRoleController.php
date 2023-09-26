@@ -26,9 +26,9 @@ class ProjectUserRoleController extends Controller
     {
         if ($userrole = ProjectUserRole::find($userrole_id)) {
             $userrole->delete();
-            return redirect()->route('dashboard.projects.edit', [$id])->with('success', 'Project bijgewerkt');
+            return redirect()->route('dashboard.projects.roles', [$id])->with('success', 'Project bijgewerkt');
         } else {
-            return redirect()->route('dashboard.projects.edit', [$id])->with('error', 'Gebruikersrol niet gevonden');
+            return redirect()->route('dashboard.projects.roles', [$id])->with('error', 'Gebruikersrol niet gevonden');
         }
     }
 

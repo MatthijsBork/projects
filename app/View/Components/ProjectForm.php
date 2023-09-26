@@ -12,10 +12,6 @@ class ProjectForm extends Component
      * @return void
      */
     public function __construct(
-        public $users,
-        public $roles,
-        public $userroles,
-        public $project,
         public $action,
     ) {
     }

@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="container py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="flex justify-between items-center min-h-[10vh]">
-            <h1 class="text-2xl font-bold">Project bewerken</h1>
+            <h1 class="text-2xl font-bold">Gebruikers toevoegen</h1>
         </div>
         <div class="justify-between md:flex">
             <div class="w-full md:w-1/6 lg:w-1/5">
@@ -81,7 +81,7 @@
                                             <td class="px-4 py-2">
                                             </td>
                                             <td>
-                                                <a href="userrole/{{ $userrole->id }}/delete"
+                                                <a href="{{ route('dashboard.projects.roles.delete', [$project->id, $userrole->id]) }}"
                                                     class="text-red-500 hover:underline">Verwijder</a>
                                             </td>
                                         </tr>
@@ -89,8 +89,13 @@
                             </tbody>
                             @endif
                         </table>
+                        <div class="text-right">
+                            <a href="/dashboard/projects"
+                                class="px-4 py-2 mt-3 text-white bg-blue-500 rounded-lg hover:bg-blue-600">Opslaan</a>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

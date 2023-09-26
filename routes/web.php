@@ -62,7 +62,7 @@ Route::middleware('auth')->group(function () {
             Route::get('{id}/delete', [ProjectController::class, 'delete'])->name('.delete');
             Route::get('', [ProjectController::class, 'dashboard'])->name('');
             Route::get('search', [ProjectController::class, 'search'])->name('.search');
-            Route::get('{id}/edit/roles/{userrole_id}/delete', [ProjectUserRoleController::class, 'delete'])->name('.roles.delete');
+            Route::get('{id}/edit/roles/{role_id}/delete', [ProjectUserRoleController::class, 'delete'])->name('.roles.delete');
             Route::get('{id}/edit/roles', [ProjectUserRoleController::class, 'edit'])->name('.roles');
             Route::post('{id}/edit/roles', [ProjectUserRoleController::class, 'store'])->name('.roles.store');
         });

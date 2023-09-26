@@ -15,10 +15,7 @@ class ProjectController extends Controller
 {
     public function create()
     {
-        $roles = Role::all();
-        $users = User::all();
-
-        return view('projects.create', compact('roles', 'users'));
+        return view('projects.create');
     }
 
     public function dashboard()
@@ -49,7 +46,7 @@ class ProjectController extends Controller
         return view('projects.dashboard', compact('projects'));
     }
 
-    public function store(Request $request)
+    public function store(ProjectStoreRequest $request)
     {
         try {
             $project = new Project();
@@ -68,14 +65,11 @@ class ProjectController extends Controller
                 $project->image_name = $imageName;
                 $project->save();
             }
-
-            ProjectUserRoleController::store($project->id, $request->input('user'), $request->input('user'));
-
-            return redirect()->route('dashboard.projects')->with('success', 'Nieuw project toegevoegd');
+            return redirect()->route('dashboard.projects.roles', [$project->id]);
         } catch (\Exception $e) {
             return redirect()->route('dashboard.projects.create', ['project' => new Project()])
                 ->withInput()
-                ->with('error', 'Er is iets misgegaan bij het maken van een nieuw project: ' . $e->getMessage());
+                ->with('error', 'Er is iets misgegaan' . $e);
         }
     }
 
