@@ -34,13 +34,4 @@
         </div>
     </div>
 </x-app-layout>
-<script defer>
-    window.addEventListener('load', () => {
-        for (const name of ['intro']) {
-            ClassicEditor.create(document.getElementById(name), {})
-                .catch(error => {
-                    console.error(error);
-                });
-        }
-    });
-</script>
+

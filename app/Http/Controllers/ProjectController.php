@@ -51,7 +51,7 @@ class ProjectController extends Controller
         try {
             $project = new Project();
             $project->title = $request->input('title');
-            $project->intro = $request->input('intro');
+            $project->description = $request->input('description');
             $project->start_date = Carbon::parse($request->input('start_date'));
 
             $project->save();
@@ -103,7 +103,7 @@ class ProjectController extends Controller
             }
             $project->update([
                 'title' => $request->input('title'),
-                'intro' => $request->input('intro'),
+                'description' => $request->input('description'),
                 'start_date' => Carbon::parse($request->input('start_date')),
                 'image_name' => $imagePath,
             ]);

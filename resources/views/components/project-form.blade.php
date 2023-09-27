@@ -3,7 +3,7 @@
 
     <div class="tab-content">
         <div class="mb-4">
-            <label for="title" class="block text-sm font-semibold text-gray-600" required>Titel</label>
+            <x-input-label for="title">Titel</x-input-label>
             <input type="text" id="title" name="title" value="{{ $project->title ?? old('title') }}"
                 class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
             @error('title')
@@ -11,16 +11,15 @@
             @enderror
         </div>
         <div class="mb-4">
-            <div id="intro-toolbar"></div>
-            <label for="intro" class="block text-sm font-semibold text-gray-600">Beschrijving</label>
-            <textarea id="intro" name="intro"
+            <x-input-label for="description">Beschrijving</x-input-label>
+            <textarea id="description" name="description"
                 class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300 min-h-[20vh]">{{ $project->intro ?? old('intro') }}</textarea>
-            @error('intro')
+            @error('description')
                 <div class="text-red-500">{{ $message }}</div>
             @enderror
         </div>
         <div class="mb-4">
-            <label for="start_date" class="block text-sm font-semibold text-gray-600">Startdatum</label>
+            <x-input-label for="start_date">Startdatum</x-input-label>
             <input type="date" id="start_date" name="start_date"
                 value="{{ isset($project) ? date('Y-m-d', strtotime($project->start_date)) : old('start_date') }}"
                 class="px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-400 focus:border-blue-400">
@@ -30,17 +29,18 @@
         </div>
         @if (isset($project->image_name))
             <div class="mb-4">
-                <label class="block text-sm font-semibold text-gray-600">Huidige Afbeelding</label>
-                <img src="{{ asset('images/projects/' . $project->id . '/' . $project->image_name) }}"
+                <x-input-label for="current_image">Huidige Afbeelding</x-input-label>
+                <img id="current_image"
+                    src="{{ asset('images/projects/' . $project->id . '/' . $project->image_name) }}"
                     alt="Huidige Afbeelding" class="max-w-md p-1 border-gray-400 rounded-lg">
             </div>
             <div class="mb-4">
-                <label for="delete_image" class="block text-sm font-semibold text-gray-600">Verwijder Afbeelding</label>
+                <x-input-label for="delete_image">Verwijder Afbeelding</x-input-label>
                 <input type="checkbox" id="delete_image" name="delete_image" value="1">
             </div>
         @endif
         <div class="mb-4">
-            <label for="image" class="block text-sm font-semibold text-gray-600">Foto</label>
+            <x-input-label for="image">Foto</x-input-label>
             <input type="file" id="image" name="image" value="1"
                 class="px-1 py-1 rounded-lg focus:outline-none focus:ring focus:ring-blue-400 focus:border-blue-400">
             @error('image')
@@ -57,3 +57,13 @@
         <button type="submit" class="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">Opslaan</button>
     </div>
 </form>
+<script defer>
+    window.addEventListener('load', () => {
+        for (const name of ['description']) {
+            ClassicEditor.create(document.getElementById(name), {})
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    });
+</script>

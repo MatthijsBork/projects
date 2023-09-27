@@ -1,7 +1,7 @@
 <form method="POST" action="{{ $route }}" enctype="multipart/form-data">
     @csrf
     <div class="mb-4">
-        <label for="title" class="block text-sm font-semibold text-gray-600" required>Titel</label>
+        <x-input-label for="title">Titel</x-input-label>
         <input type="text" id="title" name="title" value="{{ $article->title ?? old('title') }}"
             class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
         @error('title')
@@ -9,7 +9,7 @@
         @enderror
     </div>
     <div class="mb-4">
-        <label for="intro" class="block text-sm font-semibold text-gray-600">Introductie</label>
+        <x-input-label for="intro">Introductie</x-input-label>
         <textarea id="intro" name="intro"
             class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300 min-h-[20vh]">{{ $article->intro ?? old('intro') }}</textarea>
         @error('intro')
@@ -17,7 +17,7 @@
         @enderror
     </div>
     <div class="mb-4">
-        <label for="content" class="block text-sm font-semibold text-gray-600">Content</label>
+        <x-input-label for="content">Content</x-input-label>
         <textarea id="content" name="content"
             class="w-full px-3 py-2 border rounded-lg min-h-[25vh] focus:outline-none focus:ring focus:border-blue-300">{{ $article->content ?? old('content') }}</textarea>
         @error('content')
@@ -25,7 +25,7 @@
         @enderror
     </div>
     <div class="mb-4">
-        <label for="publication_date" class="block text-sm font-semibold text-gray-600">Publiceerdatum</label>
+        <x-input-label for="publication_date">Publiceerdatum</x-input-label>
         <input type="date" id="publication_date" name="publication_date"
             value="{{ isset($article) ? date('Y-m-d', strtotime($article->publication_date)) : old('publication_date') }}"
             class="px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-400 focus:border-blue-400">
@@ -35,7 +35,7 @@
         @enderror
     </div>
     <div class="mb-4">
-        <label for="category" class="block text-sm font-semibold text-gray-600">Categorie</label>
+        <x-input-label for="category">Categorie</x-input-label>
         <select name="category_id" id="category_id"
             class="px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-400 focus:border-blue-400">
             <option disabled selected>Kies een categorie</option>
@@ -53,17 +53,17 @@
     </div>
     @if (isset($article->image_name))
         <div class="mb-4">
-            <label class="block text-sm font-semibold text-gray-600">Huidige Afbeelding</label>
-            <img src="{{ asset('images/articles/' . $article->id . '/' . $article->image_name) }}"
+            <x-input-label for="current_image">Huidige Afbeelding</x-input-label>
+            <img id="current_image" src="{{ asset('images/articles/' . $article->id . '/' . $article->image_name) }}"
                 alt="Huidige Afbeelding" class="max-w-md p-1 border-gray-400 rounded-lg">
         </div>
         <div class="mb-4">
-            <label for="delete_image" class="block text-sm font-semibold text-gray-600">Verwijder Afbeelding</label>
+            <x-input-label for="delete_image">Verwijder Afbeelding</x-input-label>
             <input type="checkbox" id="delete_image" name="delete_image" value="1">
         </div>
     @endif
     <div class="mb-4">
-        <label for="image" class="block text-sm font-semibold text-gray-600">Foto</label>
+        <x-input-label for="image">Foto</x-input-label>
         <input type="file" id="image" name="image" value="1"
             class="px-1 py-1 rounded-lg focus:outline-none focus:ring focus:ring-blue-400 focus:border-blue-400">
         @error('image')
