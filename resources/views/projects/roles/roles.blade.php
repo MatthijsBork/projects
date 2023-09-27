@@ -89,10 +89,6 @@
                             </tbody>
                             @endif
                         </table>
-                        <div class="text-right">
-                            <a href="/dashboard/projects"
-                                class="px-4 py-2 mt-3 text-white bg-blue-500 rounded-lg hover:bg-blue-600">Opslaan</a>
-                        </div>
                     </div>
                 </div>
 

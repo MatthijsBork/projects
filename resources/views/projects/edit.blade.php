@@ -26,7 +26,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <x-project-form :users="$users" :roles="$roles" :userroles="$userroles" :project="$project"
+                        <x-project-form :users="$users" :project="$project" :roles="$roles" :userroles="$userroles"
                             action="{{ route('dashboard.projects.update', [$project->id]) }}"></x-project-form>
                     </div>
                 </div>
@@ -34,3 +34,13 @@
         </div>
     </div>
 </x-app-layout>
+<script defer>
+    window.addEventListener('load', () => {
+        for (const name of ['intro']) {
+            ClassicEditor.create(document.getElementById(name), {})
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    });
+</script>

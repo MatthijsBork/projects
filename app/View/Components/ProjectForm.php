@@ -13,6 +13,7 @@ class ProjectForm extends Component
      */
     public function __construct(
         public $action,
+        public $project
     ) {
     }
 

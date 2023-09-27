@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->text('title');
             $table->text('intro');
-            $table->date('start_date');
             $table->string('image_name')->nullable();
+            $table->date('start_date');
             $table->timestamps();
         });
     }
