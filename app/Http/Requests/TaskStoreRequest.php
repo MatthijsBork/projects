@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProjectStoreRequest extends FormRequest
+class TaskStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,8 @@ class ProjectStoreRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'start_date' => 'required|date',
-            'image_name' => 'string',
+            'deadline' => 'required|date',
+            'state' => 'required',
         ];
     }
 }

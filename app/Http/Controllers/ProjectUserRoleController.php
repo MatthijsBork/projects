@@ -37,8 +37,9 @@ class ProjectUserRoleController extends Controller
         $roles = Role::all();
         $users = User::all();
         $project = Project::where('id', $project_id)->first();
+        $projectid = $project_id;
         $userroles = ProjectUserRole::where('project_id', '=', $project->id)->get();
 
-        return view('projects.roles.roles', compact('project', 'users', 'project', 'roles', 'userroles'));
+        return view('projects.roles.roles', compact('projectid', 'users', 'project', 'roles', 'userroles'));
     }
 }

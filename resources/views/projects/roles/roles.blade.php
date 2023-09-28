@@ -11,22 +11,8 @@
             <div class="w-full md:w-3/4">
                 <div class="overflow-x-auto bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
-                        <div class="mb-4">
-                            <ul
-                                class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200">
-                                <li class="mr-2">
-                                    <a href="{{ route('dashboard.projects.edit', [$project->id]) }}"
-                                        class="inline-block p-4 rounded-t-lg bg-gray-50 hover:bg-gray-100">
-                                        Project</a>
-                                </li>
-                                <li class="mr-2">
-                                    <a href="{{ route('dashboard.projects.roles', [$project->id]) }}"
-                                        class="inline-block p-4 text-blue-500 rounded-t-lg bg-gray-50 hover:bg-gray-100">
-                                        Gebruikers</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <form action="{{ route('dashboard.projects.roles.store', [$project->id]) }}" method="POST"
+                        <x-project-tab-menu :projectid="$projectid"></x-project-tab-menu>
+                        <form action="{{ route('dashboard.projects.roles.store', [$projectid]) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="flex mb-4 space-x-4">
@@ -81,7 +67,7 @@
                                             <td class="px-4 py-2">
                                             </td>
                                             <td>
-                                                <a href="{{ route('dashboard.projects.roles.delete', [$project->id, $userrole->id]) }}"
+                                                <a href="{{ route('dashboard.projects.roles.delete', [$projectid, $userrole->id]) }}"
                                                     class="text-red-500 hover:underline">Verwijder</a>
                                             </td>
                                         </tr>

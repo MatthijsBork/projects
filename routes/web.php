@@ -2,6 +2,7 @@
 
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
@@ -62,9 +63,22 @@ Route::middleware('auth')->group(function () {
             Route::get('{id}/delete', [ProjectController::class, 'delete'])->name('.delete');
             Route::get('', [ProjectController::class, 'dashboard'])->name('');
             Route::get('search', [ProjectController::class, 'search'])->name('.search');
-            Route::get('{id}/edit/roles/{role_id}/delete', [ProjectUserRoleController::class, 'delete'])->name('.roles.delete');
-            Route::get('{id}/edit/roles', [ProjectUserRoleController::class, 'edit'])->name('.roles');
-            Route::post('{id}/edit/roles', [ProjectUserRoleController::class, 'store'])->name('.roles.store');
+
+            Route::prefix('{id}/edit/roles')->name('.roles')->group(function () {
+                Route::get('{role_id}/delete', [ProjectUserRoleController::class, 'delete'])->name('.delete');
+                Route::get('', [ProjectUserRoleController::class, 'edit'])->name('');
+                Route::post('', [ProjectUserRoleController::class, 'store'])->name('.store');
+            });
+
+
+            Route::prefix('{id}/edit/tasks')->name('.tasks')->group(function () {
+                Route::get('', [TaskController::class, 'dashboard'])->name('');
+                Route::get('{taskid}/delete', [TaskController::class, 'delete'])->name('.delete');
+                Route::get('{taskid}/edit', [TaskController::class, 'edit'])->name('.edit');
+                Route::post('{taskid}/edit', [TaskController::class, 'update'])->name('.update');
+                Route::get('create', [TaskController::class, 'create'])->name('.create');
+                Route::post('create', [TaskController::class, 'store'])->name('.store');
+            });
         });
     });
 });

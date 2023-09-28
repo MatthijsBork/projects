@@ -65,7 +65,7 @@ class ProjectController extends Controller
                 $project->image_name = $imageName;
                 $project->save();
             }
-            return redirect()->route('dashboard.projects.roles', [$project->id]);
+            return redirect()->route('dashboard.projects.edit', [$project->id])->with('success', 'Project opgeslagen');
         } catch (\Exception $e) {
             return redirect()->route('dashboard.projects.create', ['project' => new Project()])
                 ->withInput()

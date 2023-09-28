@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-dashboard title="Projecten dashboard" route="/dashboard/projects">
+    <x-dashboard title="Projecten Dashboard" route="/dashboard/projects">
         <x-search action="{{ route('dashboard.projects.search') }}"></x-search>
         <table class="w-full text-left bg-white table-auto sm:rounded-lg">
             <thead class="bg-gray-50">

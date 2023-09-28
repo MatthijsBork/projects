@@ -21,7 +21,7 @@
             <x-dashboard-menu></x-dashboard-menu>
         </div>
         <div class="w-full md:w-3/4">
-            <div class="w-full text-right">
+            <div class="w-full">
                 <div class="p-6 overflow-x-auto bg-white shadow-sm sm:rounded-lg">
                     {{ $slot }}
                 </div>
