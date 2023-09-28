@@ -14,10 +14,12 @@
                     <tr class="border-b even:bg-gray-50">
                         <td class="max-w-[22vw] px-4 py-2 overflow-hidden">{{ $project->title }}</td>
                         <td class="px-4 py-2">
-                            <a href="projects/{{ $project->id }}/edit" class="text-blue-500 hover:underline">Bewerken</a>
+                            <a href="{{ route('dashboard.projects.edit', [$project->id]) }}"
+                                class="text-blue-500 hover:underline">Bewerken</a>
                         </td>
                         <td class="px-4 py-2">
-                            <a href="projects/{{ $project->id }}/delete" class="text-red-500 hover:underline">Verwijder</a>
+                            <a href="{{ route('dashboard.projects.delete', [$project->id]) }}"
+                                class="text-red-500 hover:underline">Verwijder</a>
                         </td>
                     </tr>
                 @endforeach
