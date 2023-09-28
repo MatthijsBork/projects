@@ -57,8 +57,8 @@ class ProjectController extends Controller
             $project->save();
 
             if ($request->hasFile('image')) {
-                if ($project->image) {
-                    Storage::delete('projects/' . $project->id . '/' . $project->image);
+                if ($project->image_name) {
+                    Storage::delete('projects/' . $project->id . '/' . $project->image_name);
                 }
                 $imageName = $project->id . '.' . $request->file('image')->extension();
                 $request->file('image')->storeAs('projects/' . $project->id, $imageName);
@@ -88,24 +88,20 @@ class ProjectController extends Controller
     public function update(ProjectStoreRequest $request, $id)
     {
         if ($project = Project::find($id)) {
-            if ($request->input('delete_image') == 1) {
-                Storage::delete('projects/' . $project->id . '/' . $project->image_name);
-                Storage::deleteDirectory('projects/' . $project->id);
-                $imagePath = '';
-            } elseif ($request->hasFile('image')) {
-                Storage::delete('projects/' . $project->id . '/' . $project->image_name);
-                Storage::deleteDirectory('projects/' . $project->id);
-                $p = 'public';
-                $path = $request->file('image')->store($p, 'public');
-                $imagePath = substr($path, strlen($p));
-            } else {
-                $imagePath = $project->image_name;
+            if ($request->hasFile('image')) {
+                if ($project->image_name) {
+                    Storage::delete('projects/' . $project->id . '/' . $project->image_name);
+                }
+                $imageName = $project->id . '.' . $request->file('image')->extension();
+                $request->file('image')->storeAs('projects/' . $project->id, $imageName);
+                $project->image_name = $imageName;
+                $project->save();
             }
             $project->update([
                 'title' => $request->input('title'),
                 'description' => $request->input('description'),
                 'start_date' => Carbon::parse($request->input('start_date')),
-                'image_name' => $imagePath,
+                'image_name' => $imageName ?? null,
             ]);
             return redirect()->route('dashboard.projects')->with('success', 'Project bijgewerkt');
         } else {

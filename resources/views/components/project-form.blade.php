@@ -27,7 +27,7 @@
                 <div class="text-red-500">{{ $message }}</div>
             @enderror
         </div>
-        @if (isset($project->image_name))
+        @if (isset($project->image_name) && $project->image_name !== '')
             <div class="mb-4">
                 <x-input-label for="current_image">Huidige Afbeelding</x-input-label>
                 <img id="current_image"
