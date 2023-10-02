@@ -7,6 +7,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProjectUserRoleController;
 use App\Http\Controllers\TaskStateController;
 
@@ -89,6 +90,15 @@ Route::middleware('auth')->group(function () {
             Route::get('{id}/edit', [TaskStateController::class, 'edit'])->name('.edit');
             Route::post('{id}/edit', [TaskStateController::class, 'update'])->name('.edit');
             Route::get('{id}/delete', [TaskStateController::class, 'delete'])->name('.delete');
+        });
+
+        Route::prefix('products')->name('products')->group(function () {
+            Route::get('', [ProductController::class, 'dashboard'])->name('');
+            Route::get('create', [ProductController::class, 'create'])->name('.create');
+            Route::post('store', [ProductController::class, 'store'])->name('.store');
+            Route::get('{id}/edit', [ProductController::class, 'edit'])->name('.edit');
+            Route::post('{id}/edit', [ProductController::class, 'update'])->name('.edit');
+            Route::get('{id}/delete', [ProductController::class, 'delete'])->name('.delete');
         });
     });
 });
