@@ -17,8 +17,9 @@
             <div class="w-full md:w-3/4">
                 <div class="overflow-x-auto bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
-                        <x-task-form action="{{ route('dashboard.projects.tasks.store', $projectid) }}"
-                            :states="$states" :users="$users" :task="$task = null"></x-project-form>
+                        <x-project-tab-menu :projectid="$project->id"></x-project-tab-menu>
+                        <x-task-form action="{{ route('dashboard.projects.tasks.store', $project->id) }}"
+                            :states="$states" :users="$project->users" :task="$task = null"></x-project-form>
                     </div>
                 </div>
             </div>

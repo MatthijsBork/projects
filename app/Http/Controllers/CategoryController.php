@@ -23,7 +23,7 @@ class CategoryController extends Controller
             ]);
             return redirect()->route('dashboard.categories')->with('success', 'Nieuwe categorie toegevoegd');
         } catch (\Exception $e) {
-            return redirect()->route('dashboard.categories.create', ['category' => new Category()])->withInput()->with('error', 'Er is iets mis gegaan bij het maken van een nieuw artikel');
+            return redirect()->route('dashboard.categories.create')->withInput()->with('error', 'Er is iets mis gegaan bij het maken van een nieuwe categorie');
         }
     }
 

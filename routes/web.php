@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProjectUserRoleController;
+use App\Http\Controllers\TaskStateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,6 +80,15 @@ Route::middleware('auth')->group(function () {
                 Route::get('create', [TaskController::class, 'create'])->name('.create');
                 Route::post('create', [TaskController::class, 'store'])->name('.store');
             });
+        });
+
+        Route::prefix('states')->name('states')->group(function () {
+            Route::get('', [TaskStateController::class, 'dashboard'])->name('');
+            Route::get('create', [TaskStateController::class, 'create'])->name('.create');
+            Route::post('store', [TaskStateController::class, 'store'])->name('.store');
+            Route::get('{id}/edit', [TaskStateController::class, 'edit'])->name('.edit');
+            Route::post('{id}/edit', [TaskStateController::class, 'update'])->name('.edit');
+            Route::get('{id}/delete', [TaskStateController::class, 'delete'])->name('.delete');
         });
     });
 });

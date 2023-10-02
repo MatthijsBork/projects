@@ -13,17 +13,15 @@ use App\Http\Requests\TaskStoreRequest;
 
 class TaskController extends Controller
 {
-
-    public function create($id)
+    public function create($project_id)
     {
         $states = TaskState::all();
-        $users = User::all();
-        $projectid = $id;
+        $project = Project::find($project_id);
 
-        return view('projects.tasks.create', compact('states', 'users', 'projectid'));
+        return view('projects.tasks.create', compact('states', 'project'));
     }
 
-    public function edit($id, $taskid)
+    public function edit($project_id, $taskid)
     {
         if ($task = Task::find($taskid)) {
             $states = TaskState::all();
@@ -44,18 +42,28 @@ class TaskController extends Controller
         return view('projects.tasks.dashboard', compact('tasks', 'projectid'));
     }
 
-    public function update(TaskStoreRequest $request, $id)
+    public function update(TaskStoreRequest $request, $project_id, $taskid)
     {
-        if ($task = Task::find($id)) {
+        if (($task = Task::find($taskid)) && $user_task = UserTask::where('task_id', '=', $taskid)) {
             $task->update([
                 'title' => $request->input('title'),
                 'description' => $request->input('description'),
                 'deadline' => Carbon::parse($request->input('start_date')),
                 'state' => $request->input('state'),
             ]);
-            return redirect()->route('dashboard.projects.tasks')->with('success', 'Taak bijgewerkt');
+
+            $selectedUsers = $request->input('selected_users');
+
+            foreach ($selectedUsers as $userId) {
+                $user_task->update([
+                    'user_id' => $userId,
+                    'task_id' => $task->id,
+                ]);
+            }
+
+            return redirect()->route('dashboard.projects.tasks', [$project_id])->with('success', 'Taak bijgewerkt');
         } else {
-            return redirect()->route('dashboard.projects.tasks')->with('error', 'Taak kon niet worden bewerkt (niet gevonden)');
+            return redirect()->route('dashboard.projects.tasks', [$project_id])->with('error', 'Taak kon niet worden bewerkt (niet gevonden)');
         }
     }
 
@@ -78,6 +86,7 @@ class TaskController extends Controller
                     'task_id' => $task->id,
                 ]);
             }
+
             return redirect()->route('dashboard.projects.tasks', [$project_id])->with('success', 'Taak opgeslagen');
         } catch (\Exception $e) {
             return redirect()->route('dashboard.projects.tasks.create', [$project_id])

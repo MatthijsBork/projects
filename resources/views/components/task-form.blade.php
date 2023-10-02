@@ -37,13 +37,11 @@
             @enderror
         </div>
         <div class="mb-4">
-            <x-input-label>Gebruikers toevoegen</x-input-label>
             @foreach ($users as $user)
-                <label>
-                    <input type="checkbox" name="selected_users[]" value="{{ $user->id }}"
-                        {{ isset($task) && $task->users->contains($user->id) ? 'checked' : '' }}>
-                    {{ $user->name }}
-                </label><br>
+                <x-input-label for="users">Gebruikers toevoegen</x-input-label>
+                <input id="users" type="checkbox" name="selected_users[]" value="{{ $user->id }}"
+                    {{ isset($task) && $task->users->contains($user->id) ? 'checked' : '' }}>
+                {{ $user->name }}
             @endforeach
         </div>
     </div>
