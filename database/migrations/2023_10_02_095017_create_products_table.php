@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('price');
             $table->integer('stock');
             $table->integer('vat');
-            $table->string('image_name');
+            $table->string('image_name')->nullable();
             $table->timestamps();
         });
     }

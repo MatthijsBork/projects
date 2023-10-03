@@ -22,6 +22,10 @@
                 class="block px-4 py-2 transition bg-white rounded-md hover:bg-gray-300 hover:text-blue-600">Producten</a>
         </li>
         <li class="mb-2">
+            <a href="{{ route('dashboard.properties') }}"
+                class="block px-4 py-2 transition bg-white rounded-md hover:bg-gray-300 hover:text-blue-600">Producteigenschappen</a>
+        </li>
+        <li class="mb-2">
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
 

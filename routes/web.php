@@ -4,12 +4,13 @@ use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProjectUserRoleController;
+use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\TaskStateController;
+use App\Http\Controllers\ProjectUserRoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -96,9 +97,20 @@ Route::middleware('auth')->group(function () {
             Route::get('', [ProductController::class, 'dashboard'])->name('');
             Route::get('create', [ProductController::class, 'create'])->name('.create');
             Route::post('store', [ProductController::class, 'store'])->name('.store');
+            Route::get('search', [ProductController::class, 'search'])->name('.search');
             Route::get('{id}/edit', [ProductController::class, 'edit'])->name('.edit');
             Route::post('{id}/edit', [ProductController::class, 'update'])->name('.edit');
             Route::get('{id}/delete', [ProductController::class, 'delete'])->name('.delete');
+        });
+
+        Route::prefix('properties')->name('properties')->group(function () {
+            Route::get('', [PropertyController::class, 'dashboard'])->name('');
+            Route::get('create', [PropertyController::class, 'create'])->name('.create');
+            Route::post('store', [PropertyController::class, 'store'])->name('.store');
+            Route::get('search', [PropertyController::class, 'search'])->name('.search');
+            Route::get('{id}/edit', [PropertyController::class, 'edit'])->name('.edit');
+            Route::post('{id}/edit', [PropertyController::class, 'update'])->name('.edit');
+            Route::get('{id}/delete', [PropertyController::class, 'delete'])->name('.delete');
         });
     });
 });
