@@ -37,7 +37,7 @@
             @enderror
         </div>
         <div class="mb-4">
-            @foreach ($users as $user)
+            @foreach ($task::getAllUsers() as $user)
                 <x-input-label for="users">Gebruikers toevoegen</x-input-label>
                 <input id="users" type="checkbox" name="selected_users[]" value="{{ $user->id }}"
                     {{ isset($task) && $task->users->contains($user->id) ? 'checked' : '' }}>
@@ -47,7 +47,7 @@
     </div>
 
     <div class="text-right">
-        <button
+        <button type="button" onclick="history.back()"
             class="px-4 py-2 mt-3 text-red-700 bg-transparent border-red-500 rounded-lg hover:bg-red-500 hover:text-white hover:border-transparent">
             Annuleren
         </button>

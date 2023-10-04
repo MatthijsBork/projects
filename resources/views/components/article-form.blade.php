@@ -39,7 +39,7 @@
         <select name="category_id" id="category_id"
             class="px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-400 focus:border-blue-400">
             <option disabled selected>Kies een categorie</option>
-            @foreach ($categories as $category)
+            @foreach ($article::getAllCategories() as $category)
                 @if (($article->category_id ?? null) == $category->id || old('category_id') == $category->id)
                     <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
                 @else
@@ -71,7 +71,7 @@
         @enderror
     </div>
     <div class="text-right">
-        <button
+        <button type="button" onclick="history.back()"
             class="px-4 py-2 text-red-700 bg-transparent border border-red-500 rounded-lg hover:bg-red-500 hover:text-white hover:border-transparent">
             Annuleren
         </button>

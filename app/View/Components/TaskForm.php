@@ -13,8 +13,6 @@ class TaskForm extends Component
      */
     public function __construct(
         public $action,
-        public $states,
-        public $users,
         public $task,
     ) {
     }

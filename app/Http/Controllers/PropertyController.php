@@ -17,14 +17,10 @@ class PropertyController extends Controller
 
     public function store(PropertyStoreRequest $request)
     {
-        try {
-            Property::create([
-                'name' => $request->input('name')
-            ]);
-            return redirect()->route('dashboard.properties')->with('success', 'Nieuwe eigenschap toegevoegd');
-        } catch (\Exception $e) {
-            return redirect()->route('dashboard.properties.create')->withInput()->with('error', 'Er is iets mis gegaan bij het maken van een nieuwe eigenschap');
-        }
+        Property::create([
+            'name' => $request->input('name')
+        ]);
+        return redirect()->route('dashboard.properties')->with('success', 'Nieuwe eigenschap toegevoegd');
     }
 
     public function dashboard()

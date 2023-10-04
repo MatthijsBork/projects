@@ -13,22 +13,17 @@ use App\Http\Requests\TaskStoreRequest;
 
 class TaskController extends Controller
 {
-    public function create($project_id)
+    public function create($project_id, Task $task)
     {
-        $states = TaskState::all();
         $project = Project::find($project_id);
 
-        return view('projects.tasks.create', compact('states', 'project'));
+        return view('projects.tasks.create', compact('task', 'project'));
     }
 
     public function edit($project_id, $taskid)
     {
         if ($task = Task::find($taskid)) {
-            $states = TaskState::all();
-            $users = User::all();
-            $task = Task::find($taskid);
-
-            return view('projects.tasks.edit', compact('states', 'users', 'task'));
+            return view('projects.tasks.edit', compact('task'));
         } else {
             return redirect()->route('dashboard.projects.tasks', [$task->project->id])->with('error', 'Taak kon niet worden gevonden');
         }
@@ -67,15 +62,16 @@ class TaskController extends Controller
         }
     }
 
-    public function store(TaskStoreRequest $request, $project_id)
+    public function store(TaskStoreRequest $request, $project_id, Task $task)
     {
         try {
-            $task = new Task();
-            $task->title = $request->input('title');
-            $task->description = $request->input('description');
-            $task->deadline = Carbon::parse($request->input('deadline'));
-            $task->state = $request->input('state');
-            $task->project_id = $project_id;
+            $task->fill(([
+                'title' => $request->input('title'),
+                'description' => $request->input('description'),
+                'state' => $request->input('state'),
+                'deadline' => Carbon::parse($request->input('deadline')),
+                'project_id' => $project_id
+            ]));
             $task->save();
 
             $selectedUsers = $request->input('selected_users');

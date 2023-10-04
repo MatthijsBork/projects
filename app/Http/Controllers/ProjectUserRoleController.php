@@ -5,18 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Project;
-use Illuminate\Http\Request;
 use App\Models\ProjectUserRole;
+use App\Http\Requests\ProjectUserRoleRequest;
 
 class ProjectUserRoleController extends Controller
 {
 
-    public static function store(Request $request, $project_id)
+    public static function store(ProjectUserRoleRequest $request, $project_id, ProjectUserRole $project_user_role)
     {
-        $project_user_role = new ProjectUserRole();
-        $project_user_role->project_id = $project_id;
-        $project_user_role->user_id = $request->input('user');
-        $project_user_role->role_id = $request->input('role');
+        $project_user_role->fill(([
+            'project_id' => $project_id,
+            'user_id' => $request->input('user'),
+            'role_id' => $request->input('role'),
+        ]));
         $project_user_role->save();
 
         return redirect()->route('dashboard.projects.roles', [$project_id])->with('success', 'Bijgewerkt');

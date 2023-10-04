@@ -13,40 +13,32 @@ class ArticleController extends Controller
 {
     public function create()
     {
-        $categories = Category::all();
-
-        return view('articles.create', compact('categories'));
+        $article = new Article;
+        return view('articles.create', compact('article'));
     }
 
-    public function store(ArticleStoreRequest $request)
+    public function store(ArticleStoreRequest $request, Article $article)
     {
-        try {
-            $article = new Article();
-            $article->title = $request->input('title');
-            $article->intro = $request->input('intro');
-            $article->content = $request->input('content');
-            $article->publication_date = Carbon::parse($request->input('publication_date'));
-            $article->category_id = $request->input('category_id');
+        $article->fill(([
+            'title' => $request->input('title'),
+            'intro' => $request->input('intro'),
+            'content' => $request->input('content'),
+            'content' => Carbon::parse($request->input('publication_date')),
+            'category_id' => $request->input('category_id'),
+        ]));
+        $article->save();
 
-            $article->save();
-
-            if ($request->hasFile('image')) {
-                if ($article->image) {
-                    Storage::delete('articles/' . $article->id . '/' . $article->image);
-                }
-                $imageName = $article->id . '.' . $request->file('image')->extension();
-                $request->file('image')->storeAs('articles/' . $article->id, $imageName);
-                $article->image_name = $imageName;
-                $article->save();
+        if ($request->hasFile('image')) {
+            if ($article->image) {
+                Storage::delete('articles/' . $article->id . '/' . $article->image);
             }
-
-
-            return redirect()->route('dashboard.articles')->with('success', 'Nieuw artikel toegevoegd');
-        } catch (\Exception $e) {
-            return redirect()->route('dashboard.articles.create', ['article' => new Article()])
-                ->withInput()
-                ->with('error', 'Er is iets misgegaan');
+            $imageName = $article->id . '.' . $request->file('image')->extension();
+            $request->file('image')->storeAs('articles/' . $article->id, $imageName);
+            $article->image_name = $imageName;
+            $article->save();
         }
+
+        return redirect()->route('dashboard.articles')->with('success', 'Nieuw artikel toegevoegd');
     }
 
     public function show($id)

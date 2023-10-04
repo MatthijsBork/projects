@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\TaskState;
-use Illuminate\Http\Request;
 use App\Http\Requests\TaskStateStoreRequest;
 
 class TaskStateController extends Controller
@@ -20,16 +19,15 @@ class TaskStateController extends Controller
         return view('states.dashboard', compact('states'));
     }
 
-    public function store(TaskStateStoreRequest $request)
+    public function store(TaskStateStoreRequest $request, TaskState $task_state)
     {
-        try {
-            TaskState::create([
-                'name' => $request->input('name')
-            ]);
-            return redirect()->route('dashboard.states')->with('success', 'Nieuwe status toegevoegd');
-        } catch (\Exception $e) {
-            return redirect()->route('dashboard.states.create')->withInput()->with('error', 'Er is iets mis gegaan bij het maken van een nieuwe status');
-        }
+        $task_state->fill(([
+            'name' => $request->input('name')
+
+        ]));
+        $task_state->save();
+
+        return redirect()->route('dashboard.states')->with('success', 'Nieuwe status toegevoegd');
     }
 
     public function edit($id)
@@ -64,5 +62,4 @@ class TaskStateController extends Controller
             return redirect()->route('dashboard.projects.tasks', [$id])->with('error', 'Taak kon niet worden bewerkt (niet gevonden)');
         }
     }
-
 }

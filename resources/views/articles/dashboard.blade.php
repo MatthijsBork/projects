@@ -33,7 +33,7 @@
             </tbody>
         </table>
         <div class="my-4">
-            {{-- {{ $articles->links() }} --}}
+            {{ $articles->links() }}
         </div>
     </x-dashboard>
 </x-app-layout>

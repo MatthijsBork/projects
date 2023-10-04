@@ -46,31 +46,25 @@ class ProjectController extends Controller
         return view('projects.dashboard', compact('projects'));
     }
 
-    public function store(ProjectStoreRequest $request)
+    public function store(ProjectStoreRequest $request, Project $project)
     {
-        try {
-            $project = new Project();
-            $project->title = $request->input('title');
-            $project->description = $request->input('description');
-            $project->start_date = Carbon::parse($request->input('start_date'));
+        $project->fill(([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'start_date' => Carbon::parse($request->input('start_date')),
+        ]));
+        $project->save();
 
-            $project->save();
-
-            if ($request->hasFile('image')) {
-                if ($project->image_name) {
-                    Storage::delete('projects/' . $project->id . '/' . $project->image_name);
-                }
-                $imageName = $project->id . '.' . $request->file('image')->extension();
-                $request->file('image')->storeAs('projects/' . $project->id, $imageName);
-                $project->image_name = $imageName;
-                $project->save();
+        if ($request->hasFile('image')) {
+            if ($project->image_name) {
+                Storage::delete('projects/' . $project->id . '/' . $project->image_name);
             }
-            return redirect()->route('dashboard.projects.edit', [$project->id])->with('success', 'Project opgeslagen');
-        } catch (\Exception $e) {
-            return redirect()->route('dashboard.projects.create', ['project' => new Project()])
-                ->withInput()
-                ->with('error', 'Er is iets misgegaan' . $e);
+            $imageName = $project->id . '.' . $request->file('image')->extension();
+            $request->file('image')->storeAs('projects/' . $project->id, $imageName);
+            $project->image_name = $imageName;
+            $project->save();
         }
+        return redirect()->route('dashboard.projects.edit', [$project->id])->with('success', 'Project opgeslagen');
     }
 
     public function delete($id)

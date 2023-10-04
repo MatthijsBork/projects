@@ -17,8 +17,9 @@
             <div class="w-full md:w-3/4">
                 <div class="overflow-x-auto bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
-                        <x-task-form action="{{ route('dashboard.projects.tasks.update', [$task->project->id, $task->id]) }}"
-                            :states="$states" :users="$users" :task="$task"></x-project-form>
+                        <x-task-form
+                            action="{{ route('dashboard.projects.tasks.update', [$task->project->id, $task->id]) }}"
+                            :task="$task"></x-project-form>
                     </div>
                 </div>
             </div>

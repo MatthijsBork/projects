@@ -15,16 +15,14 @@ class CategoryController extends Controller
         return view('categories.create', compact('categories'));
     }
 
-    public function store(CategoryStoreRequest $request)
+    public function store(CategoryStoreRequest $request, Category $category)
     {
-        try {
-            Category::create([
-                'name' => $request->input('name')
-            ]);
-            return redirect()->route('dashboard.categories')->with('success', 'Nieuwe categorie toegevoegd');
-        } catch (\Exception $e) {
-            return redirect()->route('dashboard.categories.create')->withInput()->with('error', 'Er is iets mis gegaan bij het maken van een nieuwe categorie');
-        }
+        $category->fill(([
+            'name' => $request->input('name')
+        ]));
+        $category->save();
+
+        return redirect()->route('dashboard.categories')->with('success', 'Nieuwe categorie toegevoegd');
     }
 
     public function dashboard()

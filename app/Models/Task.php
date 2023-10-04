@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Task extends Model
 {
@@ -26,4 +26,13 @@ class Task extends Model
         return $this->belongsToMany(User::class, 'user_tasks');
     }
 
+    public static function getAllUsers()
+    {
+        return User::all();
+    }
+
+    public static function getAllStates()
+    {
+        return TaskState::all();
+    }
 }

@@ -19,7 +19,7 @@
                     <div class="p-6 text-gray-900">
                         <x-project-tab-menu :projectid="$project->id"></x-project-tab-menu>
                         <x-task-form action="{{ route('dashboard.projects.tasks.store', $project->id) }}"
-                            :states="$states" :users="$project->users" :task="$task = null"></x-project-form>
+                            :task="$task"></x-project-form>
                     </div>
                 </div>
             </div>
