@@ -43,7 +43,7 @@ class TaskController extends Controller
             $task->update([
                 'title' => $request->input('title'),
                 'description' => $request->input('description'),
-                'deadline' => Carbon::parse($request->input('start_date')),
+                'deadline' => Carbon::parse($request->input('deadline')),
                 'state' => $request->input('state'),
             ]);
 

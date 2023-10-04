@@ -30,7 +30,7 @@
             value="{{ isset($article) ? date('Y-m-d', strtotime($article->publication_date)) : old('publication_date') }}"
             class="px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-400 focus:border-blue-400">
         @error('publication_date')
-            {{ isset($article) ? date('Y-m-d', strtotime($article->publication_date)) : old('publication_date') }}
+            {{ isset($article->publication_date) ? date('Y-m-d', strtotime($article->publication_date)) : old('publication_date') }}
             <div class="text-red-500">{{ $message }}</div>
         @enderror
     </div>
@@ -72,7 +72,7 @@
     </div>
     <div class="text-right">
         <button type="button" onclick="history.back()"
-            class="px-4 py-2 text-red-700 bg-transparent border border-red-500 rounded-lg hover:bg-red-500 hover:text-white hover:border-transparent">
+            class="px-4 py-2 text-red-700 bg-transparent border rounded-lg hover:bg-red-500 hover:text-white hover:border-transparent">
             Annuleren
         </button>
         <button type="submit" class="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">Opslaan</button>

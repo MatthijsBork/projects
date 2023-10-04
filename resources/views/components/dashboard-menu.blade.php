@@ -2,28 +2,22 @@
     <h2 class="mb-4 text-lg font-semibold">Menu</h2>
     <ul>
         <li class="mb-2">
-            <a href="{{ route('dashboard.articles') }}"
-                class="block px-4 py-2 transition rounded-md hover:bg-gray-300 hover:text-blue-600">Artikelen</a>
+            <x-button-link href="{{ route('dashboard.articles') }}" :active="request()->routeIs('dashboard.articles*')">Artikelen</x-button-link>
         </li>
         <li class="mb-2">
-            <a href="{{ route('dashboard.categories') }}"
-                class="block px-4 py-2 transition bg-white rounded-md hover:bg-gray-300 hover:text-blue-600">Categorieën</a>
+            <x-button-link href="{{ route('dashboard.categories') }}" :active="request()->routeIs('dashboard.categories*')">Categorieën</x-button-link>
         </li>
         <li class="mb-2">
-            <a href="{{ route('dashboard.projects') }}"
-                class="block px-4 py-2 transition bg-white rounded-md hover:bg-gray-300 hover:text-blue-600">Projecten</a>
+            <x-button-link href="{{ route('dashboard.projects') }}" :active="request()->routeIs('dashboard.projects*')">Projecten</x-button-link>
         </li>
         <li class="mb-2">
-            <a href="{{ route('dashboard.states') }}"
-                class="block px-4 py-2 transition bg-white rounded-md hover:bg-gray-300 hover:text-blue-600">Taak-statussen</a>
+            <x-button-link href="{{ route('dashboard.states') }}" :active="request()->routeIs('dashboard.states*')">Taak statussen</x-button-link>
         </li>
         <li class="mb-2">
-            <a href="{{ route('dashboard.products') }}"
-                class="block px-4 py-2 transition bg-white rounded-md hover:bg-gray-300 hover:text-blue-600">Producten</a>
+            <x-button-link href="{{ route('dashboard.products') }}" :active="request()->routeIs('dashboard.products*')">Producten</x-button-link>
         </li>
         <li class="mb-2">
-            <a href="{{ route('dashboard.properties') }}"
-                class="block px-4 py-2 transition bg-white rounded-md hover:bg-gray-300 hover:text-blue-600">Producteigenschappen</a>
+            <x-button-link href="{{ route('dashboard.properties') }}" :active="request()->routeIs('dashboard.properties*')">Producteigenschappen</x-button-link>
         </li>
         <li class="mb-2">
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="container py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="flex justify-between items-center min-h-[10vh]">
-            <h1 class="text-2xl font-bold">Nieuwe categorie</h1>
+            <h1 class="text-2xl font-bold">Nieuwe eigenschap</h1>
         </div>
         @if (session('error'))
             <div class="relative px-4 py-3 my-3 text-red-700 bg-red-100 border border-red-400 rounded" role="alert">
@@ -27,6 +27,10 @@
                                 <div class="text-red-500">{{ $message }}</div>
                             @enderror
                             <div class="text-right">
+                                <button type="button" onclick="history.back()"
+                                    class="px-4 py-2 mt-3 text-red-700 bg-transparent rounded-lg hover:bg-red-500 hover:text-white hover:border-transparent">
+                                    Annuleren
+                                </button>
                                 <button type="submit"
                                     class="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">Opslaan</button>
                             </div>

@@ -23,7 +23,7 @@ class ArticleController extends Controller
             'title' => $request->input('title'),
             'intro' => $request->input('intro'),
             'content' => $request->input('content'),
-            'content' => Carbon::parse($request->input('publication_date')),
+            'publication_date' => Carbon::parse($request->input('publication_date')),
             'category_id' => $request->input('category_id'),
         ]));
         $article->save();

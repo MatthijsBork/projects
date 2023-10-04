@@ -2,7 +2,7 @@
     <div class="flex justify-between items-center min-h-[10vh]">
         <h1 class="text-2xl font-semibold">{{ $title }}</h1>
         <a href="{{ $route . '/create' }}"
-            class="p-4 font-bold text-white transition bg-blue-500 rounded hover:bg-blue-700">
+            class="p-4 font-bold text-white transition bg-blue-700 rounded hover:bg-blue-800">
             Nieuw
         </a>
     </div>

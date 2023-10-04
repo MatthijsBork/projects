@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="container py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="flex justify-between items-center min-h-[10vh]">
-            <h1 class="text-2xl font-bold">Nieuwe categorie</h1>
+            <h1 class="text-2xl font-bold">Categorie bewerken</h1>
         </div>
         @if (session('error'))
             <div class="relative px-4 py-3 my-3 text-red-700 bg-red-100 border border-red-400 rounded" role="alert">

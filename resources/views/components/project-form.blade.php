@@ -21,7 +21,7 @@
         <div class="mb-4">
             <x-input-label for="start_date">Startdatum</x-input-label>
             <input type="date" id="start_date" name="start_date"
-                value="{{ isset($project) ? date('Y-m-d', strtotime($project->start_date)) : old('start_date') }}"
+                value="{{ isset($project->start_date) ? date('Y-m-d', strtotime($project->start_date)) : old('start_date') }}"
                 class="px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-400 focus:border-blue-400">
             @error('start_date')
                 <div class="text-red-500">{{ $message }}</div>
