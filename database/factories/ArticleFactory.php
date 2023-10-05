@@ -18,7 +18,7 @@ class ArticleFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(),
-            'introduction' => $this->faker->paragraph(),
+            'intro' => $this->faker->paragraph(),
             'content' => $this->faker->text(),
             'publication_date' => now(),
         ];

@@ -10,22 +10,20 @@
                 </tr>
             </thead>
             <tbody>
-                 @foreach ($properties as $property)
-        <tr class="border-b even:bg-gray-50">
-            <td class="px-4 py-2">{{ $property->name }}
-            </td>
-            </td>
-            <td class="px-4 py-2">
-                <a href="{{ route('dashboard.properties.edit', [$property->id]) }}"
-                    class="text-blue-500 hover:underline">Bewerken</a>
-            </td>
-            <td class="px-4 py-2">
-                <a href="{{ route('dashboard.properties.delete', [$property->id]) }}"
-                    class="text-red-500 hover:underline">Verwijder</a>
-            </td>
-        </tr>
-        @endforeach
-        </tbody>
+                @foreach ($properties as $property)
+                    <tr class="border-b even:bg-gray-50">
+                        <td class="px-4 py-2">{{ $property->name }}</td>
+                        <td class="py-2 text-right max-w-[3vh] overflow-hidden">
+                            <a href="{{ route('dashboard.properties.edit', [$property->id]) }}"
+                                class="text-blue-500 hover:underline">Bewerken</a>
+                        </td>
+                        <td class="py-2 text-right max-w-[3vh] overflow-hidden">
+                            <a href="{{ route('dashboard.properties.delete', [$property->id]) }}"
+                                class="text-red-500 hover:underline">Verwijder</a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
         </table>
         <div class="my-4">
             {{ $properties->links() }}

@@ -23,7 +23,6 @@ class TaskStateController extends Controller
     {
         $task_state->fill(([
             'name' => $request->input('name')
-
         ]));
         $task_state->save();
 

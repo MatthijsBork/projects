@@ -12,9 +12,10 @@
         </div>
         <div class="mb-4">
             <x-input-label for="description">Beschrijving</x-input-label>
-            <input type="text" id="description" name="description"
-                value="{{ $product->description ?? old('description') }}"
+            <textarea type="text" id="description" name="description"
                 class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+                {{ $product->description ?? old('description') }}
+            </textarea>
             @error('description')
                 <div class="text-red-500">{{ $message }}</div>
             @enderror
@@ -76,14 +77,12 @@
             @enderror
         </div>
     </div>
-
-
     <div class="text-right">
         <x-cancel-button>Annuleren</x-cancel-button>
         <x-submit-button>Opslaan</x-submit-button>
     </div>
 </form>
-{{-- <script defer>
+<script defer>
     window.addEventListener('load', () => {
         for (const name of ['description']) {
             ClassicEditor.create(document.getElementById(name), {})
@@ -92,4 +91,4 @@
                 });
         }
     });
-</script> --}}
+</script>

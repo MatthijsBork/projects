@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\ProductProperty;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ProductStoreRequest;
-use App\Models\ProductProperty;
 
 class ProductController extends Controller
 {
@@ -110,12 +110,25 @@ class ProductController extends Controller
             ]);
 
             $properties = $request->input('properties');
+
+
             foreach ($properties as $propertyId => $value) {
-                ProductProperty::create([
-                    'property_id' => $propertyId,
-                    'product_id' => $product->id,
-                    'value' => $value,
-                ]);
+                $property = $product->properties->first(function ($property) use ($propertyId) {
+                    return $property->property_id === $propertyId;
+                });
+
+                if ($property) {
+                    $value == null ? $property->delete() :
+                        $property->update([
+                            'value' => $value,
+                        ]);
+                } elseif ($value) {
+                    ProductProperty::create([
+                        'property_id' => $propertyId,
+                        'product_id' => $product->id,
+                        'value' => $value,
+                    ]);
+                }
             }
 
             return redirect()->route('dashboard.products')->with('success', 'Product bijgewerkt');
