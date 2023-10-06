@@ -55,7 +55,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if (isset($userroles))
+                                {{-- @dd($userroles) --}}
+                                @if ($userroles)
                                     @foreach ($userroles as $userrole)
                                         <tr class="border-b even:bg-gray-50">
                                             <td class="max-w-[22vw] px-4 py-2 overflow-hidden">
@@ -73,6 +74,8 @@
                                         </tr>
                                     @endforeach
                             </tbody>
+                        @else
+                            <p>Er zijn nog geen gebruikers toegevoegd</p>
                             @endif
                         </table>
                     </div>

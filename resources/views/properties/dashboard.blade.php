@@ -4,20 +4,16 @@
         <table class="w-full text-left bg-white table-auto sm:rounded-lg">
             <thead class="bg-gray-50">
                 <tr>
-                    <th class="px-4 py-2">Naam</th>
-                    <th class="px-4 py-2"></th>
-                    <th class="px-4 py-2"></th>
+                    <th class="px-4 py-3">Naam</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($properties as $property)
                     <tr class="border-b even:bg-gray-50">
-                        <td class="px-4 py-2">{{ $property->name }}</td>
-                        <td class="py-2 text-right max-w-[3vh] overflow-hidden">
+                        <td class="px-4 py-3">{{ $property->name }}</td>
+                        <td class="text-right max-w-[3vh] overflow-hidden">
                             <a href="{{ route('dashboard.properties.edit', [$property->id]) }}"
                                 class="text-blue-500 hover:underline">Bewerken</a>
-                        </td>
-                        <td class="py-2 text-right max-w-[3vh] overflow-hidden">
                             <a href="{{ route('dashboard.properties.delete', [$property->id]) }}"
                                 class="text-red-500 hover:underline">Verwijder</a>
                         </td>
@@ -27,6 +23,5 @@
         </table>
         <div class="my-4">
             {{ $properties->links() }}
-        </div>
-    </x-dashboard>
+        </div </x-dashboard>
 </x-app-layout>

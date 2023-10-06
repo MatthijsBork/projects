@@ -4,11 +4,9 @@
         <table class="w-full text-left bg-white table-auto sm:rounded-lg">
             <thead class="bg-gray-50">
                 <tr>
-                    <th class="px-4 py-2">Datum</th>
-                    <th class="px-4 py-2">Categorie</th>
-                    <th class="px-4 py-2">Titel</th>
-                    <th class="px-4 py-2"></th>
-                    <th class="px-4 py-2"></th>
+                    <th class="px-4 py-3">Datum</th>
+                    <th class="px-4 py-3">Categorie</th>
+                    <th class="px-4 py-3">Titel</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,15 +15,13 @@
                         <td class="px-4 py-2">
                             {{ date('j F Y', strtotime($article->publication_date)) }}
                         </td>
-                        <td class="px-4 py-2">{{ $article->category->name }}
+                        <td class="px-4 py-3">{{ $article->category->name }}
                         </td>
-                        <td class="max-w-[22vw] px-4 py-2 overflow-hidden">{{ $article->title }}</td>
-                        <td class="px-4 py-2">
-                            <a href="articles/{{ $article->id }}/edit"
+                        <td class="max-w-[22vw] px-4 py-3 overflow-hidden">{{ $article->title }}</td>
+                        <td class="overflow-hidden text-right">
+                            <a href="{{ route('dashboard.articles.edit', [$article->id]) }}"
                                 class="text-blue-500 hover:underline">Bewerken</a>
-                        </td>
-                        <td class="px-4 py-2">
-                            <a href="articles/{{ $article->id }}/delete"
+                            <a href="{{ route('dashboard.articles.delete', [$article->id]) }}"
                                 class="text-red-500 hover:underline">Verwijder</a>
                         </td>
                     </tr>

@@ -8,21 +8,20 @@
                     <th class="px-4 py-2">Titel</th>
                     <th class="px-4 py-2">Deadline</th>
                     <th class="px-4 py-2">Staat</th>
-                    <th class="px-4 py-2"></th>
-                    <th class="px-4 py-2"></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($tasks as $task)
                     <tr class="border-b even:bg-gray-50">
-                        <td class="max-w-[22vw] px-4 py-2 overflow-hidden">{{ $task->title }}</td>
-                        <td class="max-w-[22vw] px-4 py-2 overflow-hidden">{{ date('j F Y', strtotime($task->deadline)) }}</td>
-                        <td class="max-w-[22vw] px-4 py-2 overflow-hidden">{{ $task->state == 1 ? 'Klaar' : 'Bezig' }}</td>
-                        <td class="px-4 py-2">
-                            <a href="tasks/{{ $task->id }}/edit" class="text-blue-500 hover:underline">Bewerken</a>
+                        <td class="max-w-[22vw] px-4 py-3 overflow-hidden">{{ $task->title }}</td>
+                        <td class="max-w-[22vw] px-4 py-3 overflow-hidden">
+                            {{ date('j F Y', strtotime($task->deadline)) }}</td>
+                        <td class="max-w-[22vw] px-4 py-3 overflow-hidden">{{ $task->state == 1 ? 'Klaar' : 'Bezig' }}
                         </td>
-                        <td class="px-4 py-2">
-                            <a href="tasks/{{ $task->id }}/delete" class="text-red-500 hover:underline">Verwijder</a>
+                        <td class="overflow-hidden text-right">
+                            <a href="tasks/{{ $task->id }}/edit" class="text-blue-500 hover:underline">Bewerken</a>
+                            <a href="tasks/{{ $task->id }}/delete"
+                                class="text-red-500 hover:underline">Verwijder</a>
                         </td>
                     </tr>
                 @endforeach

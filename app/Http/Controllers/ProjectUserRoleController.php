@@ -10,7 +10,6 @@ use App\Http\Requests\ProjectUserRoleRequest;
 
 class ProjectUserRoleController extends Controller
 {
-
     public static function store(ProjectUserRoleRequest $request, $project_id, ProjectUserRole $project_user_role)
     {
         $project_user_role->fill(([
