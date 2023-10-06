@@ -1,6 +1,6 @@
 <x-app-layout>
-    <x-dashboard title="Categorieën dashboard" route="/dashboard/categories">
-        <x-search action="{{ route('dashboard.categories.search') }}"></x-search>
+    <x-dashboard title="Rollen dashboard" route="/dashboard/roles">
+        <x-search action="{{ route('dashboard.roles.search') }}"></x-search>
         <table class="w-full text-left bg-white table-auto sm:rounded-lg">
             <thead class="bg-gray-50">
                 <tr>
@@ -8,23 +8,22 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($categories as $category)
+                @foreach ($roles as $role)
                     <tr class="border-b even:bg-gray-50">
-                        <td class="px-4 py-3">{{ $category->name }}
+                        <td class="px-4 py-3">{{ $role->name }}
                         </td>
                         <td class="overflow-hidden text-right">
-                            <a href="{{ route('dashboard.categories.edit', [$category->id]) }}"
+                            <a href="{{ route('dashboard.roles.edit', [$role->id]) }}"
                                 class="text-blue-500 hover:underline">Bewerken</a>
-                            <a href="{{ route('dashboard.categories.delete', [$category->id]) }}"
-                                class="text-red-500 hover:underline"
-                                onclick="return confirm('Weet u zeker dat u dit wilt verwijderen?');">Verwijder</a>
+                            <a href="{{ route('dashboard.roles.delete', [$role->id]) }}"
+                                class="text-red-500 hover:underline">Verwijder</a>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
         <div class="my-4">
-            {{ $categories->links() }}
+            {{ $roles->links() }}
         </div>
     </x-dashboard>
 </x-app-layout>

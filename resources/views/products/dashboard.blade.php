@@ -19,7 +19,8 @@
                             <a href="{{ route('dashboard.products.edit', [$product->id]) }}"
                                 class="text-blue-500 hover:underline">Bewerken</a>
                             <a href="{{ route('dashboard.products.delete', [$product->id]) }}"
-                                class="text-red-500 hover:underline">Verwijder</a>
+                                class="text-red-500 hover:underline"
+                                onclick="return confirm('Weet u zeker dat u dit wilt verwijderen?');">Verwijder</a>
                         </td>
                     </tr>
                 @endforeach

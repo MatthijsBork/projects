@@ -20,8 +20,8 @@
                         </td>
                         <td class="overflow-hidden text-right">
                             <a href="tasks/{{ $task->id }}/edit" class="text-blue-500 hover:underline">Bewerken</a>
-                            <a href="tasks/{{ $task->id }}/delete"
-                                class="text-red-500 hover:underline">Verwijder</a>
+                            <a href="tasks/{{ $task->id }}/delete" class="text-red-500 hover:underline"
+                                onclick="return confirm('Weet u zeker dat u dit wilt verwijderen?');">Verwijder</a>
                         </td>
                     </tr>
                 @endforeach

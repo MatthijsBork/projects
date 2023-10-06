@@ -11,6 +11,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\TaskStateController;
 use App\Http\Controllers\ProjectUserRoleController;
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,16 @@ Route::middleware('auth')->group(function () {
             Route::get('{id}/delete', [CategoryController::class, 'delete'])->name('.delete');
             Route::get('', [CategoryController::class, 'dashboard'])->name('');
             Route::get('search', [CategoryController::class, 'search'])->name('.search');
+        });
+
+        Route::prefix('roles')->name('roles')->group(function () {
+            Route::get('create', [RoleController::class, 'create'])->name('.create');
+            Route::get('{id}/edit', [RoleController::class, 'edit'])->name('.edit');
+            Route::post('{id}/edit', [RoleController::class, 'update'])->name('.update');
+            Route::post('create', [RoleController::class, 'store'])->name('.store');
+            Route::get('{id}/delete', [CategoryController::class, 'delete'])->name('.delete');
+            Route::get('', [RoleController::class, 'dashboard'])->name('');
+            Route::get('search', [RoleController::class, 'search'])->name('.search');
         });
 
         Route::prefix('articles')->name('articles')->group(function () {

@@ -37,8 +37,8 @@
             @enderror
         </div>
         <div class="mb-4">
+            <x-input-label for="users">Gebruikers toevoegen</x-input-label>
             @foreach ($task::getAllUsers() as $user)
-                <x-input-label for="users">Gebruikers toevoegen</x-input-label>
                 <input id="users" type="checkbox" name="selected_users[]" value="{{ $user->id }}"
                     {{ isset($task) && $task->users->contains($user->id) ? 'checked' : '' }}>
                 {{ $user->name }}

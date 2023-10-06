@@ -8,6 +8,9 @@
             <x-button-link href="{{ route('dashboard.categories') }}" :active="request()->routeIs('dashboard.categories*')">Categorieën</x-button-link>
         </li>
         <li class="mb-2">
+            <x-button-link href="{{ route('dashboard.roles') }}" :active="request()->routeIs('dashboard.roles*')">Rollen</x-button-link>
+        </li>
+        <li class="mb-2">
             <x-button-link href="{{ route('dashboard.projects') }}" :active="request()->routeIs('dashboard.projects*')">Projecten</x-button-link>
         </li>
         <li class="mb-2">
