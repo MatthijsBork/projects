@@ -65,10 +65,6 @@
             </div>
         @endforeach
         <div class="mb-4">
-            <a href="{{ route('dashboard.properties.create') }}"
-                class="px-4 py-2 text-white bg-blue-500 rounded-lg btn hover:bg-blue-600">Eigenschap toevoegen</a>
-        </div>
-        <div class="mb-4">
             <x-input-label for="image">Foto</x-input-label>
             <input type="file" id="image" name="image" value="1"
                 class="px-1 py-1 rounded-lg focus:outline-none focus:ring focus:ring-blue-400 focus:border-blue-400">

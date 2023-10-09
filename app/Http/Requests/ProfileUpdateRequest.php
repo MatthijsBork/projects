@@ -20,4 +20,12 @@ class ProfileUpdateRequest extends FormRequest
             'email' => ['email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Het naam veld is verplicht.',
+            'email.taken' => 'E-mail is al in gebruik',
+        ];
+    }
 }

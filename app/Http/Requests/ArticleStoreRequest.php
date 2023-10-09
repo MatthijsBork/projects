@@ -32,4 +32,16 @@ class ArticleStoreRequest extends FormRequest
             'image_name' => 'string',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Het titel veld is verplicht.',
+            'title.max' => 'Titel mag niet langer zijn dan 255 tekens.',
+            'intro.required' => 'Het introductie veld is verplicht.',
+            'content.required' => 'Het content veld is verplicht.',
+            'publication_date.required' => 'Publiceerdatum is verplicht.',
+            'category_id.required' => 'Categorie is verplicht.',
+        ];
+    }
 }

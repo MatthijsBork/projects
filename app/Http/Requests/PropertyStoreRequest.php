@@ -27,4 +27,11 @@ class PropertyStoreRequest extends FormRequest
             'name' => 'required|string|max:32',
         ];
     }
+    public function messages()
+    {
+        return [
+            'name.required' => 'Het naam veld is verplicht.',
+            'name.max' => 'Naam mag maximaal 32 tekens lang zijn',
+        ];
+    }
 }

@@ -27,4 +27,12 @@ class CategoryStoreRequest extends FormRequest
             'name' => 'required|string|max:32',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Het naam veld is verplicht.',
+            'name.max' => 'Het naam veld mag maximaal 32 karakters bevatten.',
+        ];
+    }
 }

@@ -27,7 +27,15 @@ class ProjectStoreRequest extends FormRequest
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'start_date' => 'required|date',
-            'image_name' => 'string',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Het titel veld is verplicht.',
+            'description.required' => 'Het beschrijving veld is verplicht.',
+            'start_date.required' => 'De startdatum is verplicht.',
         ];
     }
 }

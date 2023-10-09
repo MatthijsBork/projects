@@ -30,4 +30,13 @@ class TaskStoreRequest extends FormRequest
             'state' => 'required',
         ];
     }
+    public function messages()
+    {
+        return [
+            'title.required' => 'Het titel veld is verplicht.',
+            'description.required' => 'Beschrijving is verplicht',
+            'deadline.required' => 'Deadline is verplicht',
+            'deadline.date' => 'Deadline moet een datum zijn',
+        ];
+    }
 }
