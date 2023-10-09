@@ -10,17 +10,26 @@ use App\Http\Requests\ProductStoreRequest;
 
 class ProductController extends Controller
 {
-    public function create()
-    {
-        $product = new Product;
-        return view('products.create', compact('product'));
-    }
 
     public function dashboard()
     {
         $products = Product::paginate(10);
 
         return view('products.dashboard', compact('products'));
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $products = Product::where('title', 'LIKE', "%$query%")->paginate(10)->appends(['query' => $query]);
+
+        return view('products.dashboard', compact('products'));
+    }
+
+    public function create()
+    {
+        $product = new Product;
+        return view('products.create', compact('product'));
     }
 
     public function edit(Request $request, $id)
@@ -32,14 +41,6 @@ class ProductController extends Controller
         } else {
             return redirect()->route('dashboard.products')->with('error', 'Product kon niet worden bewerkt (niet gevonden)');
         }
-    }
-
-    public function search(Request $request)
-    {
-        $query = $request->input('query');
-        $products = Product::where('title', 'LIKE', "%$query%")->paginate(10)->appends(['query' => $query]);
-
-        return view('products.dashboard', compact('products'));
     }
 
     public function store(ProductStoreRequest $request)
@@ -70,18 +71,6 @@ class ProductController extends Controller
         }
 
         return redirect()->route('dashboard.products')->with('success', 'Product opgeslagen');
-    }
-
-    public function delete($id)
-    {
-        if ($product = Product::find($id)) {
-            Storage::delete('products/' . $product->id . '/' . $product->img);
-            Storage::deleteDirectory('products/' . $product->id);
-            $product->delete();
-            return redirect()->route('dashboard.products')->with('success', 'Product verwijderd');
-        } else {
-            return redirect()->route('dashboard.products')->with('error', 'Product kon niet worden verwijderd (niet gevonden)');
-        }
     }
 
     public function update(ProductStoreRequest $request, $id)
@@ -131,6 +120,18 @@ class ProductController extends Controller
             return redirect()->route('dashboard.products')->with('success', 'Product bijgewerkt');
         } else {
             return redirect()->route('dashboard.products')->with('error', 'Product kon niet worden bewerkt (niet gevonden)');
+        }
+    }
+
+    public function delete($id)
+    {
+        if ($product = Product::find($id)) {
+            Storage::delete('products/' . $product->id . '/' . $product->img);
+            Storage::deleteDirectory('products/' . $product->id);
+            $product->delete();
+            return redirect()->route('dashboard.products')->with('success', 'Product verwijderd');
+        } else {
+            return redirect()->route('dashboard.products')->with('error', 'Product kon niet worden verwijderd (niet gevonden)');
         }
     }
 }

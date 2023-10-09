@@ -13,16 +13,24 @@ use App\Models\ProjectUserRole;
 
 class ProjectController extends Controller
 {
-    public function create()
-    {
-        return view('projects.create');
-    }
-
     public function dashboard()
     {
         $projects = Project::paginate(10);
 
         return view('projects.dashboard', compact('projects'));
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $projects = Project::where('title', 'LIKE', "%$query%")->paginate(10)->appends(['query' => $query]);
+
+        return view('projects.dashboard', compact('projects'));
+    }
+
+    public function create()
+    {
+        return view('projects.create');
     }
 
     public function edit(Request $request, $id)
@@ -38,13 +46,6 @@ class ProjectController extends Controller
         }
     }
 
-    public function search(Request $request)
-    {
-        $query = $request->input('query');
-        $projects = Project::where('title', 'LIKE', "%$query%")->paginate(10)->appends(['query' => $query]);
-
-        return view('projects.dashboard', compact('projects'));
-    }
 
     public function store(ProjectStoreRequest $request)
     {
@@ -64,18 +65,6 @@ class ProjectController extends Controller
             $project->save();
         }
         return redirect()->route('dashboard.projects.edit', [$project->id])->with('success', 'Project opgeslagen');
-    }
-
-    public function delete($id)
-    {
-        if ($project = Project::find($id)) {
-            Storage::delete('projects/' . $project->id . '/' . $project->img);
-            Storage::deleteDirectory('projects/' . $project->id);
-            $project->delete();
-            return redirect()->route('dashboard.projects')->with('success', 'Project verwijderd');
-        } else {
-            return redirect()->route('dashboard.projects')->with('error', 'Project kon niet worden verwijderd (niet gevonden)');
-        }
     }
 
     public function update(ProjectStoreRequest $request, $id)
@@ -99,6 +88,18 @@ class ProjectController extends Controller
             return redirect()->route('dashboard.projects')->with('success', 'Project bijgewerkt');
         } else {
             return redirect()->route('dashboard.projects')->with('error', 'Project kon niet worden bewerkt (niet gevonden)');
+        }
+    }
+
+    public function delete($id)
+    {
+        if ($project = Project::find($id)) {
+            Storage::delete('projects/' . $project->id . '/' . $project->img);
+            Storage::deleteDirectory('projects/' . $project->id);
+            $project->delete();
+            return redirect()->route('dashboard.projects')->with('success', 'Project verwijderd');
+        } else {
+            return redirect()->route('dashboard.projects')->with('error', 'Project kon niet worden verwijderd (niet gevonden)');
         }
     }
 }

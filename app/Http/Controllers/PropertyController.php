@@ -8,20 +8,6 @@ use App\Http\Requests\PropertyStoreRequest;
 
 class PropertyController extends Controller
 {
-    public function create()
-    {
-        $properties = Property::all();
-
-        return view('properties.create', compact('properties'));
-    }
-
-    public function store(PropertyStoreRequest $request)
-    {
-        $property = new Property();
-        $property->name = $request->input('name');
-        return redirect()->route('dashboard.properties')->with('success', 'Nieuwe eigenschap toegevoegd');
-    }
-
     public function dashboard()
     {
         $properties = Property::paginate(10);
@@ -29,11 +15,33 @@ class PropertyController extends Controller
         return view('properties.dashboard', compact('properties'));
     }
 
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $properties = Property::where('name', 'LIKE', "%$query%")->paginate(10)->appends(['query' => $query]);
+
+        return view('properties.dashboard', compact('properties'));
+    }
+
+    public function create()
+    {
+        $properties = Property::all();
+
+        return view('properties.create', compact('properties'));
+    }
+
     public function edit($id)
     {
         $property = Property::find($id);
 
         return view('properties.edit', compact('property'));;
+    }
+
+    public function store(PropertyStoreRequest $request)
+    {
+        $property = new Property();
+        $property->name = $request->input('name');
+        return redirect()->route('dashboard.properties')->with('success', 'Nieuwe eigenschap toegevoegd');
     }
 
     public function update(PropertyStoreRequest $request, $id)
@@ -56,13 +64,5 @@ class PropertyController extends Controller
         } else {
             return redirect()->route('dashboard.properties')->with('error', 'Eigenschap kon niet worden verwijderd (niet gevonden)');
         }
-    }
-
-    public function search(Request $request)
-    {
-        $query = $request->input('query');
-        $properties = Property::where('name', 'LIKE', "%$query%")->paginate(10)->appends(['query' => $query]);
-
-        return view('properties.dashboard', compact('properties'));
     }
 }

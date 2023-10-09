@@ -13,6 +13,14 @@ use App\Http\Requests\TaskStoreRequest;
 
 class TaskController extends Controller
 {
+    public function dashboard($project_id)
+    {
+        $tasks = Task::where('project_id', $project_id)->paginate(10);
+        $projectid = $project_id;
+
+        return view('projects.tasks.dashboard', compact('tasks', 'projectid'));
+    }
+
     public function create($project_id, Task $task)
     {
         $project = Project::find($project_id);
@@ -26,39 +34,6 @@ class TaskController extends Controller
             return view('projects.tasks.edit', compact('task'));
         } else {
             return redirect()->route('dashboard.projects.tasks', [$task->project->id])->with('error', 'Taak kon niet worden gevonden');
-        }
-    }
-
-    public function dashboard($project_id)
-    {
-        $tasks = Task::where('project_id', $project_id)->paginate(10);
-        $projectid = $project_id;
-
-        return view('projects.tasks.dashboard', compact('tasks', 'projectid'));
-    }
-
-    public function update(TaskStoreRequest $request, $project_id, $taskid)
-    {
-        if (($task = Task::find($taskid)) && $user_task = UserTask::where('task_id', '=', $taskid)) {
-            $task->update([
-                'title' => $request->input('title'),
-                'description' => $request->input('description'),
-                'deadline' => Carbon::parse($request->input('deadline')),
-                'state' => $request->input('state'),
-            ]);
-
-            $selectedUsers = $request->input('selected_users');
-
-            foreach ($selectedUsers as $userId) {
-                $user_task->update([
-                    'user_id' => $userId,
-                    'task_id' => $task->id,
-                ]);
-            }
-
-            return redirect()->route('dashboard.projects.tasks', [$project_id])->with('success', 'Taak bijgewerkt');
-        } else {
-            return redirect()->route('dashboard.projects.tasks', [$project_id])->with('error', 'Taak kon niet worden bewerkt (niet gevonden)');
         }
     }
 
@@ -90,6 +65,32 @@ class TaskController extends Controller
                 ->with('error', 'Er is iets misgegaan' . $e);
         }
     }
+
+    public function update(TaskStoreRequest $request, $project_id, $taskid)
+    {
+        if (($task = Task::find($taskid)) && $user_task = UserTask::where('task_id', '=', $taskid)) {
+            $task->update([
+                'title' => $request->input('title'),
+                'description' => $request->input('description'),
+                'deadline' => Carbon::parse($request->input('deadline')),
+                'state' => $request->input('state'),
+            ]);
+
+            $selectedUsers = $request->input('selected_users');
+
+            foreach ($selectedUsers as $userId) {
+                $user_task->update([
+                    'user_id' => $userId,
+                    'task_id' => $task->id,
+                ]);
+            }
+
+            return redirect()->route('dashboard.projects.tasks', [$project_id])->with('success', 'Taak bijgewerkt');
+        } else {
+            return redirect()->route('dashboard.projects.tasks', [$project_id])->with('error', 'Taak kon niet worden bewerkt (niet gevonden)');
+        }
+    }
+
 
     public function delete($id, $taskid)
     {

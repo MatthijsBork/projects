@@ -11,11 +11,57 @@ use App\Http\Requests\ArticleStoreRequest;
 
 class ArticleController extends Controller
 {
+    public function index()
+    {
+        $articles = Article::whereDate('publication_date', '<=', now())->get();
+
+        return view('articles.index', compact('articles'));
+    }
+
+    public function dashboard()
+    {
+        $articles = Article::paginate(10);
+
+        return view('articles.dashboard', compact('articles'));
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $articles = Article::where('title', 'LIKE', "%$query%")
+            ->orWhere('content', 'LIKE', "%$query%")
+            ->paginate(10)->appends(['query' => $query]);
+
+        return view('articles.dashboard', compact('articles'));
+    }
+
     public function create()
     {
         $article = new Article;
         return view('articles.create', compact('article'));
     }
+
+    public function show($id)
+    {
+        if (!($article = Article::find($id))) {
+            abort(404);
+        } else {
+            return view('articles.show', compact('article'));
+        }
+    }
+
+    public function edit(Request $request, $id)
+    {
+        $categories = Category::all();
+
+        if ($request->isMethod('get') && ($article = Article::find($id))) {
+            return view('articles.edit', compact('article', 'categories'));;
+        } else {
+            return redirect()->route('dashboard.articles')->with('error', 'Artikel kon niet worden bewerkt (niet gevonden)');
+        }
+    }
+
 
     public function store(ArticleStoreRequest $request, Article $article)
     {
@@ -40,25 +86,7 @@ class ArticleController extends Controller
         return redirect()->route('dashboard.articles')->with('success', 'Nieuw artikel toegevoegd');
     }
 
-    public function show($id)
-    {
-        if (!($article = Article::find($id))) {
-            abort(404);
-        } else {
-            return view('articles.show', compact('article'));
-        }
-    }
 
-    public function edit(Request $request, $id)
-    {
-        $categories = Category::all();
-
-        if ($request->isMethod('get') && ($article = Article::find($id))) {
-            return view('articles.edit', compact('article', 'categories'));;
-        } else {
-            return redirect()->route('dashboard.articles')->with('error', 'Artikel kon niet worden bewerkt (niet gevonden)');
-        }
-    }
 
     public function update(ArticleStoreRequest $request, $id)
     {
@@ -100,30 +128,5 @@ class ArticleController extends Controller
         } else {
             return redirect()->route('dashboard.articles')->with('error', 'Artikel kon niet worden verwijderd (niet gevonden)');
         }
-    }
-
-    public function index()
-    {
-        $articles = Article::whereDate('publication_date', '<=', now())->get();
-
-        return view('articles.index', compact('articles'));
-    }
-
-    public function dashboard()
-    {
-        $articles = Article::paginate(10);
-
-        return view('articles.dashboard', compact('articles'));
-    }
-
-    public function search(Request $request)
-    {
-        $query = $request->input('query');
-
-        $articles = Article::where('title', 'LIKE', "%$query%")
-            ->orWhere('content', 'LIKE', "%$query%")
-            ->paginate(10)->appends(['query' => $query]);
-
-        return view('articles.dashboard', compact('articles'));
     }
 }

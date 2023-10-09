@@ -7,10 +7,6 @@ use App\Http\Requests\TaskStateStoreRequest;
 
 class TaskStateController extends Controller
 {
-    public function create()
-    {
-        return view('states.create');
-    }
 
     public function dashboard()
     {
@@ -19,13 +15,9 @@ class TaskStateController extends Controller
         return view('states.dashboard', compact('states'));
     }
 
-    public function store(TaskStateStoreRequest $request)
+    public function create()
     {
-        $task_state = new TaskState();
-        $task_state->name = $request->input('name');
-        $task_state->save();
-
-        return redirect()->route('dashboard.states')->with('success', 'Nieuwe status toegevoegd');
+        return view('states.create');
     }
 
     public function edit($id)
@@ -38,14 +30,13 @@ class TaskStateController extends Controller
         }
     }
 
-    public function delete($id)
+    public function store(TaskStateStoreRequest $request)
     {
-        if ($state = TaskState::find($id)) {
-            $state->delete();
-            return redirect()->route('dashboard.states', [$id])->with('success', 'Taak verwijderd');
-        } else {
-            return redirect()->route('dashboard.states', [$id])->with('error', 'Taak kon niet worden verwijderd (niet gevonden)');
-        }
+        $task_state = new TaskState();
+        $task_state->name = $request->input('name');
+        $task_state->save();
+
+        return redirect()->route('dashboard.states')->with('success', 'Nieuwe status toegevoegd');
     }
 
     public function update(TaskStateStoreRequest $request, $id)
@@ -58,6 +49,16 @@ class TaskStateController extends Controller
             return redirect()->route('dashboard.states')->with('success', 'Status bijgewerkt');
         } else {
             return redirect()->route('dashboard.projects.tasks', [$id])->with('error', 'Taak kon niet worden bewerkt (niet gevonden)');
+        }
+    }
+
+    public function delete($id)
+    {
+        if ($state = TaskState::find($id)) {
+            $state->delete();
+            return redirect()->route('dashboard.states', [$id])->with('success', 'Taak verwijderd');
+        } else {
+            return redirect()->route('dashboard.states', [$id])->with('error', 'Taak kon niet worden verwijderd (niet gevonden)');
         }
     }
 }
