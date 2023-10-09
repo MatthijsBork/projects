@@ -20,6 +20,7 @@ return new class extends Migration
             $table->longText('content');
             $table->date('publication_date');
             $table->foreignId('category_id')->constrained('categories')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->string('img');
             $table->timestamps();
         });
     }

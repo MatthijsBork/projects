@@ -13,9 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('articles', function (Blueprint $table) {
-            $table->string('img')->after('publication_date')->nullable();
-        });
+        //
     }
 
     /**
