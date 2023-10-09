@@ -16,10 +16,8 @@ return new class extends Migration
         Schema::create('products_properties', function (Blueprint $table) {
             $table->id();
             $table->string('value');
-            $table->unsignedBigInteger('property_id')->default(1);
-            $table->foreign('property_id')->references('id')->on('properties')->onDelete('cascade');
-            $table->unsignedBigInteger('product_id')->default(1);
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreignId('property_id')->constrained('properties')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('product_id')->constrained('products')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }

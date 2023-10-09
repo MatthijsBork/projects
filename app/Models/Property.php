@@ -16,7 +16,7 @@ class Property extends Model
         return $this->hasMany(ProductProperty::class);
     }
 
-    public function getValueForProduct($product_id)
+    public function productValue($product_id)
     {
         $productProperty = ProductProperty::where('product_id', $product_id)
             ->where('property_id', $this->id)

@@ -19,11 +19,10 @@ class TaskStateController extends Controller
         return view('states.dashboard', compact('states'));
     }
 
-    public function store(TaskStateStoreRequest $request, TaskState $task_state)
+    public function store(TaskStateStoreRequest $request)
     {
-        $task_state->fill(([
-            'name' => $request->input('name')
-        ]));
+        $task_state = new TaskState();
+        $task_state->name = $request->input('name');
         $task_state->save();
 
         return redirect()->route('dashboard.states')->with('success', 'Nieuwe status toegevoegd');

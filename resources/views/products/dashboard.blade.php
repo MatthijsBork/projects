@@ -7,6 +7,7 @@
                     <th class="px-4 py-3">Titel</th>
                     <th class="px-4 py-3">Nettoprijs</th>
                     <th class="px-4 py-3">BTW</th>
+                    <th class="px-4 py-3"></th>
                 </tr>
             </thead>
             <tbody>

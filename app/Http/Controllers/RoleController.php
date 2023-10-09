@@ -15,11 +15,10 @@ class RoleController extends Controller
         return view('roles.create', compact('roles'));
     }
 
-    public function store(RoleStoreRequest $request, Role $role)
+    public function store(RoleStoreRequest $request)
     {
-        $role->fill(([
-            'name' => $request->input('name')
-        ]));
+        $role = new Role();
+        $role->name = $request->input('name');
         $role->save();
 
         return redirect()->route('dashboard.roles')->with('success', 'Nieuwe rol toegevoegd');

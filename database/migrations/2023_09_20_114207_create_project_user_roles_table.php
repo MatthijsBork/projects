@@ -15,12 +15,9 @@ return new class extends Migration
     {
         Schema::create('project_user_roles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('role_id')->default(1);
-            $table->unsignedBigInteger('user_id')->default(1);
-            $table->unsignedBigInteger('project_id')->default(1);
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
+            $table->foreignId('role_id')->constrained('roles')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('project_id')->constrained('projects')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 

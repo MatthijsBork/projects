@@ -7,7 +7,6 @@
             <div class="w-full md:w-1/6 lg:w-1/5">
                 <x-dashboard-menu></x-dashboard-menu>
             </div>
-
             <div class="w-full md:w-3/4">
                 <div class="overflow-x-auto bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
@@ -20,7 +19,7 @@
                                 <div class="w-1/2">
                                     <label for="user" class="block text-sm font-semibold text-gray-600">Kies
                                         gebruiker</label>
-                                    <select id="user" name="user"
+                                    <select id="user" name="user_id"
                                         class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
                                         <option selected disabled>Kies een gebruiker</option>
                                         @foreach ($users as $user)
@@ -31,7 +30,7 @@
                                 <div class="w-1/2">
                                     <label for="role" class="block text-sm font-semibold text-gray-600">Kies
                                         Rol</label>
-                                    <select id="role" name="role"
+                                    <select id="role" name="role_id"
                                         class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
                                         <option selected disabled>Kies een rol</option>
                                         @foreach ($roles as $role)
@@ -55,7 +54,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @dd($userroles) --}}
                                 @if ($userroles)
                                     @foreach ($userroles as $userrole)
                                         <tr class="border-b even:bg-gray-50">
@@ -69,7 +67,8 @@
                                             </td>
                                             <td>
                                                 <a href="{{ route('dashboard.projects.roles.delete', [$projectid, $userrole->id]) }}"
-                                                    class="text-red-500 hover:underline">Verwijder</a>
+                                                    class="text-red-500 hover:underline"
+                                                    onclick="return confirm('Weet u zeker dat u dit wilt verwijderen?');">Verwijder</a>
                                             </td>
                                         </tr>
                                     @endforeach

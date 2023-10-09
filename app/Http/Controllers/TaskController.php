@@ -62,20 +62,20 @@ class TaskController extends Controller
         }
     }
 
-    public function store(TaskStoreRequest $request, $project_id, Task $task)
+    public function store(TaskStoreRequest $request, $project_id)
     {
         try {
-            $task->fill(([
-                'title' => $request->input('title'),
-                'description' => $request->input('description'),
-                'state' => $request->input('state'),
-                'deadline' => Carbon::parse($request->input('deadline')),
-                'project_id' => $project_id
-            ]));
+            $task = new Task();
+            $task->title = $request->input('title');
+            $task->description = $request->input('description');
+            $task->state = $request->input('state');
+            $task->deadline = Carbon::parse($request->input('deadline'));
+            $task->project_id = $project_id;
             $task->save();
 
-            $selectedUsers = $request->input('selected_users');
 
+            // maak hier een method van
+            $selectedUsers = $request->input('selected_users');
             foreach ($selectedUsers as $userId) {
                 UserTask::create([
                     'user_id' => $userId,

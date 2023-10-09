@@ -46,22 +46,21 @@ class ProjectController extends Controller
         return view('projects.dashboard', compact('projects'));
     }
 
-    public function store(ProjectStoreRequest $request, Project $project)
+    public function store(ProjectStoreRequest $request)
     {
-        $project->fill(([
-            'title' => $request->input('title'),
-            'description' => $request->input('description'),
-            'start_date' => Carbon::parse($request->input('start_date')),
-        ]));
+        $project = new Project;
+        $project->title = $request->input('title');
+        $project->description = $request->input('description');
+        $project->start_date = Carbon::parse($request->input('start_date'));
         $project->save();
 
         if ($request->hasFile('image')) {
-            if ($project->image_name) {
-                Storage::delete('projects/' . $project->id . '/' . $project->image_name);
+            if ($project->img) {
+                Storage::delete('projects/' . $project->id . '/' . $project->img);
             }
             $imageName = $project->id . '.' . $request->file('image')->extension();
             $request->file('image')->storeAs('projects/' . $project->id, $imageName);
-            $project->image_name = $imageName;
+            $project->img = $imageName;
             $project->save();
         }
         return redirect()->route('dashboard.projects.edit', [$project->id])->with('success', 'Project opgeslagen');
@@ -70,7 +69,7 @@ class ProjectController extends Controller
     public function delete($id)
     {
         if ($project = Project::find($id)) {
-            Storage::delete('projects/' . $project->id . '/' . $project->image_name);
+            Storage::delete('projects/' . $project->id . '/' . $project->img);
             Storage::deleteDirectory('projects/' . $project->id);
             $project->delete();
             return redirect()->route('dashboard.projects')->with('success', 'Project verwijderd');
@@ -83,19 +82,19 @@ class ProjectController extends Controller
     {
         if ($project = Project::find($id)) {
             if ($request->hasFile('image')) {
-                if ($project->image_name) {
-                    Storage::delete('projects/' . $project->id . '/' . $project->image_name);
+                if ($project->img) {
+                    Storage::delete('projects/' . $project->id . '/' . $project->img);
                 }
                 $imageName = $project->id . '.' . $request->file('image')->extension();
                 $request->file('image')->storeAs('projects/' . $project->id, $imageName);
-                $project->image_name = $imageName;
+                $project->img = $imageName;
                 $project->save();
             }
             $project->update([
                 'title' => $request->input('title'),
                 'description' => $request->input('description'),
                 'start_date' => Carbon::parse($request->input('start_date')),
-                'image_name' => $imageName ?? null,
+                'img' => $imageName ?? null,
             ]);
             return redirect()->route('dashboard.projects')->with('success', 'Project bijgewerkt');
         } else {

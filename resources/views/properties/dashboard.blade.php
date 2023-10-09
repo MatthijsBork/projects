@@ -23,5 +23,6 @@
         </table>
         <div class="my-4">
             {{ $properties->links() }}
-        </div </x-dashboard>
+        </div>
+    </x-dashboard>
 </x-app-layout>

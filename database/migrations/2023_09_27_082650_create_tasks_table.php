@@ -15,12 +15,11 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->text('title');
-            $table->text('description');
+            $table->string('title');
+            $table->longText('description');
             $table->date('deadline');
             $table->integer('state');
-            $table->unsignedBigInteger('project_id')->default(1);
-            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
+            $table->foreignId('project_id')->constrained('projects')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }

@@ -17,10 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('intro');
-            $table->text('content');
+            $table->longText('content');
             $table->date('publication_date');
-            $table->unsignedBigInteger('category_id')->default(1);
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('categories')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }

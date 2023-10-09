@@ -17,9 +17,8 @@ class PropertyController extends Controller
 
     public function store(PropertyStoreRequest $request)
     {
-        Property::create([
-            'name' => $request->input('name')
-        ]);
+        $property = new Property();
+        $property->name = $request->input('name');
         return redirect()->route('dashboard.properties')->with('success', 'Nieuwe eigenschap toegevoegd');
     }
 

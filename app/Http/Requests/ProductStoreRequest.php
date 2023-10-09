@@ -26,10 +26,27 @@ class ProductStoreRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'price' => 'required|int',
+            'price' => 'required|decimal',
             'stock' => 'required|int',
             'vat' => 'required|int',
-            'image_name' => 'string',
+            'image' => 'image|max:2048',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Het titel veld is verplicht.',
+            'title.max' => 'Het titel veld mag maximaal 255 karakters bevatten.',
+            'description.required' => 'Het beschrijving veld is verplicht.',
+            'price.required' => 'De prijs is verplicht.',
+            'price.int' => 'De prijs moet een geheel getal zijn.',
+            'stock.required' => 'De voorraad is verplicht.',
+            'stock.int' => 'De voorraad moet een geheel getal zijn.',
+            'vat.required' => 'Het BTW-percentage is verplicht.',
+            'vat.int' => 'Het BTW-percentage moet een geheel getal zijn.',
+            'image_name.string' => 'Het bestandsnaam veld moet een tekst zijn.',
+            'image.size' => 'Het bestand mag maximaal 2 MB zijn.',
         ];
     }
 }

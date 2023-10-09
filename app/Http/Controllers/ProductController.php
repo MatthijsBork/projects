@@ -42,15 +42,14 @@ class ProductController extends Controller
         return view('products.dashboard', compact('products'));
     }
 
-    public function store(ProductStoreRequest $request, Product $product)
+    public function store(ProductStoreRequest $request)
     {
-        $product->fill(([
-            'title' => $request->input('title'),
-            'description' => $request->input('description'),
-            'price' => $request->input('price'),
-            'stock' => $request->input('stock'),
-            'vat' => $request->input('vat'),
-        ]));
+        $product = new Product;
+        $product->title = $request->input('title');
+        $product->description = $request->input('description');
+        $product->price = $request->input('price');
+        $product->stock = $request->input('stock');
+        $product->vat = $request->input('vat');
         $product->save();
 
         $properties = $request->input('properties');
@@ -63,22 +62,20 @@ class ProductController extends Controller
         }
 
         if ($request->hasFile('image')) {
-            if ($product->image_name) {
-                Storage::delete('products/' . $product->id . '/' . $product->image_name);
-            }
+
             $imageName = $product->id . '.' . $request->file('image')->extension();
             $request->file('image')->storeAs('products/' . $product->id, $imageName);
-            $product->image_name = $imageName;
+            $product->img = $imageName;
             $product->save();
         }
 
-        return redirect()->route('dashboard.products', [$product->id])->with('success', 'Product opgeslagen');
+        return redirect()->route('dashboard.products')->with('success', 'Product opgeslagen');
     }
 
     public function delete($id)
     {
         if ($product = Product::find($id)) {
-            Storage::delete('products/' . $product->id . '/' . $product->image_name);
+            Storage::delete('products/' . $product->id . '/' . $product->img);
             Storage::deleteDirectory('products/' . $product->id);
             $product->delete();
             return redirect()->route('dashboard.products')->with('success', 'Product verwijderd');
@@ -91,12 +88,12 @@ class ProductController extends Controller
     {
         if ($product = Product::find($id)) {
             if ($request->hasFile('image')) {
-                if ($product->image_name) {
-                    Storage::delete('products/' . $product->id . '/' . $product->image_name);
+                if ($product->img) {
+                    Storage::delete('products/' . $product->id . '/' . $product->img);
                 }
                 $imageName = $product->id . '.' . $request->file('image')->extension();
                 $request->file('image')->storeAs('products/' . $product->id, $imageName);
-                $product->image_name = $imageName;
+                $product->img = $imageName;
                 $product->save();
             }
 
@@ -106,7 +103,7 @@ class ProductController extends Controller
                 'price' => $request->input('price'),
                 'stock' => $request->input('stock'),
                 'vat' => $request->input('vat'),
-                'image_name' => $imageName ?? null,
+                'img' => $imageName ?? null,
             ]);
 
             $properties = $request->input('properties');
