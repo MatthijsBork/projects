@@ -12,8 +12,10 @@
                     <tr class="border-b even:bg-gray-50">
                         <td class="max-w-[22vw] px-4 py-3 overflow-hidden">{{ $project->title }}</td>
                         <td class="text-right">
+                            <a href="{{ route('dashboard.projects.tasks', [$project->id]) }}"
+                                class="text-blue-400 hover:underline">Taken</a>
                             <a href="{{ route('dashboard.projects.edit', [$project->id]) }}"
-                                class="text-blue-500 hover:underline">Bewerken</a>
+                                class="text-blue-700 hover:underline">Bewerken</a>
                             <a href="{{ route('dashboard.projects.delete', [$project->id]) }}"
                                 class="text-red-500 hover:underline"
                                 onclick="return confirm('Weet u zeker dat u dit wilt verwijderen?');">Verwijder</a>

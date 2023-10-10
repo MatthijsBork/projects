@@ -28,7 +28,7 @@ class TaskController extends Controller
         return view('projects.tasks.create', compact('task', 'project'));
     }
 
-    public function edit($project_id, $taskid)
+    public function edit($id, $taskid)
     {
         if ($task = Task::find($taskid)) {
             return view('projects.tasks.edit', compact('task'));
@@ -77,12 +77,18 @@ class TaskController extends Controller
             ]);
 
             $selectedUsers = $request->input('selected_users');
-
             foreach ($selectedUsers as $userId) {
-                $user_task->update([
-                    'user_id' => $userId,
-                    'task_id' => $task->id,
-                ]);
+                if (!empty($user_task->user_id)) {
+                    $user_task->update([
+                        'user_id' => $userId,
+                        'task_id' => $task->id,
+                    ]);
+                } else {
+                    UserTask::create([
+                        'user_id' => $userId,
+                        'task_id' => $task->id
+                    ]);
+                }
             }
 
             return redirect()->route('dashboard.projects.tasks', [$project_id])->with('success', 'Taak bijgewerkt');

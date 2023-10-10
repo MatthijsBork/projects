@@ -19,9 +19,9 @@
                         <td class="max-w-[22vw] px-4 py-3 overflow-hidden">{{ $task->state == 1 ? 'Klaar' : 'Bezig' }}
                         </td>
                         <td class="overflow-hidden text-right">
-                            <a href="{{ route('dashboard.projects.tasks.edit', [$task->id]) }}"
+                            <a href="{{ route('dashboard.projects.tasks.edit', [$projectid, $task]) }}"
                                 class="text-blue-500 hover:underline">Bewerken</a>
-                            <a href="{{ route('dashboard.projects.tasks.delete', [$task->id]) }}"
+                            <a href="{{ route('dashboard.projects.tasks.delete', [$projectid, $task]) }}"
                                 class="text-red-500 hover:underline"
                                 onclick="return confirm('Weet u zeker dat u dit wilt verwijderen?');">Verwijder</a>
                         </td>

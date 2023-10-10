@@ -90,7 +90,7 @@ Route::middleware('auth')->group(function () {
                 Route::get('', [TaskController::class, 'dashboard'])->name('');
                 Route::get('{taskid}/delete', [TaskController::class, 'delete'])->name('.delete');
                 Route::get('{taskid}/edit', [TaskController::class, 'edit'])->name('.edit');
-                Route::post('{taskid}/edit', [TaskController::class, 'update'])->name('.update');
+                Route::post('{task}/update', [TaskController::class, 'update'])->name('.update');
                 Route::get('create', [TaskController::class, 'create'])->name('.create');
                 Route::post('create', [TaskController::class, 'store'])->name('.store');
             });

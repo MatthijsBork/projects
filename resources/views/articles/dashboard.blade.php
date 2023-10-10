@@ -7,6 +7,7 @@
                     <th class="px-4 py-3">Datum</th>
                     <th class="px-4 py-3">Categorie</th>
                     <th class="px-4 py-3">Titel</th>
+                    <td></td>
                 </tr>
             </thead>
             <tbody>

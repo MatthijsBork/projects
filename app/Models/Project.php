@@ -12,12 +12,12 @@ class Project extends Model
 
     protected $fillable = ['title', 'description', 'start_date', 'image_name'];
 
-    public function ProjectUserRoles()
+    public function projectUserRoles()
     {
         return $this->hasMany(ProjectUserRole::class);
     }
 
-    public function Tasks()
+    public function tasks()
     {
         return $this->hasMany(Task::class);
     }
