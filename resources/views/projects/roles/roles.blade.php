@@ -14,8 +14,8 @@
                         <form action="{{ route('dashboard.projects.roles.store', [$projectid]) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
-                            <div class="flex mb-4 space-x-4">
 
+                            <div class="flex mb-4 space-x-4">
                                 <div class="w-1/2">
                                     <label for="user" class="block text-sm font-semibold text-gray-600">Kies
                                         gebruiker</label>
@@ -49,7 +49,6 @@
                                 <tr>
                                     <th class="px-4 py-2">Gebruiker</th>
                                     <th class="px-4 py-2">Rol</th>
-                                    <th class="px-4 py-2"></th>
                                     <th class="px-4 py-2"></th>
                                 </tr>
                             </thead>

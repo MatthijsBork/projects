@@ -5,6 +5,7 @@
             <thead class="bg-gray-50">
                 <tr>
                     <th class="px-4 py-3">Naam</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>

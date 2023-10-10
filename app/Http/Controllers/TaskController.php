@@ -66,9 +66,9 @@ class TaskController extends Controller
         }
     }
 
-    public function update(TaskStoreRequest $request, $project_id, $taskid)
+    public function update(TaskStoreRequest $request, $project_id, Task $task)
     {
-        if (($task = Task::find($taskid)) && $user_task = UserTask::where('task_id', '=', $taskid)) {
+        if ($user_task = UserTask::where('task_id', '=', $task->id)) {
             $task->update([
                 'title' => $request->input('title'),
                 'description' => $request->input('description'),

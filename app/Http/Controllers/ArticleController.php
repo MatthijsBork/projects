@@ -62,7 +62,6 @@ class ArticleController extends Controller
         }
     }
 
-
     public function store(ArticleStoreRequest $request, Article $article)
     {
         $article = new Article();
@@ -85,8 +84,6 @@ class ArticleController extends Controller
 
         return redirect()->route('dashboard.articles')->with('success', 'Nieuw artikel toegevoegd');
     }
-
-
 
     public function update(ArticleStoreRequest $request, $id)
     {

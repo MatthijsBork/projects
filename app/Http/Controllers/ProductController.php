@@ -10,7 +10,6 @@ use App\Http\Requests\ProductStoreRequest;
 
 class ProductController extends Controller
 {
-
     public function dashboard()
     {
         $products = Product::paginate(10);
@@ -35,8 +34,6 @@ class ProductController extends Controller
     public function edit(Request $request, $id)
     {
         if ($product = Product::find($id)) {
-
-
             return view('products.edit', compact('product'));
         } else {
             return redirect()->route('dashboard.products')->with('error', 'Product kon niet worden bewerkt (niet gevonden)');
@@ -53,13 +50,14 @@ class ProductController extends Controller
         $product->vat = $request->input('vat');
         $product->save();
 
-        $properties = $request->input('properties');
-        foreach ($properties as $propertyId => $value) {
-            ProductProperty::create([
-                'property_id' => $propertyId,
-                'product_id' => $product->id,
-                'value' => $value,
-            ]);
+        if ($properties = $request->input('properties')) {
+            foreach ($properties as $propertyId => $value) {
+                ProductProperty::create([
+                    'property_id' => $propertyId,
+                    'product_id' => $product->id,
+                    'value' => $value,
+                ]);
+            }
         }
 
         if ($request->hasFile('image')) {
@@ -73,31 +71,28 @@ class ProductController extends Controller
         return redirect()->route('dashboard.products')->with('success', 'Product opgeslagen');
     }
 
-    public function update(ProductStoreRequest $request, $id)
+    public function update(ProductStoreRequest $request, Product $product)
     {
-        if ($product = Product::find($id)) {
-            if ($request->hasFile('image')) {
-                if ($product->img) {
-                    Storage::delete('products/' . $product->id . '/' . $product->img);
-                }
-                $imageName = $product->id . '.' . $request->file('image')->extension();
-                $request->file('image')->storeAs('products/' . $product->id, $imageName);
-                $product->img = $imageName;
-                $product->save();
+        if ($request->hasFile('image')) {
+            if ($product->img) {
+                Storage::delete('products/' . $product->id . '/' . $product->img);
             }
+            $imageName = $product->id . '.' . $request->file('image')->extension();
+            $request->file('image')->storeAs('products/' . $product->id, $imageName);
+            $product->img = $imageName;
+            $product->save();
+        }
 
-            $product->update([
-                'title' => $request->input('title'),
-                'description' => $request->input('description'),
-                'price' => $request->input('price'),
-                'stock' => $request->input('stock'),
-                'vat' => $request->input('vat'),
-                'img' => $imageName ?? null,
-            ]);
+        $product->update([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'price' => $request->input('price'),
+            'stock' => $request->input('stock'),
+            'vat' => $request->input('vat'),
+            'img' => $imageName ?? null,
+        ]);
 
-            $properties = $request->input('properties');
-
-
+        if ($properties = $request->input('properties')) {
             foreach ($properties as $propertyId => $value) {
                 $property = $product->properties->first(function ($property) use ($propertyId) {
                     return $property->property_id === $propertyId;
@@ -116,11 +111,8 @@ class ProductController extends Controller
                     ]);
                 }
             }
-
-            return redirect()->route('dashboard.products')->with('success', 'Product bijgewerkt');
-        } else {
-            return redirect()->route('dashboard.products')->with('error', 'Product kon niet worden bewerkt (niet gevonden)');
         }
+        return redirect()->route('dashboard.products')->with('success', 'Product bijgewerkt');
     }
 
     public function delete($id)

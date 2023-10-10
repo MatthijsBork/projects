@@ -1,5 +1,6 @@
 <form method="POST" action="{{ $action }}" enctype="multipart/form-data">
     @csrf
+    @method('put')
 
     <div class="tab-content">
         <div class="mb-4">
@@ -22,7 +23,7 @@
         </div>
         <div class="mb-4">
             <x-input-label for="price">Prijs</x-input-label>
-            <input type="text" id="price" name="price" value="{{ $product->price ?? old('price') }}"
+            <input type="number" step="0.01" id="price" name="price" value="{{ $product->price ?? old('price') }}"
                 class="px-1 py-1 rounded-lg focus:outline-none focus:ring focus:ring-blue-400 focus:border-blue-400">
             @error('price')
                 <div class="text-red-500">{{ $message }}</div>

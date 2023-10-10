@@ -52,6 +52,9 @@
                                     Uitloggen
                                 </x-dropdown-link>
                             </form>
+                            <x-dropdown-link :href="route('dashboard.projects.user')">
+                                Mijn projecten
+                            </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
                 </div>

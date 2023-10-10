@@ -2,6 +2,7 @@
 
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProductController;
@@ -10,8 +11,8 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\TaskStateController;
+use App\Http\Controllers\UserProjectsController;
 use App\Http\Controllers\ProjectUserRoleController;
-use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,13 +78,13 @@ Route::middleware('auth')->group(function () {
             Route::get('{id}/delete', [ProjectController::class, 'delete'])->name('.delete');
             Route::get('', [ProjectController::class, 'dashboard'])->name('');
             Route::get('search', [ProjectController::class, 'search'])->name('.search');
+            Route::get('user', [UserProjectsController::class, 'dashboard'])->name('.user');
 
             Route::prefix('{id}/edit/roles')->name('.roles')->group(function () {
-                Route::get('{role_id}/delete', [ProjectUserRoleController::class, 'delete'])->name('.delete');
+                Route::get('{roleid}/delete', [ProjectUserRoleController::class, 'delete'])->name('.delete');
                 Route::get('', [ProjectUserRoleController::class, 'edit'])->name('');
                 Route::post('', [ProjectUserRoleController::class, 'store'])->name('.store');
             });
-
 
             Route::prefix('{id}/edit/tasks')->name('.tasks')->group(function () {
                 Route::get('', [TaskController::class, 'dashboard'])->name('');
@@ -110,7 +111,7 @@ Route::middleware('auth')->group(function () {
             Route::post('store', [ProductController::class, 'store'])->name('.store');
             Route::get('search', [ProductController::class, 'search'])->name('.search');
             Route::get('{id}/edit', [ProductController::class, 'edit'])->name('.edit');
-            Route::post('{id}/edit', [ProductController::class, 'update'])->name('.edit');
+            Route::put('{product}/update', [ProductController::class, 'update'])->name('.update');
             Route::get('{id}/delete', [ProductController::class, 'delete'])->name('.delete');
         });
 

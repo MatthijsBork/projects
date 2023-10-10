@@ -18,7 +18,7 @@
                 <div class="overflow-x-auto bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
                         <x-product-form :product="$product"
-                            action="{{ route('dashboard.products.edit', [$product->id]) }}"></x-product-form>
+                            action="{{ route('dashboard.products.update', $product) }}"></x-product-form>
                     </div>
                 </div>
             </div>

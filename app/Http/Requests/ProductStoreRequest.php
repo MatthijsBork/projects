@@ -26,7 +26,7 @@ class ProductStoreRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'price' => 'required|decimal',
+            'price' => 'required|decimal:0,2',
             'stock' => 'required|int',
             'vat' => 'required|int',
             'image' => 'image|max:2048',
@@ -40,7 +40,6 @@ class ProductStoreRequest extends FormRequest
             'title.max' => 'Het titel veld mag maximaal 255 karakters bevatten.',
             'description.required' => 'Het beschrijving veld is verplicht.',
             'price.required' => 'De prijs is verplicht.',
-            'price.int' => 'De prijs moet een geheel getal zijn.',
             'stock.required' => 'De voorraad is verplicht.',
             'stock.int' => 'De voorraad moet een geheel getal zijn.',
             'vat.required' => 'Het BTW-percentage is verplicht.',

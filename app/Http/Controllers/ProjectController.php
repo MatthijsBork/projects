@@ -46,7 +46,6 @@ class ProjectController extends Controller
         }
     }
 
-
     public function store(ProjectStoreRequest $request)
     {
         $project = new Project;

@@ -41,6 +41,7 @@ class PropertyController extends Controller
     {
         $property = new Property();
         $property->name = $request->input('name');
+        $property->save();
         return redirect()->route('dashboard.properties')->with('success', 'Nieuwe eigenschap toegevoegd');
     }
 

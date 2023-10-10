@@ -7,7 +7,6 @@ use App\Http\Requests\TaskStateStoreRequest;
 
 class TaskStateController extends Controller
 {
-
     public function dashboard()
     {
         $states = TaskState::paginate(10);

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProjectUserRoleRequest extends FormRequest
+class ProjectUserRoleStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,6 @@ class ProjectUserRoleRequest extends FormRequest
     public function rules()
     {
         return [
-            'project_id' => ' required|integer|exists:projects,id',
             'user_id' => 'required|integer|exists:users,id',
             'role_id' => 'required|integer|exists:roles,id',
         ];
