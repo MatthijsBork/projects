@@ -48,14 +48,13 @@ class TaskController extends Controller
             $task->project_id = $project_id;
             $task->save();
 
-
-            // maak hier een method van
-            $selectedUsers = $request->input('selected_users');
-            foreach ($selectedUsers as $userId) {
-                UserTask::create([
-                    'user_id' => $userId,
-                    'task_id' => $task->id,
-                ]);
+            if ($selectedUsers = $request->input('selected_users')) {
+                foreach ($selectedUsers as $userId) {
+                    UserTask::create([
+                        'user_id' => $userId,
+                        'task_id' => $task->id,
+                    ]);
+                }
             }
 
             return redirect()->route('dashboard.projects.tasks', [$project_id])->with('success', 'Taak opgeslagen');
@@ -96,7 +95,6 @@ class TaskController extends Controller
             return redirect()->route('dashboard.projects.tasks', [$project_id])->with('error', 'Taak kon niet worden bewerkt (niet gevonden)');
         }
     }
-
 
     public function delete($id, $taskid)
     {

@@ -26,4 +26,12 @@ class Project extends Model
     {
         return $this->belongsToMany(User::class, 'project_user_roles');
     }
+
+    public function userTasks()
+    {
+        return $this->hasMany(Task::class)
+            ->whereHas('users', function ($query) {
+                $query->where('user_id', auth()->id());
+            });
+    }
 }

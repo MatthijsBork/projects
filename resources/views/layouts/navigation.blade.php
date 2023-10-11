@@ -44,6 +44,9 @@
                         </x-slot>
 
                         <x-slot name="content">
+                            <x-dropdown-link :href="route('projects.index')">
+                                Mijn projecten
+                            </x-dropdown-link>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <x-dropdown-link :href="route('logout')"
@@ -52,9 +55,6 @@
                                     Uitloggen
                                 </x-dropdown-link>
                             </form>
-                            <x-dropdown-link :href="route('dashboard.projects.user')">
-                                Mijn projecten
-                            </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
                 </div>

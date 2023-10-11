@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="container py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="flex justify-between items-center min-h-[10vh]">
-            <h1 class="text-2xl font-semibold">Mijn taken</h1>
+            <h1 class="text-2xl font-semibold">Mijn projecten</h1>
         </div>
         @if (session('success'))
             <div class="relative px-4 py-3 my-3 text-green-700 bg-green-100 border border-green-400 rounded"
@@ -21,36 +21,29 @@
             <div class="w-full md:w-3/4">
                 <div class="w-full">
                     <div class="p-6 overflow-x-auto bg-white shadow-sm sm:rounded-lg">
-                        <div class="mb-4 border-b">
-                            <x-nav-link class="py-3" :href="route('projects.show', [$project->id])" :active="request()->routeIs('projects.show')">
-                                Project
-                            </x-nav-link>
-                            <x-nav-link class="py-3" :href="route('projects.tasks', [$project->id])" :active="request()->routeIs('projects.tasks*')">
-                                Mijn taken
-                            </x-nav-link>
-                        </div>
+
                         <table class="w-full text-left bg-white table-auto sm:rounded-lg">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="px-4 py-2">Titel</th>
-                                    <th class="px-4 py-2">Deadline</th>
-                                    <th class="px-4 py-2">Staat</th>
+                                    <th class="px-4 py-3">Titel</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($project->userTasks as $task)
+                                @foreach ($projects as $project)
                                     <tr class="border-b even:bg-gray-50">
-                                        <td class="max-w-[22vw] px-4 py-3 overflow-hidden">{{ $task->title }}</td>
-                                        <td class="max-w-[22vw] px-4 py-3 overflow-hidden">
-                                            {{ date('j F Y', strtotime($task->deadline)) }}</td>
-                                        <td class="max-w-[22vw] px-4 py-3 overflow-hidden">
-                                            {{ $task->state == 1 ? 'Klaar' : 'Bezig' }}
+                                        <td class="w-full p-2 overflow-hidden">
+                                            <a href="{{ route('projects.show', $project) }}">
+                                                {{ $project->title }}
+                                            </a>
                                         </td>
-                                        <td class="flex justify-end py-3">
-                                            <a title="Bekijken"
-                                                href="{{ route('projects.tasks.show', [$task->project->id, $task]) }}"
-                                                class="text-blue-700 hover:underline">
+                                        <td class="flex justify-end py-3 text-right">
+                                            <a href="{{ route('projects.tasks', [$project->id]) }}"
+                                                class="flex justify-end text-right text-blue-700 hover:underline">
+                                                <x-task-icon></x-task-icon>
+                                            </a>
+                                            <a href="{{ route('projects.show', [$project->id]) }}"
+                                                class="flex justify-end text-right text-blue-700 hover:underline">
                                                 <x-eye-icon></x-eye-icon>
                                             </a>
                                         </td>
@@ -58,10 +51,11 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="my-4">
+                            {{ $projects->links() }}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
 </x-app-layout>

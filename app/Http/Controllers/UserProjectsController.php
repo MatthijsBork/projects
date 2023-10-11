@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use App\Models\Project;
+use App\Models\UserTask;
 use Illuminate\Http\Request;
 
 class UserProjectsController extends Controller
 {
-    public function dashboard()
+    public function index()
     {
         $projects = auth()->user()->projects()->paginate(10);
-        return view('projects.user.dashboard', compact('projects'));
+        return view('projects.index', compact('projects'));
     }
 
     public function show(Project $project)
@@ -21,10 +23,15 @@ class UserProjectsController extends Controller
 
     public function showTasks(Project $project)
     {
-        $this->authorize('viewTasksInProject', $project);
+        $project->load('userTasks');
 
-        $tasks = $project->tasks;
+        return view('projects.tasks.index', compact('project'));
+    }
 
-        return view('tasks.index', compact('tasks'));
+    public function showTask(Project $project, Task $task)
+    {
+        $this->authorize('hasTask', [Task::class, $task]);
+
+        return view('projects.tasks.show', compact('task'));
     }
 }

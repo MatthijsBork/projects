@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Models\Project;
+use App\Models\UserTask;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserTasksPolicy
@@ -20,9 +21,10 @@ class UserTasksPolicy
         //
     }
 
-    public function task(User $user, Project $project)
+    public function hasTask(User $user, $task)
     {
-        // Check if the user is assigned to the project
-        return $user->projects->contains($project);
+        return UserTask::where('user_id', $user->id)
+        ->where('task_id', $task->id)
+        ->exists();
     }
 }
