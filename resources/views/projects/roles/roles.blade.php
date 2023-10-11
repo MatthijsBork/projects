@@ -64,10 +64,12 @@
                                             </td>
                                             <td class="px-4 py-2">
                                             </td>
-                                            <td>
-                                                <a href="{{ route('dashboard.projects.roles.delete', [$projectid, $userrole->id]) }}"
+                                            <td class="flex justify-end py-3 text-right">
+                                                <a href="{{ route('dashboard.projects.roles.delete', [$project->id, $userrole->id]) }}"
                                                     class="text-red-500 hover:underline"
-                                                    onclick="return confirm('Weet u zeker dat u dit wilt verwijderen?');">Verwijder</a>
+                                                    onclick="return confirm('Weet u zeker dat u dit wilt verwijderen?');">
+                                                    <x-trash-icon></x-trash-icon>
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach

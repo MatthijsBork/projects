@@ -16,12 +16,16 @@
                         <td class="max-w-[22vw] px-4 py-3 overflow-hidden">{{ $product->title }}</td>
                         <td class="max-w-[22vw] px-4 py-3 overflow-hidden">€{{ $product->price }}</td>
                         <td class="max-w-[22vw] px-4 py-3 overflow-hidden">{{ $product->vat }}%</td>
-                        <td class="overflow-hidden text-right">
+                        <td class="flex justify-end py-3 text-right">
                             <a href="{{ route('dashboard.products.edit', [$product->id]) }}"
-                                class="text-blue-500 hover:underline">Bewerken</a>
+                                class="text-blue-700 hover:underline">
+                                <x-edit-icon></x-edit-icon>
+                            </a>
                             <a href="{{ route('dashboard.products.delete', [$product->id]) }}"
                                 class="text-red-500 hover:underline"
-                                onclick="return confirm('Weet u zeker dat u dit wilt verwijderen?');">Verwijder</a>
+                                onclick="return confirm('Weet u zeker dat u dit wilt verwijderen?');">
+                                <x-trash-icon></x-trash-icon>
+                            </a>
                         </td>
                     </tr>
                 @endforeach

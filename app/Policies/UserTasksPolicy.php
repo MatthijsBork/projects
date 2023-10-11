@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Models\Project;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class UserProjectsPolicy
+class UserTasksPolicy
 {
     use HandlesAuthorization;
 
@@ -20,8 +20,9 @@ class UserProjectsPolicy
         //
     }
 
-    public function hasProject(User $user, Project $project)
+    public function task(User $user, Project $project)
     {
-        return $project->users->contains($user);
+        // Check if the user is assigned to the project
+        return $user->projects->contains($project);
     }
 }

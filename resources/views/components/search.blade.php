@@ -1,4 +1,4 @@
-<form class="text-right" method="GET" action={{ $action }}>
+<form class="w-1/2" method="GET" action={{ $action }}>
     <div class="relative">
         <input type="search" name="query" value="{{ request('query') }}"
             class="block p-2.5 w-full z-20 text-sm border-gray-200 text-gray-900 bg-gray-50 rounded-lg focus:ring-blue-500 focus:border-blue-500"

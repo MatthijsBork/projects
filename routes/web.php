@@ -78,7 +78,12 @@ Route::middleware('auth')->group(function () {
             Route::get('{id}/delete', [ProjectController::class, 'delete'])->name('.delete');
             Route::get('', [ProjectController::class, 'dashboard'])->name('');
             Route::get('search', [ProjectController::class, 'search'])->name('.search');
-            Route::get('user', [UserProjectsController::class, 'dashboard'])->name('.user');
+
+            Route::prefix('user')->name('.user')->group(function () {
+                Route::get('user', [UserProjectsController::class, 'dashboard'])->name('');
+                Route::get('{project}/show', [UserProjectsController::class, 'show'])->name('.show');
+                Route::get('{project}/show/tasks', [UserProjectsController::class, 'showTasks'])->name('.show.tasks');
+            });
 
             Route::prefix('{id}/edit/roles')->name('.roles')->group(function () {
                 Route::get('{roleid}/delete', [ProjectUserRoleController::class, 'delete'])->name('.delete');

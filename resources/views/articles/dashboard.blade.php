@@ -19,12 +19,16 @@
                         <td class="px-4 py-3">{{ $article->category->name }}
                         </td>
                         <td class="max-w-[22vw] px-4 py-3 overflow-hidden">{{ $article->title }}</td>
-                        <td class="overflow-hidden text-right">
+                        <td class="flex justify-end py-3 text-right">
                             <a href="{{ route('dashboard.articles.edit', [$article->id]) }}"
-                                class="text-blue-500 hover:underline">Bewerken</a>
+                                class="text-blue-700 hover:underline">
+                                <x-edit-icon></x-edit-icon>
+                            </a>
                             <a href="{{ route('dashboard.articles.delete', [$article->id]) }}"
                                 class="text-red-500 hover:underline"
-                                onclick="return confirm('Weet u zeker dat u dit wilt verwijderen?');">Verwijder</a>
+                                onclick="return confirm('Weet u zeker dat u dit wilt verwijderen?');">
+                                <x-trash-icon></x-trash-icon>
+                            </a>
                         </td>
                     </tr>
                 @endforeach

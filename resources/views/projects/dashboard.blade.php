@@ -5,20 +5,31 @@
             <thead class="bg-gray-50">
                 <tr>
                     <th class="px-4 py-3">Titel</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($projects as $project)
-                    <tr class="border-b even:bg-gray-50">
+                    <tr class="items-center border-b even:bg-gray-50">
                         <td class="max-w-[22vw] px-4 py-3 overflow-hidden">{{ $project->title }}</td>
-                        <td class="text-right">
+                        <td class="flex justify-end py-3 text-right">
                             <a href="{{ route('dashboard.projects.tasks', [$project->id]) }}"
-                                class="text-blue-400 hover:underline">Taken</a>
+                                class="flex justify-end text-right text-blue-700 hover:underline">
+                                <x-task-icon></x-task-icon>
+                            </a>
+                            <a href="{{ route('dashboard.projects.roles', [$project->id]) }}"
+                                class="flex justify-end text-right text-blue-700 hover:underline">
+                                <x-user-icon></x-user-icon>
+                            </a>
                             <a href="{{ route('dashboard.projects.edit', [$project->id]) }}"
-                                class="text-blue-700 hover:underline">Bewerken</a>
+                                class="text-blue-700 hover:underline">
+                                <x-edit-icon></x-edit-icon>
+                            </a>
                             <a href="{{ route('dashboard.projects.delete', [$project->id]) }}"
                                 class="text-red-500 hover:underline"
-                                onclick="return confirm('Weet u zeker dat u dit wilt verwijderen?');">Verwijder</a>
+                                onclick="return confirm('Weet u zeker dat u dit wilt verwijderen?');">
+                                <x-trash-icon></x-trash-icon>
+                            </a>
                         </td>
                     </tr>
                 @endforeach
