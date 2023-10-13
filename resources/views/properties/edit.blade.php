@@ -15,7 +15,7 @@
             <div class="w-full md:w-3/4">
                 <div class="overflow-x-auto bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
-                        <form action="{{ route('dashboard.properties.edit', [$property->id]) }}" method="POST">
+                        <form action="{{ route('dashboard.properties.update', [$property]) }}" method="POST">
                             @csrf
                             <div class="mb-4">
                                 <label for="name" class="block text-sm font-semibold text-gray-600">Naam</label>

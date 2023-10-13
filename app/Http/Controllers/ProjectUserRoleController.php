@@ -32,13 +32,9 @@ class ProjectUserRoleController extends Controller
         return view('projects.roles.roles', compact('projectid', 'users', 'project', 'roles', 'userroles'));
     }
 
-    public function delete($id, $roleid)
+    public function delete($id, ProjectuserRole $role)
     {
-        if ($userrole = ProjectUserRole::find($roleid)) {
-            $userrole->delete();
-            return redirect()->route('dashboard.projects.roles', [$id])->with('success', 'Project bijgewerkt');
-        } else {
-            return redirect()->route('dashboard.projects.roles', [$id])->with('error', 'Gebruikersrol niet gevonden');
-        }
+        $role->delete();
+        return redirect()->route('dashboard.projects.roles', [$id])->with('success', 'Project bijgewerkt');
     }
 }

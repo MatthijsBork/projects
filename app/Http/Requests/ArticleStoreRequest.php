@@ -29,7 +29,6 @@ class ArticleStoreRequest extends FormRequest
             'content' => 'required|string',
             'publication_date' => 'required|date',
             'category_id' => 'required|integer|exists:categories,id',
-            'image_name' => 'string',
         ];
     }
 

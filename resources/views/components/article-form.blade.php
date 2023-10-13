@@ -25,12 +25,11 @@
         @enderror
     </div>
     <div class="mb-4">
-        <x-input-label for="publication_date">Publiceerdatum</x-input-label>
+        <x-input-label for="publication_date">Startdatum</x-input-label>
         <input type="date" id="publication_date" name="publication_date"
-            value="{{ isset($article) ? date('Y-m-d', strtotime($article->publication_date)) : old('publication_date') }}"
+            value="{{ isset($article->publication_date) ? date('Y-m-d', strtotime($article->publication_date)) : old('start_date') }}"
             class="px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-400 focus:border-blue-400">
         @error('publication_date')
-            {{ isset($article->publication_date) ? date('Y-m-d', strtotime($article->publication_date)) : old('publication_date') }}
             <div class="text-red-500">{{ $message }}</div>
         @enderror
     </div>

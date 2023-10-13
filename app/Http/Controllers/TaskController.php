@@ -39,30 +39,24 @@ class TaskController extends Controller
 
     public function store(TaskStoreRequest $request, $project_id)
     {
-        try {
-            $task = new Task();
-            $task->title = $request->input('title');
-            $task->description = $request->input('description');
-            $task->state = $request->input('state');
-            $task->deadline = Carbon::parse($request->input('deadline'));
-            $task->project_id = $project_id;
-            $task->save();
+        $task = new Task();
+        $task->title = $request->input('title');
+        $task->description = $request->input('description');
+        $task->state = $request->input('state');
+        $task->deadline = Carbon::parse($request->input('deadline'));
+        $task->project_id = $project_id;
+        $task->save();
 
-            if ($selectedUsers = $request->input('selected_users')) {
-                foreach ($selectedUsers as $userId) {
-                    UserTask::create([
-                        'user_id' => $userId,
-                        'task_id' => $task->id,
-                    ]);
-                }
+        if ($selectedUsers = $request->input('selected_users')) {
+            foreach ($selectedUsers as $userId) {
+                UserTask::create([
+                    'user_id' => $userId,
+                    'task_id' => $task->id,
+                ]);
             }
-
-            return redirect()->route('dashboard.projects.tasks', [$project_id])->with('success', 'Taak opgeslagen');
-        } catch (\Exception $e) {
-            return redirect()->route('dashboard.projects.tasks.create', [$project_id])
-                ->withInput()
-                ->with('error', 'Er is iets misgegaan' . $e);
         }
+
+        return redirect()->route('dashboard.projects.tasks', [$project_id])->with('success', 'Taak opgeslagen');
     }
 
     public function update(TaskStoreRequest $request, $project_id, Task $task)

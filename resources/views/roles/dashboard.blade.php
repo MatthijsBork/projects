@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-dashboard title="Rollen dashboard">
+    <x-dashboard title="Rollen dashboard" route='/dashboard/roles'>
         <x-search action="{{ route('dashboard.roles.search') }}"></x-search>
         <table class="w-full text-left bg-white table-auto sm:rounded-lg">
             <thead class="bg-gray-50">
@@ -14,11 +14,11 @@
                         <td class="px-4 py-3">{{ $role->name }}
                         </td>
                         <td class="flex justify-end py-3 text-right">
-                            <a href="{{ route('dashboard.roles.edit', [$role->id]) }}"
+                            <a href="{{ route('dashboard.roles.edit', [$role]) }}"
                                 class="text-blue-700 hover:underline">
                                 <x-edit-icon></x-edit-icon>
                             </a>
-                            <a href="{{ route('dashboard.roles.delete', [$role->id]) }}"
+                            <a href="{{ route('dashboard.roles.delete', [$role]) }}"
                                 class="text-red-500 hover:underline"
                                 onclick="return confirm('Weet u zeker dat u dit wilt verwijderen?');">
                                 <x-trash-icon></x-trash-icon>
@@ -29,7 +29,6 @@
             </tbody>
         </table>
         <div class="my-4">
-            {{ $roles->links() }}
         </div>
     </x-dashboard>
 </x-app-layout>

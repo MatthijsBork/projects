@@ -30,10 +30,8 @@ class PropertyController extends Controller
         return view('properties.create', compact('properties'));
     }
 
-    public function edit($id)
+    public function edit(Property $property)
     {
-        $property = Property::find($id);
-
         return view('properties.edit', compact('property'));;
     }
 
@@ -45,25 +43,17 @@ class PropertyController extends Controller
         return redirect()->route('dashboard.properties')->with('success', 'Nieuwe eigenschap toegevoegd');
     }
 
-    public function update(PropertyStoreRequest $request, $id)
+    public function update(PropertyStoreRequest $request, Property $property)
     {
-        if ($property = Property::find($id)) {
-            $property->update([
-                'name' => $request->input('name'),
-            ]);
-            return redirect()->route('dashboard.properties')->with('success', 'Eigenschap bijgewerkt');
-        } else {
-            return redirect()->route('dashboard.properties')->with('error', 'Eigenschap kon niet worden bewerkt (niet gevonden)');
-        }
+        $property->update([
+            'name' => $request->input('name'),
+        ]);
+        return redirect()->route('dashboard.properties')->with('success', 'Eigenschap bijgewerkt');
     }
 
-    public function delete($id)
+    public function delete(Property $property)
     {
-        if ($property = Property::find($id)) {
-            $property->delete();
-            return redirect()->route('dashboard.properties')->with('success', 'Eigenschap verwijderd');
-        } else {
-            return redirect()->route('dashboard.properties')->with('error', 'Eigenschap kon niet worden verwijderd (niet gevonden)');
-        }
+        $property->delete();
+        return redirect()->route('dashboard.properties')->with('success', 'Eigenschap verwijderd');
     }
 }

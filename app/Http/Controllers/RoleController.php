@@ -30,10 +30,8 @@ class RoleController extends Controller
         return view('roles.create', compact('roles'));
     }
 
-    public function edit($id)
+    public function edit(Role $role)
     {
-        $role = Role::find($id);
-
         return view('roles.edit', compact('role'));;
     }
 
@@ -46,25 +44,17 @@ class RoleController extends Controller
         return redirect()->route('dashboard.roles')->with('success', 'Nieuwe rol toegevoegd');
     }
 
-    public function update(RoleStoreRequest $request, $id)
+    public function update(RoleStoreRequest $request, Role $role)
     {
-        if ($role = Role::find($id)) {
-            $role->update([
-                'name' => $request->input('name'),
-            ]);
-            return redirect()->route('dashboard.roles')->with('success', 'Rol bijgewerkt');
-        } else {
-            return redirect()->route('dashboard.roles')->with('error', 'Rol kon niet worden bewerkt (niet gevonden)');
-        }
+        $role->update([
+            'name' => $request->input('name'),
+        ]);
+        return redirect()->route('dashboard.roles')->with('success', 'Rol bijgewerkt');
     }
 
-    public function delete($id)
+    public function delete(Role $role)
     {
-        if ($role = Role::find($id)) {
-            $role->delete();
-            return redirect()->route('dashboard.roles')->with('success', 'Rol verwijderd');
-        } else {
-            return redirect()->route('dashboard.roles')->with('error', 'Rol kon niet worden verwijderd (niet gevonden)');
-        }
+        $role->delete();
+        return redirect()->route('dashboard.roles')->with('success', 'Rol verwijderd');
     }
 }

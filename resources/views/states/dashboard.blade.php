@@ -15,11 +15,11 @@
                         </td>
                         </td>
                         <td class="px-4 py-2">
-                            <a href="{{ route('dashboard.states.edit', [$state->id]) }}"
+                            <a href="{{ route('dashboard.states.edit', [$state]) }}"
                                 class="text-blue-500 hover:underline">Bewerken</a>
                         </td>
                         <td class="px-4 py-2">
-                            <a href="{{ route('dashboard.states.delete', [$state->id]) }}"
+                            <a href="{{ route('dashboard.states.delete', [$state]) }}"
                                 class="text-red-500 hover:underline">Verwijder</a>
                         </td>
                     </tr>

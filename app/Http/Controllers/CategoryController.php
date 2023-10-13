@@ -30,10 +30,8 @@ class CategoryController extends Controller
         return view('categories.create', compact('categories'));
     }
 
-    public function edit($id)
+    public function edit(Category $category)
     {
-        $category = Category::find($id);
-
         return view('categories.edit', compact('category'));;
     }
 
@@ -46,25 +44,17 @@ class CategoryController extends Controller
         return redirect()->route('dashboard.categories')->with('success', 'Nieuwe categorie toegevoegd');
     }
 
-    public function update(CategoryStoreRequest $request, $id)
+    public function update(CategoryStoreRequest $request, Category $category)
     {
-        if ($category = Category::find($id)) {
-            $category->update([
-                'name' => $request->input('name'),
-            ]);
-            return redirect()->route('dashboard.categories')->with('success', 'Categorie bijgewerkt');
-        } else {
-            return redirect()->route('dashboard.categories')->with('error', 'Categorie kon niet worden bewerkt (niet gevonden)');
-        }
+        $category->update([
+            'name' => $request->input('name'),
+        ]);
+        return redirect()->route('dashboard.categories')->with('success', 'Categorie bijgewerkt');
     }
 
-    public function delete($id)
+    public function delete(Category $category)
     {
-        if ($category = Category::find($id)) {
-            $category->delete();
-            return redirect()->route('dashboard.categories')->with('success', 'Categorie verwijderd');
-        } else {
-            return redirect()->route('dashboard.categories')->with('error', 'Categorie kon niet worden verwijderd (niet gevonden)');
-        }
+        $category->delete();
+        return redirect()->route('dashboard.categories')->with('success', 'Categorie verwijderd');
     }
 }

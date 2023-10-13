@@ -23,8 +23,8 @@
                 <div class="overflow-x-auto bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
                         <x-project-tab-menu :projectid="$project->id"></x-project-tab-menu>
-                        <x-project-form :users="$users" :project="$project" :roles="$roles" :userroles="$userroles"
-                            action="{{ route('dashboard.projects.update', [$project->id]) }}"></x-project-form>
+                        <x-project-form :project="$project"
+                            action="{{ route('dashboard.projects.update', [$project]) }}"></x-project-form>
                     </div>
                 </div>
             </div>

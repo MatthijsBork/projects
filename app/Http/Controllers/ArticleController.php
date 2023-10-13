@@ -42,27 +42,19 @@ class ArticleController extends Controller
         return view('articles.create', compact('article'));
     }
 
-    public function show($id)
+    public function show(Article $article)
     {
-        if (!($article = Article::find($id))) {
-            abort(404);
-        } else {
-            return view('articles.show', compact('article'));
-        }
+        return view('articles.show', compact('article'));
     }
 
-    public function edit(Request $request, $id)
+    public function edit(Request $request, Article $article)
     {
         $categories = Category::all();
 
-        if ($request->isMethod('get') && ($article = Article::find($id))) {
-            return view('articles.edit', compact('article', 'categories'));;
-        } else {
-            return redirect()->route('dashboard.articles')->with('error', 'Artikel kon niet worden bewerkt (niet gevonden)');
-        }
+        return view('articles.edit', compact('article', 'categories'));
     }
 
-    public function store(ArticleStoreRequest $request, Article $article)
+    public function store(ArticleStoreRequest $request)
     {
         $article = new Article();
         $article->title = $request->input('title');
@@ -85,45 +77,40 @@ class ArticleController extends Controller
         return redirect()->route('dashboard.articles')->with('success', 'Nieuw artikel toegevoegd');
     }
 
-    public function update(ArticleStoreRequest $request, $id)
+    public function update(ArticleStoreRequest $request, Article $article)
     {
-        if ($article = Article::find($id)) {
-            if ($request->input('delete_image') == 1) {
-                Storage::delete('articles/' . $article->id . '/' . $article->img);
-                Storage::deleteDirectory('articles/' . $article->id);
-                $imagePath = '';
-            } elseif ($request->hasFile('image')) {
-                Storage::delete('articles/' . $article->id . '/' . $article->img);
-                Storage::deleteDirectory('articles/' . $article->id);
-                $p = 'public';
-                $path = $request->file('image')->store($p, 'public');
-                $imagePath = substr($path, strlen($p));
-            } else {
-                $imagePath = $article->img;
-            }
-            $article->update([
-                'title' => $request->input('title'),
-                'intro' => $request->input('intro'),
-                'content' => $request->input('content'),
-                'publication_date' => Carbon::parse($request->input('publication_date')),
-                'category_id' => $request->input('category_id'),
-                'img' => $imagePath,
-            ]);
-            return redirect()->route('dashboard.articles')->with('success', 'Artikel bijgewerkt');
-        } else {
-            return redirect()->route('dashboard.articles')->with('error', 'Artikel kon niet worden bewerkt (niet gevonden)');
-        }
-    }
-
-    public function delete($id)
-    {
-        if ($article = Article::find($id)) {
+        if ($request->input('delete_image') == 1) {
             Storage::delete('articles/' . $article->id . '/' . $article->img);
             Storage::deleteDirectory('articles/' . $article->id);
-            $article->delete();
-            return redirect()->route('dashboard.articles')->with('success', 'Artikel verwijderd');
+            $imagePath = '';
+        } elseif ($request->hasFile('image')) {
+            Storage::delete('articles/' . $article->id . '/' . $article->img);
+            Storage::deleteDirectory('articles/' . $article->id);
+            $p = 'public';
+            $path = $request->file('image')->store($p, 'public');
+            $imagePath = substr($path, strlen($p));
         } else {
-            return redirect()->route('dashboard.articles')->with('error', 'Artikel kon niet worden verwijderd (niet gevonden)');
+            $imagePath = $article->img;
         }
+
+        $article->update([
+            'title' => $request->input('title'),
+            'intro' => $request->input('intro'),
+            'content' => $request->input('content'),
+            'publication_date' => Carbon::parse($request->input('publication_date')),
+            'category_id' => $request->input('category_id'),
+            'img' => $imagePath,
+        ]);
+
+        return redirect()->route('dashboard.articles')->with('success', 'Artikel bijgewerkt');
+    }
+
+    public function delete(Article $article)
+    {
+        Storage::delete('articles/' . $article->id . '/' . $article->img);
+        Storage::deleteDirectory('articles/' . $article->id);
+        $article->delete();
+
+        return redirect()->route('dashboard.articles')->with('success', 'Artikel verwijderd');
     }
 }

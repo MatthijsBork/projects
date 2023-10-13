@@ -20,11 +20,11 @@
                         </td>
                         <td class="max-w-[22vw] px-4 py-3 overflow-hidden">{{ $article->title }}</td>
                         <td class="flex justify-end py-3 text-right">
-                            <a href="{{ route('dashboard.articles.edit', [$article->id]) }}"
+                            <a href="{{ route('dashboard.articles.edit', [$article]) }}"
                                 class="text-blue-700 hover:underline">
                                 <x-edit-icon></x-edit-icon>
                             </a>
-                            <a href="{{ route('dashboard.articles.delete', [$article->id]) }}"
+                            <a href="{{ route('dashboard.articles.delete', [$article]) }}"
                                 class="text-red-500 hover:underline"
                                 onclick="return confirm('Weet u zeker dat u dit wilt verwijderen?');">
                                 <x-trash-icon></x-trash-icon>

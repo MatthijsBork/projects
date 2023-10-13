@@ -10,7 +10,8 @@
             <div class="w-full md:w-3/4">
                 <div class="overflow-x-auto bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
-                        <x-article-form :article="$article" :categories="$categories" route="{{ route('dashboard.articles.update', [$article->id]) }}"></x-article-form>
+                        <x-article-form :article="$article" :categories="$categories"
+                            route="{{ route('dashboard.articles.update', [$article]) }}"></x-article-form>
                     </div>
                 </div>
             </div>

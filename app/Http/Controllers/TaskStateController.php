@@ -19,14 +19,9 @@ class TaskStateController extends Controller
         return view('states.create');
     }
 
-    public function edit($id)
+    public function edit(TaskState $state)
     {
-        if ($state = TaskState::find($id)) {
-
-            return view('states.edit', compact('state'));
-        } else {
-            return redirect()->route('dashboard.states')->with('error', 'Taak kon niet worden gevonden');
-        }
+        return view('states.edit', compact('state'));
     }
 
     public function store(TaskStateStoreRequest $request)
@@ -38,26 +33,18 @@ class TaskStateController extends Controller
         return redirect()->route('dashboard.states')->with('success', 'Nieuwe status toegevoegd');
     }
 
-    public function update(TaskStateStoreRequest $request, $id)
+    public function update(TaskStateStoreRequest $request, TaskState $state)
     {
-        if (($state = TaskState::find($id))) {
-            $state->update([
-                'name' => $request->input('name'),
-            ]);
+        $state->update([
+            'name' => $request->input('name'),
+        ]);
 
-            return redirect()->route('dashboard.states')->with('success', 'Status bijgewerkt');
-        } else {
-            return redirect()->route('dashboard.projects.tasks', [$id])->with('error', 'Taak kon niet worden bewerkt (niet gevonden)');
-        }
+        return redirect()->route('dashboard.states')->with('success', 'Status bijgewerkt');
     }
 
-    public function delete($id)
+    public function delete(TaskState $state)
     {
-        if ($state = TaskState::find($id)) {
-            $state->delete();
-            return redirect()->route('dashboard.states', [$id])->with('success', 'Taak verwijderd');
-        } else {
-            return redirect()->route('dashboard.states', [$id])->with('error', 'Taak kon niet worden verwijderd (niet gevonden)');
-        }
+        $state->delete();
+        return redirect()->route('dashboard.states', [$state])->with('success', 'Taak verwijderd');
     }
 }

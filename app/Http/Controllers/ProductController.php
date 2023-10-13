@@ -31,13 +31,9 @@ class ProductController extends Controller
         return view('products.create', compact('product'));
     }
 
-    public function edit(Request $request, $id)
+    public function edit(Request $request, Product $product)
     {
-        if ($product = Product::find($id)) {
-            return view('products.edit', compact('product'));
-        } else {
-            return redirect()->route('dashboard.products')->with('error', 'Product kon niet worden bewerkt (niet gevonden)');
-        }
+        return view('products.edit', compact('product'));
     }
 
     public function store(ProductStoreRequest $request)
@@ -115,15 +111,11 @@ class ProductController extends Controller
         return redirect()->route('dashboard.products')->with('success', 'Product bijgewerkt');
     }
 
-    public function delete($id)
+    public function delete(Product $product)
     {
-        if ($product = Product::find($id)) {
-            Storage::delete('products/' . $product->id . '/' . $product->img);
-            Storage::deleteDirectory('products/' . $product->id);
-            $product->delete();
-            return redirect()->route('dashboard.products')->with('success', 'Product verwijderd');
-        } else {
-            return redirect()->route('dashboard.products')->with('error', 'Product kon niet worden verwijderd (niet gevonden)');
-        }
+        Storage::delete('products/' . $product->id . '/' . $product->img);
+        Storage::deleteDirectory('products/' . $product->id);
+        $product->delete();
+        return redirect()->route('dashboard.products')->with('success', 'Product verwijderd');
     }
 }
