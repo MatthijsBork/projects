@@ -15,7 +15,7 @@ class ProjectController extends Controller
 {
     public function dashboard()
     {
-        $projects = Project::paginate(10);
+        $projects = Project::orderBy('created_at', 'desc')->paginate(10);
 
         return view('projects.dashboard', compact('projects'));
     }

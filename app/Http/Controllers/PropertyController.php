@@ -10,7 +10,7 @@ class PropertyController extends Controller
 {
     public function dashboard()
     {
-        $properties = Property::paginate(10);
+        $properties = Property::orderBy('created_at', 'desc')->paginate(10);
 
         return view('properties.dashboard', compact('properties'));
     }

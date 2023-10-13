@@ -16,7 +16,7 @@
         @endif
         <div class="justify-between md:flex">
             <div class="w-full md:w-1/6 lg:w-1/5">
-                <x-dashboard-menu></x-dashboard-menu>
+                <x-site-menu></x-site-menu>
             </div>
             <div class="w-full md:w-3/4">
                 <div class="w-full">

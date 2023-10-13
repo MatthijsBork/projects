@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
-use App\Models\User;
 use App\Models\Project;
 use App\Models\UserTask;
-use App\Models\TaskState;
-use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Requests\TaskStoreRequest;
 
@@ -15,7 +12,7 @@ class TaskController extends Controller
 {
     public function dashboard($project_id)
     {
-        $tasks = Task::where('project_id', $project_id)->paginate(10);
+        $tasks = Task::where('project_id', $project_id)->orderBy('created_at', 'desc')->paginate(10);
         $projectid = $project_id;
 
         return view('projects.tasks.dashboard', compact('tasks', 'projectid'));

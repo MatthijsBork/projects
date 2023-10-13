@@ -44,16 +44,18 @@
                                 </div>
                             </div>
                         </form>
-                        <table class="w-full text-left bg-white table-auto sm:rounded-lg">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th class="px-4 py-2">Gebruiker</th>
-                                    <th class="px-4 py-2">Rol</th>
-                                    <th class="px-4 py-2"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if ($userroles)
+                        @empty($userroles)
+                            <p>Niks</p>
+                        @else
+                            <table class="w-full text-left bg-white table-auto sm:rounded-lg">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-4 py-2">Gebruiker</th>
+                                        <th class="px-4 py-2">Rol</th>
+                                        <th class="px-4 py-2"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                     @foreach ($userroles as $userrole)
                                         <tr class="border-b even:bg-gray-50">
                                             <td class="max-w-[22vw] px-4 py-2 overflow-hidden">
@@ -73,15 +75,13 @@
                                             </td>
                                         </tr>
                                     @endforeach
-                            </tbody>
-                        @else
-                            <p>Er zijn nog geen gebruikers toegevoegd</p>
+                                </tbody>
+                            </table>
                             @endif
-                        </table>
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
-    </div>
-</x-app-layout>
+    </x-app-layout>

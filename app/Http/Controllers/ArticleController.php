@@ -20,7 +20,7 @@ class ArticleController extends Controller
 
     public function dashboard()
     {
-        $articles = Article::paginate(10);
+        $articles = Article::orderBy('created_at', 'desc')->paginate(10);
 
         return view('articles.dashboard', compact('articles'));
     }
