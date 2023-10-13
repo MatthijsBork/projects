@@ -42,6 +42,11 @@
                                                 {!! $project->description !!}
                                             </p>
                                         </div>
+                                        <div class="mt-5">
+                                            <a href="{{ route('projects.index') }}"
+                                                class="text-blue-500 hover:underline">Terug naar
+                                                projecten</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

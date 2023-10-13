@@ -28,13 +28,9 @@ class TaskController extends Controller
         return view('projects.tasks.create', compact('task', 'project'));
     }
 
-    public function edit($id, $taskid)
+    public function edit($id, Task $task)
     {
-        if ($task = Task::find($taskid)) {
-            return view('projects.tasks.edit', compact('task'));
-        } else {
-            return redirect()->route('dashboard.projects.tasks', [$task->project->id])->with('error', 'Taak kon niet worden gevonden');
-        }
+        return view('projects.tasks.edit', compact('task'));
     }
 
     public function store(TaskStoreRequest $request, $project_id)
@@ -90,13 +86,9 @@ class TaskController extends Controller
         }
     }
 
-    public function delete($id, $taskid)
+    public function delete($id, Task $task)
     {
-        if ($task = Task::find($taskid)) {
-            $task->delete();
-            return redirect()->route('dashboard.projects.tasks', [$id])->with('success', 'Taak verwijderd');
-        } else {
-            return redirect()->route('dashboard.projects.tasks', [$id])->with('error', 'Taak kon niet worden verwijderd (niet gevonden)');
-        }
+        $task->delete();
+        return redirect()->route('dashboard.projects.tasks', [$id])->with('success', 'Taak verwijderd');
     }
 }

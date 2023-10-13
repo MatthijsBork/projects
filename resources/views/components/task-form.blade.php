@@ -21,7 +21,7 @@
         <div class="mb-4">
             <x-input-label for="deadline">Deadline</x-input-label>
             <input type="date" id="deadline" name="deadline"
-                value="{{ isset($task) ? date('Y-m-d', strtotime($task->deadline)) : old('deadline') }}"
+                value="{{ isset($task->deadline) ? date('Y-m-d', strtotime($task->deadline)) : old('deadline') }}"
                 class="px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-400 focus:border-blue-400">
             @error('deadline')
                 <div class="text-red-500">{{ $message }}</div>

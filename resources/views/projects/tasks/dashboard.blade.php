@@ -19,11 +19,13 @@
                         <td class="max-w-[22vw] px-4 py-3 overflow-hidden">{{ $task->state == 1 ? 'Klaar' : 'Bezig' }}
                         </td>
                         <td class="flex justify-end py-3 text-right">
-                            <a href="{{ route('dashboard.projects.tasks.edit', [$task->project->id, $task->id]) }}"
+                            <a title="Bewerken"
+                                href="{{ route('dashboard.projects.tasks.edit', [$task->project->id, $task]) }}"
                                 class="text-blue-700 hover:underline">
                                 <x-edit-icon></x-edit-icon>
                             </a>
-                            <a href="{{ route('dashboard.projects.tasks.delete', [$task->project->id, $task->id]) }}"
+                            <a title="Verwijderen"
+                                href="{{ route('dashboard.projects.tasks.delete', [$task->project->id, $task]) }}"
                                 class="text-red-500 hover:underline"
                                 onclick="return confirm('Weet u zeker dat u dit wilt verwijderen?');">
                                 <x-trash-icon></x-trash-icon>

@@ -5,6 +5,7 @@
             <thead class="bg-gray-50">
                 <tr>
                     <th class="px-4 py-3">Naam</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -13,11 +14,11 @@
                         <td class="px-4 py-3">{{ $category->name }}
                         </td>
                         <td class="flex justify-end py-3 text-right">
-                            <a href="{{ route('dashboard.categories.edit', [$category]) }}"
+                            <a title="Bewerken" href="{{ route('dashboard.categories.edit', [$category]) }}"
                                 class="text-blue-700 hover:underline">
                                 <x-edit-icon></x-edit-icon>
                             </a>
-                            <a href="{{ route('dashboard.categories.delete', [$category]) }}"
+                            <a title="Verwijderen" href="{{ route('dashboard.categories.delete', [$category]) }}"
                                 class="text-red-500 hover:underline"
                                 onclick="return confirm('Weet u zeker dat u dit wilt verwijderen?');">
                                 <x-trash-icon></x-trash-icon>

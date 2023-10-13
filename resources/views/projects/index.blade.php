@@ -31,18 +31,14 @@
                             </thead>
                             <tbody>
                                 @foreach ($projects as $project)
-                                    <tr class="border-b even:bg-gray-50">
-                                        <td class="w-full p-2 overflow-hidden">
-                                            <a href="{{ route('projects.show', $project) }}">
-                                                {{ $project->title }}
-                                            </a>
-                                        </td>
+                                    <tr class="items-center border-b even:bg-gray-50">
+                                        <td class="max-w-[22vw] px-4 py-3 overflow-hidden">{{ $project->title }}</td>
                                         <td class="flex justify-end py-3 text-right">
-                                            <a href="{{ route('projects.tasks', [$project->id]) }}"
+                                            <a href="{{ route('projects.tasks', [$project->id]) }}" title="Taken"
                                                 class="flex justify-end text-right text-blue-700 hover:underline">
                                                 <x-task-icon></x-task-icon>
                                             </a>
-                                            <a href="{{ route('projects.show', [$project->id]) }}"
+                                            <a href="{{ route('projects.show', [$project->id]) }}" title="Bekijken"
                                                 class="flex justify-end text-right text-blue-700 hover:underline">
                                                 <x-eye-icon></x-eye-icon>
                                             </a>

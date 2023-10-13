@@ -5,7 +5,6 @@
                 <tr>
                     <th class="px-4 py-2">Naam</th>
                     <th class="px-4 py-2"></th>
-                    <th class="px-4 py-2"></th>
                 </tr>
             </thead>
             <tbody>
@@ -13,14 +12,16 @@
                     <tr class="border-b even:bg-gray-50">
                         <td class="px-4 py-2">{{ $state->name }}
                         </td>
-                        </td>
-                        <td class="px-4 py-2">
-                            <a href="{{ route('dashboard.states.edit', [$state]) }}"
-                                class="text-blue-500 hover:underline">Bewerken</a>
-                        </td>
-                        <td class="px-4 py-2">
-                            <a href="{{ route('dashboard.states.delete', [$state]) }}"
-                                class="text-red-500 hover:underline">Verwijder</a>
+                        <td class="flex justify-end py-3 text-right">
+                            <a title="Bewerken" href="{{ route('dashboard.states.edit', [$state]) }}"
+                                class="text-blue-700 hover:underline">
+                                <x-edit-icon></x-edit-icon>
+                            </a>
+                            <a title="Verwijderen" href="{{ route('dashboard.states.delete', [$state]) }}"
+                                class="text-red-500 hover:underline"
+                                onclick="return confirm('Weet u zeker dat u dit wilt verwijderen?');">
+                                <x-trash-icon></x-trash-icon>
+                            </a>
                         </td>
                     </tr>
                 @endforeach

@@ -14,11 +14,11 @@
                         <td class="px-4 py-3">{{ $role->name }}
                         </td>
                         <td class="flex justify-end py-3 text-right">
-                            <a href="{{ route('dashboard.roles.edit', [$role]) }}"
+                            <a title="Bewerken" href="{{ route('dashboard.roles.edit', [$role]) }}"
                                 class="text-blue-700 hover:underline">
                                 <x-edit-icon></x-edit-icon>
                             </a>
-                            <a href="{{ route('dashboard.roles.delete', [$role]) }}"
+                            <a title="Verwijderen" href="{{ route('dashboard.roles.delete', [$role]) }}"
                                 class="text-red-500 hover:underline"
                                 onclick="return confirm('Weet u zeker dat u dit wilt verwijderen?');">
                                 <x-trash-icon></x-trash-icon>
