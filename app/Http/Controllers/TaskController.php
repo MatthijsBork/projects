@@ -18,11 +18,11 @@ class TaskController extends Controller
         return view('projects.tasks.dashboard', compact('tasks', 'projectid'));
     }
 
-    public function create($project_id, Task $task)
+    public function create($project_id)
     {
         $project = Project::find($project_id);
 
-        return view('projects.tasks.create', compact('task', 'project'));
+        return view('projects.tasks.create', compact('project'));
     }
 
     public function edit($id, Task $task)

@@ -37,12 +37,16 @@
             @enderror
         </div>
         <div class="mb-4">
-            <x-input-label for="users">Gebruikers toevoegen</x-input-label>
-            @foreach ($task::getAllUsers() as $user)
-                <input id="users" type="checkbox" name="selected_users[]" value="{{ $user->id }}"
-                    {{ isset($task) && $task->users->contains($user->id) ? 'checked' : '' }}>
-                {{ $user->name }}
-            @endforeach
+            @if (!$project->users->isEmpty())
+                <x-input-label for="users">Gebruikers toevoegen</x-input-label>
+                @foreach ($project->users as $user)
+                    <input id="users" type="checkbox" name="selected_users[]" value="{{ $user->id }}"
+                        {{ isset($task) && $task->users->contains($user->id) ? 'checked' : '' }}>
+                    {{ $user->name }}
+                @endforeach
+            @else
+            <p>Nog geen gebruikers toegevoegd aan project</p>
+            @endif
         </div>
     </div>
 
