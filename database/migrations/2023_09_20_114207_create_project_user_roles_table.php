@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('role_id')->constrained('roles')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('project_id')->constrained('projects')->cascadeOnUpdate()->cascadeOnDelete();
+
+            $table->unique(['role_id', 'user_id', 'project_id']);
         });
     }
 

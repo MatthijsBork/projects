@@ -38,12 +38,15 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::prefix('projects')->name('projects')->group(function () {
-        Route::get('index', [UserProjectsController::class, 'index'])->name('.index');
-        Route::get('{project}', [UserProjectsController::class, 'show'])->name('.show');
-        Route::get('{project}/tasks', [UserProjectsController::class, 'showTasks'])->name('.tasks');
-        Route::get('{project}/tasks/{task}', [UserProjectsController::class, 'showTask'])->name('.tasks.show');
+    Route::prefix('user')->name('user')->group(function () {
+        Route::prefix('projects')->name('.projects')->group(function () {
+            Route::get('index', [UserProjectsController::class, 'index'])->name('.index');
+            Route::get('{project}', [UserProjectsController::class, 'show'])->name('.show');
+            Route::get('{project}/tasks', [UserProjectsController::class, 'showTasks'])->name('.tasks');
+            Route::get('{project}/tasks/{task}', [UserProjectsController::class, 'showTask'])->name('.tasks.show');
+        });
     });
+
 
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::prefix('categories')->name('categories')->group(function () {

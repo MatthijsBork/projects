@@ -24,7 +24,7 @@ class RoleStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:32',
+            'name' => 'required|string|max:32|unique:roles,name',
         ];
     }
 
@@ -33,6 +33,7 @@ class RoleStoreRequest extends FormRequest
         return [
             'name.required' => 'Het naam veld is verplicht.',
             'name.max' => 'Naam mag maximaal 32 tekens lang zijn',
+            'name.unique' => 'Er is al een rol met deze naam',
         ];
     }
 }

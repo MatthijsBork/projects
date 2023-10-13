@@ -22,10 +22,10 @@
                 <div class="w-full">
                     <div class="p-6 overflow-x-auto bg-white shadow-sm sm:rounded-lg">
                         <div class="mb-4 border-b">
-                            <x-nav-link class="py-3" :href="route('projects.show', [$project])" :active="request()->routeIs('projects.show*')">
+                            <x-nav-link class="py-3" :href="route('user.projects.show', [$project])" :active="request()->routeIs('user.projects.show*')">
                                 Project
                             </x-nav-link>
-                            <x-nav-link class="py-3" :href="route('projects.tasks', [$project->id])" :active="request()->routeIs('projects.tasks*')">
+                            <x-nav-link class="py-3" :href="route('user.projects.tasks', [$project->id])" :active="request()->routeIs('user.projects.tasks*')">
                                 Mijn taken
                             </x-nav-link>
                         </div>
@@ -43,7 +43,7 @@
                                             </p>
                                         </div>
                                         <div class="mt-5">
-                                            <a href="{{ route('projects.index') }}"
+                                            <a href="{{ route('user.projects.index') }}"
                                                 class="text-blue-500 hover:underline">Terug naar
                                                 projecten</a>
                                         </div>

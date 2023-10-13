@@ -34,11 +34,11 @@
                                     <tr class="items-center border-b even:bg-gray-50">
                                         <td class="max-w-[22vw] px-4 py-3 overflow-hidden">{{ $project->title }}</td>
                                         <td class="flex justify-end py-3 text-right">
-                                            <a href="{{ route('projects.tasks', [$project->id]) }}" title="Taken"
+                                            <a href="{{ route('user.projects.tasks', [$project->id]) }}" title="Taken"
                                                 class="flex justify-end text-right text-blue-700 hover:underline">
                                                 <x-task-icon></x-task-icon>
                                             </a>
-                                            <a href="{{ route('projects.show', [$project->id]) }}" title="Bekijken"
+                                            <a href="{{ route('user.projects.show', [$project->id]) }}" title="Bekijken"
                                                 class="flex justify-end text-right text-blue-700 hover:underline">
                                                 <x-eye-icon></x-eye-icon>
                                             </a>

@@ -24,8 +24,9 @@ class ProjectUserRoleController extends Controller
     public function edit($project_id)
     {
         $roles = Role::all();
-        $users = User::all();
         $project = Project::where('id', $project_id)->first();
+        $assignedUserIds = $project->projectUserRoles->pluck('user_id');
+        $users = User::whereNotIn('id', $assignedUserIds)->get();
         $projectid = $project_id;
         $userroles = ProjectUserRole::where('project_id', '=', $project->id)->get();
 

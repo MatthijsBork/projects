@@ -44,7 +44,7 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('projects.index')">
+                            <x-dropdown-link :href="route('user.projects.index')">
                                 Mijn projecten
                             </x-dropdown-link>
                             <form method="POST" action="{{ route('logout') }}">
