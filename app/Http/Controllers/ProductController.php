@@ -36,6 +36,17 @@ class ProductController extends Controller
         return view('products.edit', compact('product'));
     }
 
+    public function show(Product $product)
+    {
+        return view('products.show', compact('product'));
+    }
+
+    public function index()
+    {
+        $products = Product::orderBy('created_at', 'desc')->paginate(10);
+        return view('products.index', compact('products'));
+    }
+
     public function store(ProductStoreRequest $request)
     {
         $product = new Product;

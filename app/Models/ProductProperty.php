@@ -12,4 +12,9 @@ class ProductProperty extends Model
     protected $table = 'products_properties';
 
     protected $fillable = ['property_id', 'product_id', 'value'];
+
+    public function get()
+    {
+        return $this->belongsTo(Property::class);
+    }
 }

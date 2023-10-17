@@ -16,12 +16,17 @@ class Property extends Model
         return $this->hasMany(ProductProperty::class);
     }
 
-    public function productValue($product_id)
+    public function value($product_id)
     {
         $productProperty = ProductProperty::where('product_id', $product_id)
             ->where('property_id', $this->id)
             ->first();
 
         return $productProperty ? $productProperty->value : null;
+    }
+
+    public function name()
+    {
+        return $this->name;
     }
 }

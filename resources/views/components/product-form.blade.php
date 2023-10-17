@@ -61,7 +61,7 @@
             <div class="mb-4">
                 <x-input-label for="{{ $property->name }}">{{ $property->name }}</x-input-label>
                 <input type="text" id="{{ $property->name }}" name="properties[{{ $property->id }}]"
-                    value="{{ $property->productValue($product->id) }}"
+                    value="{{ $property->value($product->id) }}"
                     class="px-1 py-1 rounded-lg focus:outline-none focus:ring focus:ring-blue-400 focus:border-blue-400">
             </div>
         @endforeach

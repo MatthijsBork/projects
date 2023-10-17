@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
@@ -30,6 +31,20 @@ app()->setLocale('nl');
 
 route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
 Route::get('articles/{id}/show', [ArticleController::class, 'show'])->name('articles.show');
+
+route::get('products/{product}/show', [ProductController::class, 'show'])->name('products.show');
+
+Route::prefix('products')->name('products.')->group(function () {
+    route::get('', [ProductController::class, 'index'])->name('index');
+    route::get('{product}/show', [ProductController::class, 'show'])->name('show');
+
+    Route::prefix('cart')->name('cart.')->group(function () {
+        route::get('add', [CartController::class, 'add'])->name('add');
+        route::get('', [CartController::class, 'show'])->name('');
+    });
+});
+
+
 route::get('/', [ArticleController::class, 'index'])->name('index');
 
 
