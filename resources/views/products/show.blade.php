@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="container p-8 mx-auto mt-8">
+    <div class="container max-w-7xl p-8 mx-auto mt-8">
         <div class="flex">
             <!-- Product Image -->
             <div class="w-1/2">
@@ -11,8 +11,8 @@
                 <h1 class="text-3xl font-semibold">{{ $product->name }}</h1>
                 <p class="mt-2 text-gray-500">{{ $product->description }}</p>
 
-                <div class="mt-4 text-2xl font-semibold text-green-500">
-                    ${{ $product->price }}
+                <div class="mt-4 text-2xl font-semibold">
+                    €{{ $product->price + $product->price * ($product->vat / 100) }}
                 </div>
 
                 <a href="{{ route('products.cart.add', [$product]) }}">

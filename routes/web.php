@@ -38,8 +38,12 @@ Route::prefix('products')->name('products.')->group(function () {
     route::get('', [ProductController::class, 'index'])->name('index');
     route::get('{product}/show', [ProductController::class, 'show'])->name('show');
 
-    Route::prefix('cart')->name('cart.')->group(function () {
-        route::get('add', [CartController::class, 'add'])->name('add');
+    Route::prefix('cart')->name('cart')->group(function () {
+        route::get('{product}/add', [CartController::class, 'add'])->name('.add');
+        route::get('{product}/subtract', [CartController::class, 'subtract'])->name('.subtract');
+        route::get('{product}/delete', [CartController::class, 'delete'])->name('.delete');
+        route::get('order', [CartController::class, 'order'])->name('.order');
+        route::get('checkout', [CartController::class, 'checkout'])->name('.checkout');
         route::get('', [CartController::class, 'show'])->name('');
     });
 });
