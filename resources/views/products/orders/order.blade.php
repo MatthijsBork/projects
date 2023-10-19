@@ -5,7 +5,7 @@
             <div class="p-6 mb-6 bg-white rounded-lg shadow-md md:w-2/3">
                 <h1 class="mb-10 text-lg font-bold">Bezorgadres</h1>
 
-                <form id="orderform" method="POST" action="{{ route('products.orders.store') }}"
+                <form id="orderform" method="POST" action="{{ route('products.cart.order.confirm') }}"
                     enctype="multipart/form-data">
                     @csrf
                     <div class="items-center mb-4">

@@ -74,22 +74,5 @@ class CartController extends Controller
         return redirect()->route('products.cart')->with('success', 'Product removed from cart.');
     }
 
-    public function order(Request $request)
-    {
-        $cart = $request->session()->get('cart', []);
 
-        $cart['grosstotal'] = 0;
-        $cart['subtotal'] = 0;
-        $cart['taxedtotal'] = 0;
-
-        foreach ($cart['products'] as $item) {
-            $itemtotal = $item->price * $item->quantity;
-            $itemtaxed = $itemtotal * ($item->vat / 100);
-
-            $cart['grosstotal'] += $itemtotal;
-            $cart['taxedtotal'] += $itemtaxed;
-            $cart['subtotal'] += $itemtotal + $itemtaxed;
-        }
-        return view('products.orders.order', compact('cart'));
-    }
 }

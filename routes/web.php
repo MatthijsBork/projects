@@ -43,20 +43,19 @@ Route::prefix('products')->name('products.')->group(function () {
         route::get('{product}/add', [CartController::class, 'add'])->name('.add');
         route::get('{product}/subtract', [CartController::class, 'subtract'])->name('.subtract');
         route::get('{product}/delete', [CartController::class, 'delete'])->name('.delete');
-        route::get('order', [CartController::class, 'order'])->name('.order');
+        route::get('order', [OrderController::class, 'order'])->name('.order');
+        route::post('order/confirm', [OrderController::class, 'orderConfirm'])->name('.order.confirm');
         route::get('checkout', [OrderController::class, 'checkout'])->name('.checkout');
         route::get('', [CartController::class, 'show'])->name('');
     });
 
     Route::prefix('orders')->name('orders')->group(function () {
-        route::post('store', [OrderController::class, 'store'])->name('.store');
+        route::get('store', [OrderController::class, 'store'])->name('.store');
         route::get('', [OrderController::class, 'show'])->name('');
     });
 });
 
-
 route::get('/', [ArticleController::class, 'index'])->name('index');
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -71,7 +70,6 @@ Route::middleware('auth')->group(function () {
             Route::get('{project}/tasks/{task}', [UserProjectsController::class, 'showTask'])->name('.tasks.show');
         });
     });
-
 
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::prefix('categories')->name('categories')->group(function () {
