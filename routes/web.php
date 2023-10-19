@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\TaskStateController;
 use App\Http\Controllers\UserProjectsController;
@@ -43,8 +44,13 @@ Route::prefix('products')->name('products.')->group(function () {
         route::get('{product}/subtract', [CartController::class, 'subtract'])->name('.subtract');
         route::get('{product}/delete', [CartController::class, 'delete'])->name('.delete');
         route::get('order', [CartController::class, 'order'])->name('.order');
-        route::get('checkout', [CartController::class, 'checkout'])->name('.checkout');
+        route::get('checkout', [OrderController::class, 'checkout'])->name('.checkout');
         route::get('', [CartController::class, 'show'])->name('');
+    });
+
+    Route::prefix('orders')->name('orders')->group(function () {
+        route::post('store', [OrderController::class, 'store'])->name('.store');
+        route::get('', [OrderController::class, 'show'])->name('');
     });
 });
 

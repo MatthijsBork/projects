@@ -20,6 +20,7 @@ class ArticleFactory extends Factory
             'title' => $this->faker->sentence(),
             'intro' => $this->faker->paragraph(),
             'content' => $this->faker->text(),
+            'category_id' => 1,
             'publication_date' => now(),
         ];
     }

@@ -15,13 +15,12 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('email');
             $table->string('telephone');
             $table->string('gross_total');
             $table->string('net_total');
-            $table->string('address');
-            $table->foreignId('invoice_id')->constrained('invoices')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->string('taxed_total');
             $table->timestamps();
         });
     }

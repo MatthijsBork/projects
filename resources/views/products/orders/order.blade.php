@@ -5,11 +5,12 @@
             <div class="md:w-2/3 p-6 mb-6 bg-white rounded-lg shadow-md">
                 <h1 class="mb-10 text-lg font-bold">Bezorgadres</h1>
 
-                <form method="POST" action="" enctype="multipart/form-data">
+                <form id="orderform" method="POST" action="{{ route('products.orders.store') }}"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="mb-4 items-center">
                         <x-input-label class="mx-2" for="name">Naam</x-input-label>
-                        <input type="text" id="name" name="name" value=""
+                        <input type="text" id="name" name="name"
                             class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
                         @error('name')
                             <div class="text-red-500">{{ $message }}</div>
@@ -17,7 +18,7 @@
                     </div>
                     <div class="mb-4 items-center">
                         <x-input-label class="mx-2" for="address">Adres</x-input-label>
-                        <input type="text" id="address" name="address" value=""
+                        <input type="text" id="address" name="address"
                             class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
                         @error('address')
                             <div class="text-red-500">{{ $message }}</div>
@@ -25,7 +26,7 @@
                     </div>
                     <div class="mb-4 items-center">
                         <x-input-label class="mx-2" for="zipcode">Postcode</x-input-label>
-                        <input type="text" id="zipcode" name="zipcode" value=""
+                        <input type="text" id="zipcode" name="zipcode"
                             class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
                         @error('zipcode')
                             <div class="text-red-500">{{ $message }}</div>
@@ -33,7 +34,7 @@
                     </div>
                     <div class="mb-4 items-center">
                         <x-input-label class="mx-2" for="place">Plaats</x-input-label>
-                        <input type="text" id="place" name="place" value=""
+                        <input type="text" id="place" name="place"
                             class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
                         @error('place')
                             <div class="text-red-500">{{ $message }}</div>
@@ -42,7 +43,7 @@
 
                     <div class="mb-4 items-center">
                         <x-input-label class="mx-2" for="title">Telefoonnummer</x-input-label>
-                        <input type="text" id="telephone" name="telephone" value=""
+                        <input type="text" id="telephone" name="telephone"
                             class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
                         @error('telephone')
                             <div class="text-red-500">{{ $message }}</div>
@@ -50,7 +51,7 @@
                     </div>
                     <div class="mb-4 items-center">
                         <x-input-label class="mx-2" for="email">E-mail</x-input-label>
-                        <input type="text" id="email" name="email" value=""
+                        <input type="text" id="email" name="email"
                             class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
                         @error('email')
                             <div class="text-red-500">{{ $message }}</div>
@@ -102,7 +103,7 @@
                     <a href="{{ route('products.cart') }}" class="w-1/2 py-1.5 underline text-red-500">
                         Annuleren
                     </a>
-                    <a href="{{ route('products.cart.checkout') }}"
+                    <a href="#" onclick="document.getElementById('orderform').submit();"
                         class="btn bg-blue-500 hover:bg-blue-600 text-white font-medium py-1.5 rounded-md px-10">
                         Betalen
                     </a>

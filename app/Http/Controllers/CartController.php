@@ -11,17 +11,25 @@ class CartController extends Controller
     {
         $cart = $request->session()->get('cart', []);
 
-        $cart['grosstotal'] = 0;
-        $cart['subtotal'] = 0;
-        $cart['taxedtotal'] = 0;
+        if (isset($cart['products'])) {
+            $cart['grosstotal'] = 0;
+            $cart['subtotal'] = 0;
+            $cart['taxedtotal'] = 0;
 
-        foreach ($cart['products'] as $item) {
-            $itemtotal = $item->price * $item->quantity;
-            $itemtaxed = $itemtotal * ($item->vat / 100);
+            foreach ($cart['products'] as $product) {
+                $qty = $cart['products'][$product->id]['quantity'];
+                $netprice = $cart['products'][$product->id]['netprice'];
+                $cart['products'][$product->id] = Product::find($product->id);
+                $cart['products'][$product->id]['quantity'] = $qty;
+                $cart['products'][$product->id]['netprice'] = $netprice;
 
-            $cart['grosstotal'] += $itemtotal;
-            $cart['taxedtotal'] += $itemtaxed;
-            $cart['subtotal'] += $itemtotal + $itemtaxed;
+                $total = $product->price * $product->quantity;
+                $taxed = $total * ($product->vat / 100);
+
+                $cart['grosstotal'] += $total;
+                $cart['taxedtotal'] += $taxed;
+                $cart['subtotal'] += $total + $taxed;
+            }
         }
 
         return view('products.orders.cart', compact('cart'));
@@ -83,9 +91,5 @@ class CartController extends Controller
             $cart['subtotal'] += $itemtotal + $itemtaxed;
         }
         return view('products.orders.order', compact('cart'));
-    }
-
-    public function checkout(Request $request) {
-
     }
 }
