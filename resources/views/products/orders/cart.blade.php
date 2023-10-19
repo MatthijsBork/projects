@@ -4,30 +4,34 @@
         <div class="justify-center mx-auto md:flex md:space-x-6">
 
             <div class="rounded-lg md:w-2/3">
-                @foreach ($cart['products'] as $product)
-                    <x-cart-item :product="$product">
+                @if (isset($cart['products']))
+                    @foreach ($cart['products'] as $product)
+                        <x-cart-item :product="$product">
 
-                    </x-cart-item>
-                @endforeach
+                        </x-cart-item>
+                    @endforeach
+                @else
+                    <p>Er zijn nog geen producten toegevoegd</p>
+                @endif
             </div>
             <div class="h-full p-6 mt-6 bg-white border rounded-lg shadow-md md:mt-0 md:w-1/3">
                 <div class="flex justify-between mb-2">
                     <p class="text-gray-700">BTW</p>
-                    <p class="text-gray-700">€{{ $cart['taxedtotal'] }}</p>
+                    <p class="text-gray-700">€{{ $cart['taxedtotal'] ?? 0 }}</p>
                 </div>
                 <div class="flex justify-between">
                     <p class="text-gray-700">Producten</p>
-                    <p class="text-gray-700">€{{ $cart['grosstotal'] }}</p>
+                    <p class="text-gray-700">€{{ $cart['grosstotal'] ?? 0 }}</p>
                 </div>
                 <hr class="my-4" />
                 <div class="flex justify-between">
                     <p class="text-lg font-bold">Totaal</p>
                     <div class="">
-                        <p class="mb-1 text-lg font-bold">€{{ $cart['subtotal'] }}</p>
+                        <p class="mb-1 text-lg font-bold">€{{ $cart['subtotal'] ?? 0 }}</p>
                         <p class="text-sm text-gray-700">incl. BTW</p>
                     </div>
                 </div>
-                <div class="justify-between align-middle flex flex-row mt-6">
+                <div class="flex flex-row justify-between mt-6 align-middle">
                     <a href="{{ route('products.index') }}" class="w-1/2 py-1.5 underline text-red-500">
                         Verder winkelen
                     </a>

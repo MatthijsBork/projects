@@ -24,7 +24,6 @@ class OrderController extends Controller
         $order->taxed_total = 0;
         $order->save();
 
-
         $cart = $request->session()->get('cart', []);
 
         foreach ($cart['products'] as $product) {
@@ -33,8 +32,8 @@ class OrderController extends Controller
             $quantity = $product->quantity;
 
             // We halen het product opnieuw op...
-            // zo voorkomen we dat de client heeft gesjoemeld met sessie data...
-            // en dus evt goedkopere prijzen zou krijgen.
+            // zo voorkomen we dat als de client heeft gesjoemeld met sessie data...
+            // die dus bijv goedkopere prijzen zou krijgen.
             $product = Product::find($product->id);
 
             $order_product->order_id = $order->id;
@@ -60,6 +59,19 @@ class OrderController extends Controller
         $address->place = $request->input('place');
 
         $address->save();
+
+        if (!$request->has('invoice')) {
+            $invoice_address = new OrderAddress();
+            $invoice_address->order_id = $order->id;
+            $invoice_address->type = 'invoice';
+            $invoice_address->name = $request->input('invoice-name');
+            $invoice_address->address = $request->input('invoice-address');
+            $invoice_address->zipcode = $request->input('invoice-zipcode');
+            $invoice_address->place = $request->input('invoice-place');
+
+            $invoice_address->save();
+        }
+
 
         $request->session()->put('cart', []);
 

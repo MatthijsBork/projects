@@ -15,6 +15,9 @@
                     <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
                         Artikelen
                     </x-nav-link>
+                    <x-nav-link :href="route('products.index')" :active="request()->routeIs('products*')">
+                        Producten
+                    </x-nav-link>
                     @auth
                         <x-nav-link :href="route('dashboard.articles')" :active="request()->routeIs('dashboard.*')">
                             {{ __('Dashboard') }}
