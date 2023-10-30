@@ -23,6 +23,9 @@
             <x-button-link href="{{ route('dashboard.properties') }}" :active="request()->routeIs('dashboard.properties*')">Producteigenschappen</x-button-link>
         </li>
         <li class="mb-2">
+            <x-button-link href="{{ route('dashboard.orders') }}" :active="request()->routeIs('dashboard.orders*')">Bestellingen</x-button-link>
+        </li>
+        <li class="mb-2">
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
 

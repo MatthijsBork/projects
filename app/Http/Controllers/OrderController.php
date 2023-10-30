@@ -8,10 +8,48 @@ use App\Models\Product;
 use App\Models\OrderAddress;
 use App\Models\OrderProduct;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Requests\OrderStoreRequest;
 
 class OrderController extends Controller
 {
+
+    public function dashboard()
+    {
+        $orders = Order::orderBy('created_at', 'desc')->paginate(10);
+
+        return view('orders.dashboard', compact('orders'));
+    }
+
+    public function own()
+    {
+        $user = auth()->user();
+        $orders = $user->orders()->paginate(10);
+
+        return view('orders.own', compact('orders'));
+    }
+
+    public function show(Order $order)
+    {
+        $this->authorize('hasOrder', [Order::class, $order]);
+        return view('orders.show', compact('order'));
+    }
+
+    public function showProducts(Order $order)
+    {
+        return view('orders.products', compact('order'));
+    }
+
+    public function create()
+    {
+        return view('orders.create');
+    }
+
+    public function edit(Order $order)
+    {
+        return view('orders.edit', compact('order'));
+    }
+
     public function order(Request $request)
     {
         $cart = $request->session()->get('cart', []);
@@ -41,14 +79,11 @@ class OrderController extends Controller
         $order = $request->session()->get('order', []);
         $cart = $request->session()->get('cart', []);
 
-
-
         return view('products.orders.confirmation', compact('cart', 'order'));
     }
 
     public function store(Request $request)
     {
-
         $orderData = $request->session()->get('order', []);
 
         $order = new Order();
@@ -68,9 +103,6 @@ class OrderController extends Controller
 
             $quantity = $product->quantity;
 
-            // We halen het product opnieuw op...
-            // zo voorkomen we dat als de client heeft gesjoemeld met sessie data...
-            // die dus bijv goedkopere prijzen zou krijgen.
             $product = Product::find($product->id);
 
             $order_product->order_id = $order->id;
@@ -97,7 +129,7 @@ class OrderController extends Controller
 
         $address->save();
 
-        if (in_array('invoice', $orderData)) {
+        if (!isset($orderData['invoice'])) {
             $invoice_address = new OrderAddress();
             $invoice_address->order_id = $order->id;
             $invoice_address->type = 'invoice';
@@ -109,10 +141,29 @@ class OrderController extends Controller
             $invoice_address->save();
         }
 
-        $request->session()->forget('order');
-        $request->session()->forget('cart');
-
+        session()->forget('order');
+        session()->forget('cart');
 
         return redirect()->route('products.index')->with('success', 'Producten besteld.');
+    }
+
+    public function update(OrderStoreRequest $order)
+    {
+        $order->update();
+    }
+
+    public function delete(Order $order)
+    {
+        $order->delete();
+        return redirect()->route('dashboard.orders')->with('success', 'Bestelling verwijderd');
+    }
+
+    public function downloadPDF(Order $order)
+    {
+        $pdf = Pdf::loadView('orders.pdf', compact('order'));
+
+        $filename = 'order_' . $order->id . '.pdf';
+
+        return $pdf->download($filename);
     }
 }

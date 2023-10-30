@@ -25,8 +25,4 @@ class Property extends Model
         return $productProperty ? $productProperty->value : null;
     }
 
-    public function name()
-    {
-        return $this->name;
-    }
 }

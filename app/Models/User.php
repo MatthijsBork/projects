@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Project::class, 'project_user_roles');
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

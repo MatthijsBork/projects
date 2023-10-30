@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class OrderAddress extends Model
 {
     use HasFactory;
+
+    public function scopeByType($query, $type)
+    {
+        return $query->where('type', $type);
+    }
 }

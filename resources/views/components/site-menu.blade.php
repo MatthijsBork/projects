@@ -4,6 +4,9 @@
         <li class="mb-2">
             <x-button-link href="{{ route('user.projects.index') }}" :active="request()->routeIs('user.projects.*')">Projecten</x-button-link>
         </li>
+        <li class="mb-2">
+            <x-button-link href="{{ route('user.orders.own') }}" :active="request()->routeIs('user.orders*')">Bestellingen</x-button-link>
+        </li>
 
         <li class="mb-2">
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

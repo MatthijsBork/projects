@@ -50,6 +50,9 @@
                             <x-dropdown-link :href="route('user.projects.index')">
                                 Mijn projecten
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('user.orders.own')">
+                                Mijn bestellingen
+                            </x-dropdown-link>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <x-dropdown-link :href="route('logout')"

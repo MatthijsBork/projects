@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderProductController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\TaskStateController;
 use App\Http\Controllers\UserProjectsController;
@@ -34,6 +35,7 @@ route::get('/articles', [ArticleController::class, 'index'])->name('articles.ind
 Route::get('articles/{id}/show', [ArticleController::class, 'show'])->name('articles.show');
 
 route::get('products/{product}/show', [ProductController::class, 'show'])->name('products.show');
+route::get('/', [ArticleController::class, 'index'])->name('index');
 
 Route::prefix('products')->name('products.')->group(function () {
     route::get('', [ProductController::class, 'index'])->name('index');
@@ -51,11 +53,13 @@ Route::prefix('products')->name('products.')->group(function () {
 
     Route::prefix('orders')->name('orders')->group(function () {
         route::get('store', [OrderController::class, 'store'])->name('.store');
+        route::get('{order}/products', [OrderController::class, 'store'])->name('.');
+        route::get('{order}/info', [OrderController::class, 'store'])->name('.');
+
         route::get('', [OrderController::class, 'show'])->name('');
     });
 });
 
-route::get('/', [ArticleController::class, 'index'])->name('index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -69,6 +73,15 @@ Route::middleware('auth')->group(function () {
             Route::get('{project}/tasks', [UserProjectsController::class, 'showTasks'])->name('.tasks');
             Route::get('{project}/tasks/{task}', [UserProjectsController::class, 'showTask'])->name('.tasks.show');
         });
+
+        Route::prefix('orders')->name('.orders')->group(function () {
+            Route::prefix('{order}/show')->name('.show')->group(function () {
+                Route::get('', [OrderController::class, 'show'])->name('');
+                Route::get('/download-pdf', [OrderController::class, 'downloadPdf'])->name('.pdf');
+                Route::get('products', [OrderController::class, 'showProducts'])->name('.products');
+            });
+            Route::get('own', [OrderController::class, 'own'])->name('.own');
+        });
     });
 
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
@@ -80,6 +93,19 @@ Route::middleware('auth')->group(function () {
             Route::get('{category}/delete', [CategoryController::class, 'delete'])->name('.delete');
             Route::get('', [CategoryController::class, 'dashboard'])->name('');
             Route::get('search', [CategoryController::class, 'search'])->name('.search');
+        });
+
+        Route::prefix('orders')->name('orders')->group(function () {
+            Route::get('create', [OrderController::class, 'create'])->name('.create');
+            Route::get('{order}/edit', [OrderController::class, 'edit'])->name('.edit');
+            Route::get('{order}/edit/products', [OrderProductController::class, 'edit'])->name('.edit.products');
+            Route::post('{order}/edit/products/add', [OrderProductController::class, 'add'])->name('.products.add');
+            Route::get('{order}/edit/products/delete', [OrderProductController::class, 'delete'])->name('.products.delete');
+            Route::post('{order}/update', [OrderController::class, 'update'])->name('.update');
+            Route::post('create', [OrderController::class, 'store'])->name('.store');
+            Route::get('{order}/delete', [OrderController::class, 'delete'])->name('.delete');
+            Route::get('', [OrderController::class, 'dashboard'])->name('');
+            Route::get('search', [OrderController::class, 'search'])->name('.search');
         });
 
         Route::prefix('roles')->name('roles')->group(function () {

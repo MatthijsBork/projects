@@ -10,7 +10,7 @@
                     @csrf
                     <div class="items-center mb-4">
                         <x-input-label class="mx-2" for="name">Naam</x-input-label>
-                        <input type="text" id="name" name="name"
+                        <input type="text" id="name" name="name" value="{{ old('name') }}"
                             class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
                         @error('name')
                             <div class="text-red-500">{{ $message }}</div>
@@ -18,7 +18,7 @@
                     </div>
                     <div class="items-center mb-4">
                         <x-input-label class="mx-2" for="address">Adres</x-input-label>
-                        <input type="text" id="address" name="address"
+                        <input type="text" id="address" name="address" value="{{ old('address') }}"
                             class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
                         @error('address')
                             <div class="text-red-500">{{ $message }}</div>
@@ -26,7 +26,7 @@
                     </div>
                     <div class="items-center mb-4">
                         <x-input-label class="mx-2" for="zipcode">Postcode</x-input-label>
-                        <input type="text" id="zipcode" name="zipcode"
+                        <input type="text" id="zipcode" name="zipcode" value="{{ old('zipcode') }}"
                             class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
                         @error('zipcode')
                             <div class="text-red-500">{{ $message }}</div>
@@ -34,7 +34,7 @@
                     </div>
                     <div class="items-center mb-4">
                         <x-input-label class="mx-2" for="place">Plaats</x-input-label>
-                        <input type="text" id="place" name="place"
+                        <input type="text" id="place" name="place" value="{{ old('place') }}"
                             class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
                         @error('place')
                             <div class="text-red-500">{{ $message }}</div>
@@ -43,7 +43,7 @@
 
                     <div class="items-center mb-4">
                         <x-input-label class="mx-2" for="title">Telefoonnummer</x-input-label>
-                        <input type="text" id="telephone" name="telephone"
+                        <input type="text" id="telephone" name="telephone" value="{{ old('telephone') }}"
                             class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
                         @error('telephone')
                             <div class="text-red-500">{{ $message }}</div>
@@ -51,7 +51,7 @@
                     </div>
                     <div class="items-center mb-4">
                         <x-input-label class="mx-2" for="email">E-mail</x-input-label>
-                        <input type="text" id="email" name="email"
+                        <input type="text" id="email" name="email" value="{{ old('email') }}"
                             class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
                         @error('email')
                             <div class="text-red-500">{{ $message }}</div>
@@ -60,7 +60,8 @@
 
                     <div class="items-center mb-4">
                         <label class="block">
-                            <input type="checkbox" id="invoice-checkbox" name="invoice" checked>
+                            <input type="checkbox" id="invoice-checkbox" name="invoice"
+                                {{ old('invoice') ? 'checked' : '' }} checked>
                             Factuuradres is hetzelfde als bezorgadres
                         </label>
                     </div>
@@ -70,6 +71,7 @@
                         <div class="items-center mb-4">
                             <x-input-label class="mx-2" for="invoice-name">Naam</x-input-label>
                             <input type="text" id="invoice-name" name="invoice-name"
+                                value="{{ old('invoice-name') }}"
                                 class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
                             @error('invoice-name')
                                 <div class="text-red-500">{{ $message }}</div>
@@ -78,6 +80,7 @@
                         <div class="items-center mb-4">
                             <x-input-label class="mx-2" for="invoice-address">Adres</x-input-label>
                             <input type="text" id="invoice-address" name="invoice-address"
+                                value="{{ old('invoice-address') }}"
                                 class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
                             @error('invoice-name')
                                 <div class="text-red-500">{{ $message }}</div>
@@ -86,6 +89,7 @@
                         <div class="items-center mb-4">
                             <x-input-label class="mx-2" for="invoice-zipcode">Postcode</x-input-label>
                             <input type="text" id="invoice-zipcode" name="invoice-zipcode"
+                                value="{{ old('invoice-zipcode') }}"
                                 class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
                             @error('invoice-zipcode')
                                 <div class="text-red-500">{{ $message }}</div>
@@ -94,6 +98,7 @@
                         <div class="items-center mb-4">
                             <x-input-label class="mx-2" for="invoice-place">Plaats</x-input-label>
                             <input type="text" id="invoice-place" name="invoice-place"
+                                value="{{ old('invoice-place') }}"
                                 class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
                             @error('invoice-place')
                                 <div class="text-red-500">{{ $message }}</div>

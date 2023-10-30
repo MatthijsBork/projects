@@ -19,8 +19,8 @@
                             alt="{{ $product->name }}">
                     </div>
                     <div class="p-4">
-                        <h2 class="text-lg font-semibold">{{ $product->name }}</h2>
-                        <p class="mt-2 text-gray-500">{{ $product->description }}</p>
+                        <h2 class="text-lg font-semibold">{{ $product->title }}</h2>
+                        <p class="mt-2 text-gray-500">{!! $product->description !!}</p>
                         <div class="">
                             <span class="text-lg font-semibold">
                                 €{{ $product->price + $product->price * ($product->vat / 100) }}

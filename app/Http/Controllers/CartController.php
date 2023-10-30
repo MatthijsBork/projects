@@ -31,7 +31,6 @@ class CartController extends Controller
                 $cart['subtotal'] += $total + $taxed;
             }
         }
-
         return view('products.orders.cart', compact('cart'));
     }
 

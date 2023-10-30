@@ -36,10 +36,26 @@ class OrderStoreRequest extends FormRequest
             'telephone' => 'required|string',
             'email' => 'required|string',
 
-            'invoice-name' => $invoiceFieldRules,
-            'invoice-address' => $invoiceFieldRules,
-            'invoice-zipcode' => $invoiceFieldRules,
-            'invoice-place' => $invoiceFieldRules,
+            'invoice-name' => 'required_without:invoice',
+            'invoice-address' => 'required_without:invoice',
+            'invoice-zipcode' => 'required_without:invoice',
+            'invoice-place' => 'required_without:invoice',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Naam is verplicht.',
+            'address.required' => 'Adres is verplicht.',
+            'zipcode.required' => 'Postcode is verplicht.',
+            'place.required' => 'Plaats is verplicht.',
+            'telephone.required' => 'Telefoonnummer is verplicht.',
+            'email.required' => 'E-mail is verplicht.',
+            'invoice-name.required_without' => 'Naam is verplicht.',
+            'invoice-address.required_without' => 'Adres is verplicht.',
+            'invoice-zipcode.required_without' => 'Postcode is verplicht.',
+            'invoice-place.required_without' => 'Plaats is verplicht.',
         ];
     }
 }
