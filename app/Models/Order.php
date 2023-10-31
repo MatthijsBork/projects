@@ -9,6 +9,14 @@ class Order extends Model
 {
     use HasFactory;
 
+    private function recalculateTotals()
+    {
+        // $total = $this->price * $this->amount;
+        // $this->gross_total += $total;
+        // $this->net_total += $total + $total * ($this->vat / 100);
+        // $this->taxed_total += $total * ($this->vat / 100);
+    }
+
     public function addresses()
     {
         return $this->hasMany(OrderAddress::class);
@@ -32,6 +40,12 @@ class Order extends Model
     public function products()
     {
         return $this->hasMany(OrderProduct::class);
+    }
+
+    public function productsNotInOrder()
+    {
+        $assignedProductIds = $this->products->pluck('product_id');
+        return Product::whereNotIn('id', $assignedProductIds)->get();
     }
 
     public function netTotal()

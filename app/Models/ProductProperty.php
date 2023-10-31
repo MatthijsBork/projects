@@ -13,8 +13,4 @@ class ProductProperty extends Model
 
     protected $fillable = ['property_id', 'product_id', 'value'];
 
-    public function get()
-    {
-        return $this->belongsTo(Property::class);
-    }
 }

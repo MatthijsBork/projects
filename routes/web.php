@@ -1,21 +1,23 @@
 <?php
 
 use App\Models\Category;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\OrderProductController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\TaskStateController;
+use App\Http\Controllers\OrderProductController;
 use App\Http\Controllers\UserProjectsController;
 use App\Http\Controllers\ProjectUserRoleController;
+use App\Mail\OrderEmail;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +38,12 @@ Route::get('articles/{id}/show', [ArticleController::class, 'show'])->name('arti
 
 route::get('products/{product}/show', [ProductController::class, 'show'])->name('products.show');
 route::get('/', [ArticleController::class, 'index'])->name('index');
+Route::get('/testroute', function () {
+    $name = "Funny Coder";
 
+    // The email sending is done using the to method on the Mail facade
+    Mail::to('testreceiver@gmail.com')->send(new OrderEmail($name));
+});
 Route::prefix('products')->name('products.')->group(function () {
     route::get('', [ProductController::class, 'index'])->name('index');
     route::get('{product}/show', [ProductController::class, 'show'])->name('show');
@@ -99,8 +106,10 @@ Route::middleware('auth')->group(function () {
             Route::get('create', [OrderController::class, 'create'])->name('.create');
             Route::get('{order}/edit', [OrderController::class, 'edit'])->name('.edit');
             Route::get('{order}/edit/products', [OrderProductController::class, 'edit'])->name('.edit.products');
-            Route::post('{order}/edit/products/add', [OrderProductController::class, 'add'])->name('.products.add');
-            Route::get('{order}/edit/products/delete', [OrderProductController::class, 'delete'])->name('.products.delete');
+            Route::post('{order}/edit/products/store', [OrderProductController::class, 'store'])->name('.products.store');
+            Route::get('{order}/edit/products/{product}/add', [OrderProductController::class, 'add'])->name('.products.add');
+            Route::get('{order}/edit/products/{product}/subtract', [OrderProductController::class, 'subtract'])->name('.products.subtract');
+            Route::get('{order}/edit/products/{product}/delete', [OrderProductController::class, 'delete'])->name('.products.delete');
             Route::post('{order}/update', [OrderController::class, 'update'])->name('.update');
             Route::post('create', [OrderController::class, 'store'])->name('.store');
             Route::get('{order}/delete', [OrderController::class, 'delete'])->name('.delete');

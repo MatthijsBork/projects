@@ -18,7 +18,7 @@
                                 Producten
                             </x-nav-link>
                         </div>
-                        <form action="{{ route('dashboard.orders.products.add', [$order]) }}" method="POST"
+                        <form action="{{ route('dashboard.orders.products.store', [$order]) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
 
@@ -63,7 +63,21 @@
                                             {{ $product->product->title }}
                                         </td>
                                         <td class="px-4 py-2">
-                                            {{ $product->amount }}
+                                            <div class="flex items-center border-gray-100">
+                                                <a
+                                                    href="{{ route('dashboard.orders.products.subtract', [$order, $product]) }}">
+                                                    <span
+                                                        class="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50">
+                                                        - </span>
+                                                </a>
+                                                <p class="mx-4">{{ $product->amount }}</p>
+                                                <a
+                                                    href="{{ route('dashboard.orders.products.add', [$order, $product]) }}">
+                                                    <span
+                                                        class="px-3 py-1 duration-100 bg-gray-100 rounded-r cursor-pointer hover:bg-blue-500 hover:text-blue-50">
+                                                        + </span>
+                                                </a>
+                                            </div>
                                         </td>
                                         <td class="px-4 py-2">
                                             €{{ $product->price }}
@@ -72,7 +86,7 @@
                                             €{{ ($product->price + ($product->price * $product->vat) / 100) * $product->amount }}
                                         </td>
                                         <td class="flex justify-end py-3 text-right">
-                                            <a href="{{ route('dashboard.orders.products.delete', [$product]) }}"
+                                            <a href="{{ route('dashboard.orders.products.delete', [$order, $product]) }}"
                                                 class="text-red-500 hover:underline"
                                                 onclick="return confirm('Weet u zeker dat u dit wilt verwijderen?');">
                                                 <x-trash-icon></x-trash-icon>

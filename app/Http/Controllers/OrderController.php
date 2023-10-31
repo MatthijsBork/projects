@@ -5,15 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
+use App\Mail\OrderEmail;
 use App\Models\OrderAddress;
 use App\Models\OrderProduct;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\OrderStoreRequest;
 
 class OrderController extends Controller
 {
-
     public function dashboard()
     {
         $orders = Order::orderBy('created_at', 'desc')->paginate(10);
@@ -143,6 +144,8 @@ class OrderController extends Controller
 
         session()->forget('order');
         session()->forget('cart');
+
+        Mail::to($order->email)->send(new OrderEmail($order));
 
         return redirect()->route('products.index')->with('success', 'Producten besteld.');
     }

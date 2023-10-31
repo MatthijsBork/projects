@@ -18,9 +18,9 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('email');
             $table->string('telephone');
-            $table->string('gross_total');
-            $table->string('net_total');
-            $table->string('taxed_total');
+            $table->decimal('gross_total');
+            $table->decimal('net_total');
+            $table->decimal('taxed_total');
             $table->timestamps();
         });
     }

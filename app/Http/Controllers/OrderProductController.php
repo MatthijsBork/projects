@@ -9,54 +9,64 @@ use Illuminate\Http\Request;
 
 class OrderProductController extends Controller
 {
-    public function add(Request $request, Order $order)
+    public function store(Request $request, Order $order)
     {
+        $product = Product::find($request->input('product_id'));
 
-        $product_id = $request->input('product_id');
-
+        // OrderProduct maken
         $order_product = new OrderProduct();
-
-        $quantity = $request->input('quantity');
-
-        // We halen het product opnieuw op...
-        // zo voorkomen we dat als de client heeft gesjoemeld met sessie data...
-        // die dus bijv goedkopere prijzen zou krijgen.
-        $product = Product::find($product_id);
-
         $order_product->order_id = $order->id;
-        $order_product->amount = $quantity;
+        $order_product->amount = $request->input('quantity');
         $order_product->price = $product->price;
         $order_product->vat = $product->vat;
         $order_product->product_id = $product->id;
+        $order_product->save();
 
-        $total = $product->price * $quantity;
+        // Totalen berekenen
+        $total = $product->price * $request->input('quantity');
         $order->gross_total += $total;
         $order->net_total += $total + $total * ($product->vat / 100);
         $order->taxed_total += $total * ($product->vat / 100);
-
         $order->save();
-        $order_product->save();
 
+        return redirect()->route('dashboard.orders.edit.products', compact('order'));
+    }
 
-        $products = Product::all();
-        return redirect()->route('dashboard.orders.edit.products', compact('order', 'products'))->with('success', 'Producten toegevoegd.');
+    public function add(Request $request, Order $order, OrderProduct $product)
+    {
+        // Product => OrderProduct
+        $product->addOne();
+        return redirect()->route('dashboard.orders.edit.products', compact('order'));
+    }
+
+    public function subtract(Request $request, Order $order, OrderProduct $product)
+    {
+        // Product => OrderProduct
+        $product->subtractOne();
+        return redirect()->route('dashboard.orders.edit.products', compact('order'));
+    }
+
+    public function delete(Order $order, Product $product)
+    {
+        dd('test');
+        $product->delete();
+        return redirect()->route('dashboard.orders.edit.products', compact('order'));
     }
 
     public function edit(Order $order)
     {
-        $products = Product::all();
+        $products = $order->productsNotInOrder();
         return view('orders.editProducts', compact('order', 'products'));
     }
 
-    public function subtract(Order $order)
+    private function calculateTotals(Order $order)
     {
-        $products = Product::all();
-        return view('orders.editProducts', compact('order', 'products'));
-    }
 
-    public function delete(Order $order)
-    {
-        $products = Product::all();
-        return view('orders.editProducts', compact('order', 'products'));
+        $gross = 0;
+        $net = 0;
+        $taxed = 0;
+        foreach ($order->products() as $product) {
+
+        }
     }
 }
