@@ -12,9 +12,9 @@ class CartController extends Controller
         $cart = $request->session()->get('cart', []);
 
         if (isset($cart['products'])) {
-            $cart['grosstotal'] = 0;
-            $cart['subtotal'] = 0;
-            $cart['taxedtotal'] = 0;
+            $cart['grosstotal'] = number_format(0, 2);
+            $cart['subtotal'] = number_format(0, 2);
+            $cart['taxedtotal'] = number_format(0, 2);
 
             foreach ($cart['products'] as $product) {
                 $qty = $cart['products'][$product->id]['quantity'];
@@ -27,10 +27,11 @@ class CartController extends Controller
                 $taxed = $total * ($product->vat / 100);
 
                 $cart['grosstotal'] += $total;
-                $cart['taxedtotal'] += $taxed;
                 $cart['subtotal'] += $total + $taxed;
+                $cart['taxedtotal'] += $taxed;
             }
         }
+
         return view('products.orders.cart', compact('cart'));
     }
 
@@ -44,7 +45,9 @@ class CartController extends Controller
             $cart['products'][$product->id] = $product;
             $cart['products'][$product->id]['quantity'] = 1;
             $item = $cart['products'][$product->id];
-            $cart['products'][$product->id]['netprice'] = $item->price + $item->price * ($item->vat / 100);
+            $cart['products'][$product->id]['netprice'] = number_format($item->price + $item->price * ($item->vat / 100), 2);
+        } elseif ($cart['products'][$product->id]->quantity >= $product->stock) {
+            return redirect()->route('products.cart')->with('success', 'Not enough stock. Maximum item limit reached');
         } else {
             $cart['products'][$product->id]->quantity++;
         }
@@ -59,7 +62,9 @@ class CartController extends Controller
     {
         $cart = $request->session()->get('cart', []);
 
-        $cart['products'][$product->id]->quantity > 1 ? $cart['products'][$product->id]->quantity-- : $this->delete($request, $product);
+        if ($cart['products'][$product->id]->quantity > 1) {
+            $cart['products'][$product->id]->quantity--;
+        }
 
         return redirect()->route('products.cart')->with('success', 'Product removed from cart.');
     }
@@ -72,6 +77,4 @@ class CartController extends Controller
 
         return redirect()->route('products.cart')->with('success', 'Product removed from cart.');
     }
-
-
 }

@@ -11,15 +11,15 @@ class OrderProduct extends Model
 
     public function addOne()
     {
-        $this->amount++;
-        $this->save();
+        if ($this->amount < $this->product->stock) {
+            $this->amount++;
+            $this->save();
+        }
     }
 
     public function subtractOne()
     {
-        if ($this->amount <= 1) {
-            $this->delete();
-        } else {
+        if ($this->amount > 1) {
             $this->amount--;
             $this->save();
         }

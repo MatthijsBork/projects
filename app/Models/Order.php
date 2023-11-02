@@ -48,14 +48,21 @@ class Order extends Model
         return Product::whereNotIn('id', $assignedProductIds)->get();
     }
 
-    public function netTotal()
+    public function calculateTotals()
     {
         $net = 0;
+        $taxed = 0;
+        $gross = 0;
         $net_product = 0;
         foreach ($this->products as $product) {
-            $net_product = $product->price + ($product->price * ($product->vat / 100));
+            $tax =  $product->price * ($product->vat / 100);
+            $net_product = $product->price + $tax;
             $net += $net_product * $product->amount;
+            $gross += $product->price * $product->amount;
+            $taxed += $tax * $product->amount;
         }
-        return $net;
+        $this->net_total = $net;
+        $this->gross_total = $gross;
+        $this->taxed_total = $taxed;
     }
 }

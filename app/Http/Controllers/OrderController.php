@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\OrderStoreRequest;
+use App\Http\Requests\OrderUpdateRequest;
 
 class OrderController extends Controller
 {
@@ -36,11 +37,6 @@ class OrderController extends Controller
         return view('orders.show', compact('order'));
     }
 
-    public function showProducts(Order $order)
-    {
-        return view('orders.products', compact('order'));
-    }
-
     public function create()
     {
         return view('orders.create');
@@ -54,31 +50,43 @@ class OrderController extends Controller
     public function order(Request $request)
     {
         $cart = $request->session()->get('cart', []);
+        if (($cart['products'] ?? null) != null) {
+            $cart['grosstotal'] = 0;
+            $cart['subtotal'] = 0;
+            $cart['taxedtotal'] = 0;
 
-        $cart['grosstotal'] = 0;
-        $cart['subtotal'] = 0;
-        $cart['taxedtotal'] = 0;
+            foreach ($cart['products'] as $item) {
+                $itemtotal = $item->price * $item->quantity;
+                $itemtaxed = $itemtotal * ($item->vat / 100);
 
-        foreach ($cart['products'] as $item) {
-            $itemtotal = $item->price * $item->quantity;
-            $itemtaxed = $itemtotal * ($item->vat / 100);
+                $cart['grosstotal'] += $itemtotal;
+                $cart['taxedtotal'] += $itemtaxed;
+                $cart['subtotal'] += $itemtotal + $itemtaxed;
+            }
 
-            $cart['grosstotal'] += $itemtotal;
-            $cart['taxedtotal'] += $itemtaxed;
-            $cart['subtotal'] += $itemtotal + $itemtaxed;
+            $request->session()->put('cart', $cart);
+
+            return view('products.orders.order', compact('cart'));
+        } else {
+            return redirect()->route('products.cart');
         }
-
-        $request->session()->put('cart', $cart);
-
-        return view('products.orders.order', compact('cart'));
     }
 
     public function orderConfirm(OrderStoreRequest $request)
     {
         $request->session()->put('order', $request->all());
 
-        $order = $request->session()->get('order', []);
-        $cart = $request->session()->get('cart', []);
+        return redirect()->route('products.cart.order.showConfirm');
+    }
+
+    public function showConfirm()
+    {
+        $cart = session()->get('cart', []);
+        $order = session()->get('order', []);
+
+        if (($cart['products'] ?? null) == null) {
+            return redirect()->route('products.cart');
+        }
 
         return view('products.orders.confirmation', compact('cart', 'order'));
     }
@@ -150,9 +158,30 @@ class OrderController extends Controller
         return redirect()->route('products.index')->with('success', 'Producten besteld.');
     }
 
-    public function update(OrderStoreRequest $order)
+    public function update(OrderUpdateRequest $request, Order $order)
     {
-        $order->update();
+
+        $order->email = $request->input('email');
+        $order->telephone = $request->input('telephone');
+        $shipping = $order->shipping();
+        $shipping->name = $request->input('name');
+        $shipping->address = $request->input('address');
+        $shipping->zipcode = $request->input('zipcode');
+        $shipping->place = $request->input('place');
+        $shipping->save();
+
+        if ($request->input('invoice') == null) {
+            $invoice = $order->invoice();
+            $invoice->name = $request->input('invoice-name');
+            $invoice->address = $request->input('invoice-address');
+            $invoice->zipcode = $request->input('invoice-zipcode');
+            $invoice->place = $request->input('invoice-place');
+            $invoice->save();
+        }
+
+        $order->save();
+
+        return redirect()->route('dashboard.orders.edit', compact('order'))->with('success', 'Bestelling bijgewerkt.');
     }
 
     public function delete(Order $order)

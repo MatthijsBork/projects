@@ -6,36 +6,47 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\OrderProduct;
 use Illuminate\Http\Request;
+use App\Http\Requests\OrderProductStoreRequest;
 
 class OrderProductController extends Controller
 {
-    public function store(Request $request, Order $order)
+    public function store(OrderProductStoreRequest $request, Order $order)
     {
         $product = Product::find($request->input('product_id'));
 
-        // OrderProduct maken
+        if ($request->input('quantity') > $product->stock || $request->input('quantity') < 1) {
+            return redirect()->route('dashboard.orders.edit.products', compact('order'))->with('error', 'Niet genoeg voorraad, verlaag het aantal');
+        } elseif ($request->input('quantity') < 1) {
+            $quantity = 1;
+        } else {
+            $quantity = $request->input('quantity');
+        }
         $order_product = new OrderProduct();
         $order_product->order_id = $order->id;
-        $order_product->amount = $request->input('quantity');
+        $order_product->amount = $quantity;
         $order_product->price = $product->price;
         $order_product->vat = $product->vat;
         $order_product->product_id = $product->id;
         $order_product->save();
 
-        // Totalen berekenen
-        $total = $product->price * $request->input('quantity');
-        $order->gross_total += $total;
-        $order->net_total += $total + $total * ($product->vat / 100);
-        $order->taxed_total += $total * ($product->vat / 100);
+        $order->calculateTotals();
         $order->save();
 
         return redirect()->route('dashboard.orders.edit.products', compact('order'));
     }
 
+    public function show(Order $order)
+    {
+        return view('orders.products', compact('order'));
+    }
+
+
     public function add(Request $request, Order $order, OrderProduct $product)
     {
         // Product => OrderProduct
         $product->addOne();
+        $order->calculateTotals();
+        $order->save();
         return redirect()->route('dashboard.orders.edit.products', compact('order'));
     }
 
@@ -43,13 +54,16 @@ class OrderProductController extends Controller
     {
         // Product => OrderProduct
         $product->subtractOne();
+        $order->calculateTotals();
+        $order->save();
         return redirect()->route('dashboard.orders.edit.products', compact('order'));
     }
 
-    public function delete(Order $order, Product $product)
+    public function delete(Order $order, OrderProduct $product)
     {
-        dd('test');
         $product->delete();
+        $order->calculateTotals();
+        $order->save();
         return redirect()->route('dashboard.orders.edit.products', compact('order'));
     }
 
@@ -57,16 +71,5 @@ class OrderProductController extends Controller
     {
         $products = $order->productsNotInOrder();
         return view('orders.editProducts', compact('order', 'products'));
-    }
-
-    private function calculateTotals(Order $order)
-    {
-
-        $gross = 0;
-        $net = 0;
-        $taxed = 0;
-        foreach ($order->products() as $product) {
-
-        }
     }
 }

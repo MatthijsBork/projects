@@ -2,6 +2,13 @@
     <div class="container py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="flex justify-between items-center min-h-[10vh]">
             <h1 class="text-2xl font-semibold">Bestelling bewerken</h1>
+            <a href="{{ route('user.orders.show.pdf', [$order]) }}"
+                class="px-5 py-3 font-medium text-white transition bg-blue-700 rounded-lg shadow d-flex hover:bg-blue-800">
+                <div class="flex flex-row gap-2 p-0 m-0">
+                    <x-pdf-icon></x-pdf-icon>
+                    Download PDF
+                </div>
+            </a>
         </div>
         @if (session('success'))
             <div class="relative px-4 py-3 my-3 text-green-700 bg-green-100 border border-green-400 rounded"
@@ -14,7 +21,7 @@
                 {{ session('error') }}
             </div>
         @endif
-        <div class="justify-between md:flex">
+        <div class="justify-between rounded-lg md:flex">
             <div class="w-full md:w-1/6 lg:w-1/5">
                 <x-dashboard-menu></x-dashboard-menu>
             </div>
@@ -29,7 +36,7 @@
                                 Producten
                             </x-nav-link>
                         </div>
-                        <div class="mb-4 border-b">
+                        <div class="mb-4">
                             <h1 class="mb-10 text-lg font-bold">Bezorgadres</h1>
 
                             <form id="orderform" method="POST"

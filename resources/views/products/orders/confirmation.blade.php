@@ -58,17 +58,17 @@
             <div class="h-full p-6 mt-6 bg-white border rounded-lg shadow-md md:mt-0 md:w-1/3">
                 <div class="flex justify-between mb-2">
                     <p class="text-gray-700">BTW</p>
-                    <p class="text-gray-700">€{{ $cart['taxedtotal'] }}</p>
+                    <p class="text-gray-700">€{{ number_format($cart['taxedtotal'], 2) }}</p>
                 </div>
                 <div class="flex justify-between">
                     <p class="text-gray-700">Producten</p>
-                    <p class="text-gray-700">€{{ $cart['grosstotal'] }}</p>
+                    <p class="text-gray-700">€{{ number_format($cart['grosstotal'], 2) }}</p>
                 </div>
                 <hr class="my-4" />
                 <div class="flex justify-between">
                     <p class="text-lg font-bold">Totaal</p>
                     <div class="">
-                        <p class="mb-1 text-lg font-bold">€{{ $cart['subtotal'] }}</p>
+                        <p class="mb-1 text-lg font-bold">€{{ number_format($cart['subtotal'], 2) }}</p>
                         <p class="text-sm text-gray-700">incl. BTW</p>
                     </div>
                 </div>

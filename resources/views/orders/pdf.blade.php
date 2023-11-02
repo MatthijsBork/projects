@@ -52,7 +52,8 @@
                             <td class="px-4 py-2 border">€{{ $product->price }}</td>
                             <td class="px-4 py-2 border">€{{ $product->price * ($product->vat / 100) }}
                             </td>
-                            <td class="px-4 py-2 border">€{{ $product->price * ($product->vat / 100) + $product->price }}</td>
+                            <td class="px-4 py-2 border">
+                                €{{ $product->price * ($product->vat / 100) + $product->price }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -60,7 +61,7 @@
         </div>
 
         <div class="mt-4">
-            <p class="text-xl font-semibold">Subtotaal: €{{ $order->netTotal() }}</p>
+            <p class="text-xl font-semibold">Subtotaal: €{{ $order->net_total }}</p>
         </div>
     </div>
 </body>

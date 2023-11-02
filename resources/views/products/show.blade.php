@@ -1,19 +1,24 @@
 <x-app-layout>
     <div class="container p-8 mx-auto mt-8 max-w-7xl">
-        <div class="flex flex-col-reverse lg:flex-row flex-end">
-            <div class="w-1/2 ml-4">
-                <h1 class="text-3xl font-semibold">{{ $product->title }}</h1>
+        <div class="flex flex-col-reverse bg-white rounded-lg lg:flex-row flex-end">
+            <div class="w-1/2 p-5 m-4 bg-white">
+                <div class="flex flex-row justify-between">
+                    <h1 class="text-3xl font-semibold">{{ $product->title }}</h1>
 
-                <div class="mt-4 text-2xl font-semibold">
-                    €{{ $product->price + $product->price * ($product->vat / 100) }}
+
                 </div>
 
+                <div class="mt-4 text-2xl font-semibold">
+                    €{{ number_format($product->price + $product->price * ($product->vat / 100), 2) }}
+                </div>
+
+
                 <a href="{{ route('products.cart.add', [$product]) }}">
-                    <button class="px-4 py-2 mt-4 text-white bg-blue-500 rounded-md hover:bg-blue-600">
+                    <button
+                        class="px-4 py-3 mt-4 text-base font-normal text-white transition bg-blue-600 rounded-lg shadow-lg hover:shadow-sm hover:bg-blue-700">
                         Toevoegen aan winkelwagen
                     </button>
                 </a>
-
                 <div class="mt-8">
                     <h2 class="text-xl font-semibold">Beschrijving</h2>
                     <p class="mt-2">{!! $product->description !!}</p>
@@ -22,14 +27,14 @@
                     @if (isset($product->properties))
                         <h2 class="text-xl font-semibold">Product specificaties</h2>
                         @foreach ($product->properties as $property)
-                            <p><b>{{ $property->name }}</b>: {{ $property->value }} </p>
+                            <p><b>{{ $property->property->name }}</b>: {{ $property->value }} </p>
                         @endforeach
                     @endif
                 </div>
             </div>
-            <div class="w-3/4 lg:w-1/2 rounded-xl">
+            <div class="w-3/4 p-2 m-4 rounded-lg lg:w-1/2">
                 <img src="{{ asset('images/products/' . $product->id . '/' . $product->img) }}"
-                    alt="{{ $product->name }}" class="rounded-xl">
+                    alt="{{ $product->name }}" class="p-5 border rounded-lg">
             </div>
         </div>
     </div>

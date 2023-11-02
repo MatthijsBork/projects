@@ -38,12 +38,6 @@ Route::get('articles/{id}/show', [ArticleController::class, 'show'])->name('arti
 
 route::get('products/{product}/show', [ProductController::class, 'show'])->name('products.show');
 route::get('/', [ArticleController::class, 'index'])->name('index');
-Route::get('/testroute', function () {
-    $name = "Funny Coder";
-
-    // The email sending is done using the to method on the Mail facade
-    Mail::to('testreceiver@gmail.com')->send(new OrderEmail($name));
-});
 Route::prefix('products')->name('products.')->group(function () {
     route::get('', [ProductController::class, 'index'])->name('index');
     route::get('{product}/show', [ProductController::class, 'show'])->name('show');
@@ -54,6 +48,7 @@ Route::prefix('products')->name('products.')->group(function () {
         route::get('{product}/delete', [CartController::class, 'delete'])->name('.delete');
         route::get('order', [OrderController::class, 'order'])->name('.order');
         route::post('order/confirm', [OrderController::class, 'orderConfirm'])->name('.order.confirm');
+        route::get('order/confirm', [OrderController::class, 'showConfirm'])->name('.order.showConfirm');
         route::get('checkout', [OrderController::class, 'checkout'])->name('.checkout');
         route::get('', [CartController::class, 'show'])->name('');
     });
@@ -85,7 +80,7 @@ Route::middleware('auth')->group(function () {
             Route::prefix('{order}/show')->name('.show')->group(function () {
                 Route::get('', [OrderController::class, 'show'])->name('');
                 Route::get('/download-pdf', [OrderController::class, 'downloadPdf'])->name('.pdf');
-                Route::get('products', [OrderController::class, 'showProducts'])->name('.products');
+                Route::get('products', [OrderProductController::class, 'show'])->name('.products');
             });
             Route::get('own', [OrderController::class, 'own'])->name('.own');
         });
