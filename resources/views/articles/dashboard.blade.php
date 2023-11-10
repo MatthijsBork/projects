@@ -1,39 +1,47 @@
 <x-app-layout>
     <x-dashboard title="Artikelen dashboard" route="/dashboard/articles">
+        @if (!isset($articles[0]))
+        <div class="w-full p-10 text-center bg-white rounded-lg">
+            <h1 class="text-xl font-bold text-blue-500">Veel leegte...</h1>
+            <p class="mb-4">Er zijn nog geen artikelen toegevoegd</p>
+        </div>
+        @else
         <x-search action="{{ route('dashboard.articles.search') }}"></x-search>
-        <table class="w-full text-left bg-white table-auto sm:rounded-lg">
-            <thead class="bg-gray-50">
-                <tr>
-                    <th class="px-4 py-3">Datum</th>
-                    <th class="px-4 py-3">Categorie</th>
-                    <th class="px-4 py-3">Titel</th>
-                    <td></td>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($articles as $article)
-                    <tr class="border-b even:bg-gray-50">
-                        <td class="px-4 py-2">
-                            {{ date('j F Y', strtotime($article->publication_date)) }}
-                        </td>
-                        <td class="px-4 py-3">{{ $article->category->name }}
-                        </td>
-                        <td class="max-w-[22vw] px-4 py-3 overflow-hidden">{{ $article->title }}</td>
-                        <td class="flex justify-end py-3 text-right">
-                            <a href="{{ route('dashboard.articles.edit', [$article]) }}"
-                                class="text-blue-700 hover:underline">
-                                <x-edit-icon></x-edit-icon>
-                            </a>
-                            <a href="{{ route('dashboard.articles.delete', [$article]) }}"
-                                class="text-red-500 hover:underline"
-                                onclick="return confirm('Weet u zeker dat u dit wilt verwijderen?');">
-                                <x-trash-icon></x-trash-icon>
-                            </a>
-                        </td>
+            <table class="w-full text-left bg-white table-auto sm:rounded-lg">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-4 py-3">Datum</th>
+                        <th class="px-4 py-3">Categorie</th>
+                        <th class="px-4 py-3">Titel</th>
+                        <td></td>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($articles as $article)
+                        <tr class="border-b even:bg-gray-50">
+                            <td class="px-4 py-2">
+                                {{ date('j F Y', strtotime($article->publication_date)) }}
+                            </td>
+                            <td class="px-4 py-3">{{ $article->category->name }}
+                            </td>
+                            <td class="max-w-[22vw] px-4 py-3 overflow-hidden">{{ $article->title }}</td>
+                            <td class="flex justify-end py-3 text-right">
+                                <a href="{{ route('dashboard.articles.edit', [$article]) }}"
+                                    class="text-blue-700 hover:underline">
+                                    <x-edit-icon></x-edit-icon>
+                                </a>
+                                <a href="{{ route('dashboard.articles.delete', [$article]) }}"
+                                    class="text-red-500 hover:underline"
+                                    onclick="return confirm('Weet u zeker dat u dit wilt verwijderen?');">
+                                    <x-trash-icon></x-trash-icon>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+
         <div class="my-4">
             {{ $articles->links() }}
         </div>

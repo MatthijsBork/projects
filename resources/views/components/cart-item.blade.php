@@ -37,7 +37,7 @@
                                 + </span>
                         </a>
                     @else
-                        <a class="mx-4">
+                        <a>
                             <span class="px-3 py-1 text-red-600 bg-gray-100 rounded cursor-pointer">Max.</span>
                         </a>
                     @endif

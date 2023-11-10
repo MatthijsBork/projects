@@ -21,40 +21,51 @@
             <div class="w-full md:w-3/4">
                 <div class="w-full">
                     <div class="p-6 overflow-x-auto bg-white shadow-sm sm:rounded-lg">
-                        <table class="w-full text-left bg-white table-auto sm:rounded-lg">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th class="px-4 py-3">ID</th>
-                                    <th class="px-4 py-3">Naam</th>
-                                    <th class="px-4 py-3">Nettoprijs</th>
-                                    <th class="px-4 py-3">Besteld op</th>
-                                    <th class="px-4 py-3"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($orders as $order)
-                                    <tr class="border-b even:bg-gray-50">
-                                        <td class="max-w-[22vw] px-4 py-3 overflow-hidden">{{ $order->id }}</td>
-                                        <td class="max-w-[22vw] px-4 py-3 overflow-hidden">
-                                            {{ $order->shipping()->name }}</td>
-                                        <td class="max-w-[22vw] px-4 py-3 overflow-hidden">€{{ $order->net_total }}</td>
-                                        <td class="max-w-[22vw] px-4 py-3 overflow-hidden">{{ $order->created_at }}</td>
-                                        <td class="flex justify-end py-3 text-right">
-                                            <a title="Bewerken" href="{{ route('dashboard.orders.edit', [$order]) }}"
-                                                class="text-blue-700 hover:underline">
-                                                <x-edit-icon></x-edit-icon>
-                                            </a>
-                                            <a title="Verwijderen"
-                                                href="{{ route('dashboard.orders.delete', [$order]) }}"
-                                                class="text-red-500 hover:underline"
-                                                onclick="return confirm('Weet u zeker dat u dit wilt verwijderen?');">
-                                                <x-trash-icon></x-trash-icon>
-                                            </a>
-                                        </td>
+                        @if (!isset($orders[0]))
+                            <div class="w-full p-10 text-center bg-white rounded-lg">
+                                <h1 class="text-xl font-bold text-blue-500">Veel leegte...</h1>
+                                <p class="mb-4">Er zijn nog geen bestellingen</p>
+                            </div>
+                        @else
+                            <x-search action="{{ route('dashboard.orders.search') }}"></x-search>
+                            <table class="w-full text-left bg-white table-auto sm:rounded-lg">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-4 py-3">ID</th>
+                                        <th class="px-4 py-3">Naam</th>
+                                        <th class="px-4 py-3">Nettoprijs</th>
+                                        <th class="px-4 py-3">Besteld op</th>
+                                        <th class="px-4 py-3"></th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($orders as $order)
+                                        <tr class="border-b even:bg-gray-50">
+                                            <td class="max-w-[22vw] px-4 py-3 overflow-hidden">{{ $order->id }}</td>
+                                            <td class="max-w-[22vw] px-4 py-3 overflow-hidden">
+                                                {{ $order->shipping()->name }}</td>
+                                            <td class="max-w-[22vw] px-4 py-3 overflow-hidden">€{{ $order->net_total }}
+                                            </td>
+                                            <td class="max-w-[22vw] px-4 py-3 overflow-hidden">
+                                                {{ date('d-m-Y', strtotime($order->created_at)) }}</td>
+                                            <td class="flex justify-end py-3 text-right">
+                                                <a title="Bewerken"
+                                                    href="{{ route('dashboard.orders.edit', [$order]) }}"
+                                                    class="text-blue-700 hover:underline">
+                                                    <x-edit-icon></x-edit-icon>
+                                                </a>
+                                                <a title="Verwijderen"
+                                                    href="{{ route('dashboard.orders.delete', [$order]) }}"
+                                                    class="text-red-500 hover:underline"
+                                                    onclick="return confirm('Weet u zeker dat u dit wilt verwijderen?');">
+                                                    <x-trash-icon></x-trash-icon>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @endif
                         <div class="my-4">
                             {{ $orders->links() }}
                         </div>

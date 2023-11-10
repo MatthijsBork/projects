@@ -101,12 +101,13 @@
                                 <div class="items-center mb-4">
                                     <label class="block">
                                         <input type="checkbox" id="invoice-checkbox" name="invoice"
-                                            {{ $order->invoice() !== null ? '' : 'checked' }}>
+                                            {{ old('invoice') == null || $order->invoice() != null ? '' : 'checked' }}>
                                         Factuuradres is hetzelfde als bezorgadres
                                     </label>
                                 </div>
 
-                                <div id="invoice" style="{{ $order->invoice() == null ? 'display: none;' : '' }}">
+                                <div id="invoice"
+                                    style="{{ old('invoice') == null || $order->invoice() != null ? '' : 'display: none;' }}">
                                     <h1 class="mb-10 text-lg font-bold">Factuuradres</h1>
                                     <div class="items-center mb-4">
                                         <x-input-label class="mx-2" for="invoice-name">Naam</x-input-label>
@@ -145,7 +146,9 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="w-full text-right">
+                                <div class="w-full gap-2 text-right">
+                                    <a class="mr-2 text-red-500 hover:underline"
+                                        href="{{ route('dashboard.orders') }}">Annuleren</a>
                                     <button type="submit"
                                         class="px-4 py-2 mb-2 text-white bg-blue-700 rounded-lg hover:bg-blue-800">Opslaan</button>
                                 </div>

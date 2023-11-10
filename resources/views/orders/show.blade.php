@@ -38,7 +38,7 @@
                         </div>
                         <div class="pt-5 pb-5 border-b">
                             <div>
-                                <div class="flex justify-between xl:flex-row">
+                                <div class="flex justify-start gap-10 flex-start xl:flex-row">
                                     <div>
                                         <h1 class="mb-2 text-lg font-bold">Adres</h1>
                                         <p><b>Naam: </b>{{ $order->shipping()->name }}</p>
@@ -51,15 +51,15 @@
                                         <p><b>E-mail: </b>{{ $order['email'] }}</p>
                                         <p><b>Telefoon: </b>{{ $order['telephone'] }}</p>
                                     </div>
-                                    <div>
-                                        @if ($order->invoice())
+                                    @if ($order->invoice())
+                                        <div>
                                             <h1 class="mb-2 text-lg font-bold">Factuuradres</h1>
                                             <p><b>Naam: </b>{{ $order->invoice()->name }}</p>
                                             <p><b>Adres: </b>{{ $order->invoice()->address }}</p>
                                             <p><b>Plaats: </b>{{ $order->invoice()->place }}</p>
                                             <p><b>Postcode: </b>{{ $order->invoice()->zipcode }}</p>
-                                        @endif
-                                    </div>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

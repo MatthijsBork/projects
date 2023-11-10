@@ -35,7 +35,8 @@
                                     <tr class="items-center border-b even:bg-gray-50">
                                         <td class="max-w-[22vw] px-4 py-3 overflow-hidden">
                                             {{ $order->shipping()->name }}</td>
-                                        <td class="max-w-[22vw] px-4 py-3 overflow-hidden">{{ $order->created_at }}</td>
+                                        <td class="max-w-[22vw] px-4 py-3 overflow-hidden">
+                                            {{ date('d-m-Y', strtotime($order->created_at)) }}</td>
                                         <td class="flex justify-end py-3 text-right">
                                             <a href="{{ route('user.orders.show', $order) }}" title="Bekijken"
                                                 class="flex justify-end text-right text-blue-700 hover:underline">

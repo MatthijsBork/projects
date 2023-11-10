@@ -23,14 +23,14 @@
                     <h2 class="text-xl font-semibold">Beschrijving</h2>
                     <p class="mt-2">{!! $product->description !!}</p>
                 </div>
-                <div class="mt-8">
-                    @if (isset($product->properties))
+                @if ($product->properties[0] ?? false)
+                    <div class="mt-8">
                         <h2 class="text-xl font-semibold">Product specificaties</h2>
                         @foreach ($product->properties as $property)
                             <p><b>{{ $property->property->name }}</b>: {{ $property->value }} </p>
                         @endforeach
-                    @endif
-                </div>
+                    </div>
+                @endif
             </div>
             <div class="w-3/4 p-2 m-4 rounded-lg lg:w-1/2">
                 <img src="{{ asset('images/products/' . $product->id . '/' . $product->img) }}"

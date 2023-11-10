@@ -73,8 +73,8 @@
                     </div>
                 </div>
                 <div class="flex flex-row justify-between mt-6 align-middle">
-                    <a href="{{ route('products.cart') }}" class="w-1/2 py-1.5 underline text-red-500">
-                        Annuleren
+                    <a href="{{ route('products.cart.order') }}" class="w-1/2 py-1.5 underline text-red-500">
+                        Terug
                     </a>
                     <a href="{{ route('products.orders.store') }}"
                         class="btn bg-blue-500 hover:bg-blue-600 text-white font-medium py-1.5 rounded-md px-10">

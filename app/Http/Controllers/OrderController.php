@@ -26,7 +26,7 @@ class OrderController extends Controller
     public function own()
     {
         $user = auth()->user();
-        $orders = $user->orders()->paginate(10);
+        $orders = $user->orders()->orderBy('created_at', 'desc')->paginate(10);
 
         return view('orders.own', compact('orders'));
     }
@@ -40,6 +40,26 @@ class OrderController extends Controller
     public function create()
     {
         return view('orders.create');
+    }
+
+    public function search(Request $request)
+    {
+        $searchTerm = $request->input('query');
+
+        $orders = Order::where(function ($query) use ($searchTerm) {
+            $query->whereHas('products', function ($subQuery) use ($searchTerm) {
+                $subQuery->where('name', 'like', '%' . $searchTerm . '%');
+            });
+
+            // $query->when($searchTerm, function ($subQuery) use ($searchTerm) {
+            //     $subQuery->orWhereHas('shipping', function ($shippingQuery) use ($searchTerm) {
+            //         $shippingQuery->where('name', 'like', '%' . $searchTerm . '%');
+            //     });
+            // });
+        })->get();
+        // $orders = Order::where('name', 'LIKE', "%$query%")->paginate(10)->appends(['query' => $query]);
+
+        return view('projects.orders', compact('orders'));
     }
 
     public function edit(Order $order)
@@ -94,7 +114,9 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $orderData = $request->session()->get('order', []);
-
+        if (empty($orderData)) {
+            return redirect()->route('products.cart');
+        }
         $order = new Order();
         $order->user_id = isset(auth()->user()->id) ? auth()->user()->id : null;
         $order->email = $orderData['email'];
@@ -171,12 +193,22 @@ class OrderController extends Controller
         $shipping->save();
 
         if ($request->input('invoice') == null) {
-            $invoice = $order->invoice();
-            $invoice->name = $request->input('invoice-name');
-            $invoice->address = $request->input('invoice-address');
-            $invoice->zipcode = $request->input('invoice-zipcode');
-            $invoice->place = $request->input('invoice-place');
-            $invoice->save();
+            if ($order->invoice()) {
+                $invoice = $order->invoice();
+                $invoice->name = $request->input('invoice-name');
+                $invoice->address = $request->input('invoice-address');
+                $invoice->zipcode = $request->input('invoice-zipcode');
+                $invoice->place = $request->input('invoice-place');
+                $invoice->save();
+            } else {
+                $invoice = new OrderAddress();
+                $invoice->name = $request->input('invoice-name');
+                $invoice->type = 'invoice';
+                $invoice->address = $request->input('invoice-address');
+                $invoice->zipcode = $request->input('invoice-zipcode');
+                $invoice->place = $request->input('invoice-place');
+                $invoice->save();
+            }
         }
 
         $order->save();

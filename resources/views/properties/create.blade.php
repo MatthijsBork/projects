@@ -26,7 +26,8 @@
                                 <div class="text-red-500">{{ $message }}</div>
                             @enderror
                             <div class="text-right">
-                                <x-cancel-button>Annuleren</x-cancel-button>
+                                <a class="mr-2 text-red-500 hover:underline"
+                                    href="{{ route('dashboard.properties') }}">Annuleren</a>
                                 <x-submit-button>Opslaan</x-submit-button>
                             </div>
                         </form>
